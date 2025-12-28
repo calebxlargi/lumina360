@@ -65,11 +65,12 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="text-2xl font-bold tracking-tighter flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-serif italic">L</span>
-            </div>
-            <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+          <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+            <img 
+              src="lumima_logo_website.png" 
+              alt="Lumina3Sixty" 
+              className="h-12 w-auto object-contain" 
+            />
           </div>
 
           {/* Desktop Menu */}
@@ -374,11 +375,12 @@ export default function App() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
-               <div className="text-2xl font-bold tracking-tighter flex items-center gap-2 mb-6">
-                <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
-                  <span className="text-white font-serif italic text-xs">L</span>
-                </div>
-                <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+               <div className="mb-6">
+                <img 
+                  src="lumima_logo_website.png" 
+                  alt="Lumina3Sixty" 
+                  className="h-10 w-auto object-contain" 
+                />
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
                 Lumina3Sixty and Service PLT.<br/>
