@@ -69,7 +69,7 @@ export default function App() {
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-serif italic">L</span>
             </div>
-            <span>Lumina<span className="text-slate-400 font-light">Consultancy</span></span>
+            <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
           </div>
 
           {/* Desktop Menu */}
@@ -378,10 +378,10 @@ export default function App() {
                 <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
                   <span className="text-white font-serif italic text-xs">L</span>
                 </div>
-                <span>Lumina<span className="text-slate-400 font-light">Consultancy</span></span>
+                <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
-                Lumina Consultancy and Service PLT.<br/>
+                Lumina3Sixty and Service PLT.<br/>
                 We bridge the gap between traditional showroom hospitality and modern digital sales psychology.
               </p>
               <div className="flex space-x-4">
@@ -420,7 +420,7 @@ export default function App() {
           </div>
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina Consultancy and Service PLT. All rights reserved.</p>
+            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina3Sixty and Service PLT. All rights reserved.</p>
             <p className="text-slate-600 text-xs">Designed for Excellence.</p>
           </div>
         </div>
