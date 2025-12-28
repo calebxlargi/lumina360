@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight, BarChart3, Users, Zap, CheckCircle2, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -12,7 +13,7 @@ const CustomStyles = () => (
       animation: fadeInUp 0.8s ease-out forwards;
     }
     /* CRITICAL FAILSAFE: Forces dark mode even if Tailwind fails to load */
-    body, html, #root {
+    body, html, #root, #__next {
       background-color: #000000 !important;
       color: #ffffff !important;
       min-height: 100vh;
@@ -25,15 +26,22 @@ const CustomStyles = () => (
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Handle scroll effect for navbar
+  // Handle scroll effect for navbar and mounting state
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent hydration mismatch by only rendering content after mount
+  if (!mounted) {
+    return <div className="min-h-screen bg-black" />;
+  }
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
