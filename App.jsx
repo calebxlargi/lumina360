@@ -68,7 +68,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
             <img 
               src="lumima_logo_website.png" 
-              alt="Lumina3Sixty" 
+              /*alt="Lumina3Sixty" */
               className="h-12 w-auto object-contain" 
             />
           </div>
@@ -378,7 +378,7 @@ export default function App() {
                <div className="mb-6">
                 <img 
                   src="lumima_logo_website.png" 
-                  alt="Lumina3Sixty" 
+                  /*alt="Lumina3Sixty" */
                   className="h-10 w-auto object-contain" 
                 />
               </div>
