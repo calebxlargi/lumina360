@@ -437,7 +437,7 @@ const AboutPage = () => (
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-3xl font-bold mb-2">Caleb Yong Ze Kang</h2>
           <p className="text-slate-300 leading-relaxed">
-            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models and Computer Vision with soft skills coaching.
+            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models (LLMs) and Computer Vision with soft skills coaching.
           </p>
           <p className="text-slate-300 leading-relaxed">
             His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high level consultancy and training for major organizations including Saudi Aramco, Apple, KPJ, Weststar, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
