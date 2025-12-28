@@ -11,6 +11,14 @@ const CustomStyles = () => (
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
+    /* CRITICAL FAILSAFE: Forces dark mode even if Tailwind fails to load */
+    body, html, #root {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
   `}</style>
 );
 
