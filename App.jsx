@@ -67,7 +67,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
             {/* Logo Image */}
             <img 
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.png" 
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
               alt="Lumina3Sixty" 
               className="h-12 w-auto object-contain"
               onError={(e) => {
@@ -393,7 +393,7 @@ export default function App() {
                <div className="mb-6">
                 {/* Footer Logo */}
                 <img 
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.png" 
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
                   alt="Lumina3Sixty" 
                   className="h-10 w-auto object-contain"
                    onError={(e) => {
