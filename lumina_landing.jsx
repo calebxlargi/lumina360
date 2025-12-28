@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight, BarChart3, Users, Zap, CheckCircle2, ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Added generic styles for the custom animation to ensure it doesn't break if tailwind config is missing it
 const CustomStyles = () => (
@@ -394,6 +395,9 @@ export default function App() {
           </div>
         </div>
       </footer>
+      
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 }
