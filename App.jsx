@@ -26,11 +26,9 @@ const CustomStyles = () => (
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mounted, setMounted] = useState(false);
 
-  // Handle scroll effect for navbar and mounting state
+  // Handle scroll effect for navbar
   useEffect(() => {
-    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -38,13 +36,11 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent hydration mismatch by only rendering content after mount
-  if (!mounted) {
-    return <div className="min-h-screen bg-black" />;
-  }
-
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden">
+    <div 
+      style={{ backgroundColor: 'black', color: 'white', minHeight: '100vh' }}
+      className="min-h-screen bg-black text-white font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden"
+    >
       <CustomStyles />
       
       {/* Navigation */}
