@@ -65,13 +65,14 @@ export default function App() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
-            {/* Using a direct string path for the logo. Ensure 'lumima_logo_website.png' is in your public/ folder. */}
+            {/* Logo Image */}
             <img 
-              src="lumima_logo_website.png" 
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.png" 
               alt="Lumina3Sixty" 
               className="h-12 w-auto object-contain"
               onError={(e) => {
                 // Fallback if image is missing
+                console.warn("Logo not found. Switching to text fallback.");
                 e.currentTarget.style.display = 'none';
                 if (e.currentTarget.nextElementSibling) {
                   e.currentTarget.nextElementSibling.style.display = 'flex';
@@ -392,11 +393,12 @@ export default function App() {
                <div className="mb-6">
                 {/* Footer Logo */}
                 <img 
-                  src="lumima_logo_website.png" 
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.png" 
                   alt="Lumina3Sixty" 
                   className="h-10 w-auto object-contain"
                    onError={(e) => {
                     // Fallback if image is missing
+                    console.warn("Logo not found. Switching to text fallback.");
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
                         e.currentTarget.nextElementSibling.style.display = 'flex';
