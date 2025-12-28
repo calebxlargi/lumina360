@@ -688,6 +688,18 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Set website favicon & title
+  useEffect(() => {
+    document.title = 'Lumina 3Sixty';
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = 'https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_favicon.png';
+  }, []);
+
   const navigateTo = (target) => {
     setIsMenuOpen(false);
     
@@ -726,7 +738,7 @@ export default function App() {
             {/* Logo Image */}
             <img 
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
-              alt="Lumina3Sixty" 
+              alt="Lumina 3Sixty" 
               className="h-12 w-auto object-contain"
               onError={(e) => {
                 // Fallback if image is missing
@@ -742,7 +754,7 @@ export default function App() {
                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-serif italic">L</span>
                 </div>
-                <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+                <span>Lumina<span className="text-slate-400 font-light"> 3Sixty</span></span>
             </div>
           </div>
 
@@ -787,7 +799,7 @@ export default function App() {
                 {/* Footer Logo */}
                 <img 
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
-                  alt="Lumina3Sixty" 
+                  alt="Lumina 3Sixty" 
                   className="h-10 w-auto object-contain"
                    onError={(e) => {
                     e.currentTarget.style.display = 'none';
@@ -801,11 +813,11 @@ export default function App() {
                     <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
                       <span className="text-white font-serif italic text-xs">L</span>
                     </div>
-                    <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+                    <span>Lumina<span className="text-slate-400 font-light"> 3Sixty</span></span>
                   </div>
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
-                Lumina3Sixty and Service PLT.<br/>
+                Lumina 3Sixty and Service PLT.<br/>
                 We bridge the gap between traditional showroom hospitality and modern digital sales psychology.
               </p>
               <div className="flex space-x-4">
@@ -844,7 +856,7 @@ export default function App() {
           </div>
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina3Sixty and Service PLT. All rights reserved.</p>
+            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty and Service PLT. All rights reserved.</p>
             <p className="text-slate-600 text-xs">Designed for Excellence.</p>
           </div>
         </div>
