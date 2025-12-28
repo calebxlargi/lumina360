@@ -343,7 +343,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="w-full lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
@@ -406,7 +406,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="w-full lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Caleb's Image */}
              <img 
@@ -437,10 +437,10 @@ const AboutPage = () => (
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-3xl font-bold mb-2">Caleb Yong Ze Kang</h2>
           <p className="text-slate-300 leading-relaxed">
-            Caleb is a distinguished educator, technologist, and strategic consultant dedicated to catalyzing organizational growth. With a career defined by high-level technical consultancy for companies and transformative soft-skills coaching for local conglomerates, he offers a unique "Trans-Disciplinary" approach.
+            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a trans-disciplinary approach, he combines advanced technical implementation—specifically in Large Language Models (LLMs) and Computer Vision—with soft-skills coaching. This unique synthesis allows him to upgrade organizational systems while simultaneously building the workforce resilience needed to manage them.
           </p>
           <p className="text-slate-300 leading-relaxed">
-            He operates at the nexus of artificial intelligence and emotional intelligence, recognizing that the future of work requires a workforce that is technically proficient yet deeply human.
+            His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high-level consultancy and training for major organizations including Saudi Aramco, Apple, KPJ, Weststar, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
@@ -469,7 +469,7 @@ const AboutPage = () => (
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="w-full lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
@@ -532,7 +532,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="w-full lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
              <img 
