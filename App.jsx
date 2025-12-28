@@ -66,11 +66,26 @@ export default function App() {
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+            {/* NOTE: Place 'lumima_logo_website.png' in your public/ folder or root directory.
+              We are using a direct string path to avoid build errors if the file is missing locally.
+            */}
             <img 
               src="lumima_logo_website.png" 
-              /*alt="Lumina3Sixty" */
-              className="h-12 w-auto object-contain" 
+              alt="Lumina3Sixty" 
+              className="h-12 w-auto object-contain"
+              onError={(e) => {
+                // Fallback if image is missing
+                e.target.style.display = 'none';
+                e.target.nextSibling.style.display = 'block';
+              }} 
             />
+            {/* Fallback Text Logo (hidden by default unless image fails) */}
+            <div className="hidden text-2xl font-bold tracking-tighter flex items-center gap-2">
+               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-serif italic">L</span>
+                </div>
+                <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+            </div>
           </div>
 
           {/* Desktop Menu */}
@@ -376,11 +391,24 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
                <div className="mb-6">
+                {/* Footer Logo */}
                 <img 
                   src="lumima_logo_website.png" 
-                  /*alt="Lumina3Sixty" */
-                  className="h-10 w-auto object-contain" 
+                  alt="Lumina3Sixty" 
+                  className="h-10 w-auto object-contain"
+                   onError={(e) => {
+                    // Fallback if image is missing
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }} 
                 />
+                 {/* Fallback Text Logo */}
+                 <div className="hidden text-2xl font-bold tracking-tighter items-center gap-2">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
+                      <span className="text-white font-serif italic text-xs">L</span>
+                    </div>
+                    <span>Lumina<span className="text-slate-400 font-light">3Sixty</span></span>
+                  </div>
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
                 Lumina3Sixty and Service PLT.<br/>
