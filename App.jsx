@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// --- Icon Components (Replacing lucide-react) ---
+// --- Icon Components ---
 const Icon = ({ children, size = 24, className = "" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     {children}
@@ -18,9 +18,12 @@ const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 
 const Mail = (props) => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></Icon>;
 const Phone = (props) => <Icon {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></Icon>;
 const MapPin = (props) => <Icon {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></Icon>;
-// ---------------------------------------------
+const GraduationCap = (props) => <Icon {...props}><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 0 6-1 6-1v-7"/></Icon>;
+const Briefcase = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></Icon>;
+const Brain = (props) => <Icon {...props}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></Icon>;
+const Globe = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></Icon>;
 
-// Added generic styles for the custom animation to ensure it doesn't break if tailwind config is missing it
+// --- Styles ---
 const CustomStyles = () => (
   <style>{`
     @keyframes fadeInUp {
@@ -30,20 +33,528 @@ const CustomStyles = () => (
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
-    /* CRITICAL FAILSAFE: Forces dark mode even if Tailwind fails to load */
     body, html, #root, #__next {
       background-color: #000000 !important;
       color: #ffffff !important;
       min-height: 100vh;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
   `}</style>
 );
 
+// --- Sub-Components ---
+
+const HomePage = ({ navigateTo }) => (
+  <>
+    {/* Hero Section */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
+      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
+
+      <div className="container mx-auto px-6 relative z-10 text-center">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-300 mb-8 animate-fade-in-up">
+          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+          HRD Corp Registered Training Provider
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-500 max-w-5xl mx-auto pb-2">
+          A New Class of <br /> Automotive Ownership.
+        </h1>
+        
+        <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
+          We move sales teams from "Order Takers" to "Mobility Consultants." 
+          Specialized psychology-based training for the modern automotive market.
+        </p>
+
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2">
+            Start Transformation
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </button>
+          <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
+            View Curriculum
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* Stats/Trust Bar */}
+    <section className="border-y border-white/5 bg-white/[0.02]">
+      <div className="container mx-auto px-6 py-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {[
+            { label: "Training Provider", value: "Class A" },
+            { label: "Claimable", value: "100% HRD Corp" },
+            { label: "Focus", value: "Automotive" },
+            { label: "Approach", value: "Data-Driven" }
+          ].map((stat, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <span className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</span>
+              <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Services Section */}
+    <section id="services" className="py-24 relative">
+      <div className="container mx-auto px-6">
+        <div className="mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Signature Training Programs</h2>
+          <div className="h-1 w-20 bg-blue-500 rounded-full mb-6"></div>
+          <p className="text-slate-400 max-w-2xl">
+            Our curriculum is SBL-Khas Claimable and designed for high-impact results. 
+            Each module is a 2-day intensive workshop tailored to specific seniority levels.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {/* Card 1: Module 1 */}
+          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400">
+                  <Users size={24} />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-wider text-blue-300">
+                  Foundation
+                </span>
+              </div>
+              
+              <h3 className="text-xl font-bold mb-1">The Modern Mobility Consultant</h3>
+              <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Junior - Mid Level</p>
+              
+              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                Rewire your team's mindset from "Order Taker" to trusted Advisor. Master the SPIN Selling framework adapted for automotive to uncover hidden buyer needs.
+              </p>
+              
+              <div className="border-t border-white/10 pt-6 mt-auto">
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> SPIN Selling Framework</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> Psychology Profiling (4 Types)</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> The 5-Minute Trust Builder</li>
+                </ul>
+                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 group/link">
+                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Module 2 */}
+          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+            <div className="relative z-10 flex flex-col h-full">
+               <div className="flex justify-between items-start mb-6">
+                <div className="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-400">
+                  <Zap size={24} />
+                </div>
+                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold uppercase tracking-wider text-purple-300">
+                  Lead Gen
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold mb-1">Digital Dominance: Click to Cockpit</h3>
+               <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Digital / BDC Teams</p>
+
+              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                Stop the scroll. Learn to convert cold Facebook/TikTok leads into hot showroom appointments using video and speed-to-lead psychology.
+              </p>
+
+              <div className="border-t border-white/10 pt-6 mt-auto">
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> 60-Second Video Walkarounds</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> High-Response WhatsApp Scripts</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> The "Appointment Sell" Method</li>
+                </ul>
+                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 group/link">
+                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Module 3 */}
+          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
+             <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex justify-between items-start mb-6">
+                <div className="w-12 h-12 bg-emerald-900/30 rounded-lg flex items-center justify-center text-emerald-400">
+                  <BarChart3 size={24} />
+                </div>
+                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+                  Advanced
+                </span>
+              </div>
+
+              <h3 className="text-xl font-bold mb-1">The Profit-Preserving Close</h3>
+               <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Senior Advisors</p>
+
+              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+                Defend your Gross Profit. Advanced negotiation tactics to handle the "Discount Warrior" and close without giving away the margin.
+              </p>
+
+              <div className="border-t border-white/10 pt-6 mt-auto">
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> "Value Stack" Defense Strategy</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> Isolating False Objections</li>
+                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> 3 Low-Pressure Closing Loops</li>
+                </ul>
+                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300 group/link">
+                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Feature Split Section */}
+    <section id="approach" className="py-24 bg-gradient-to-r from-black via-slate-900 to-black relative overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-16">
+          <div className="lg:w-1/2">
+             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
+              Why Choose Lumina
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+              Not Just Training.<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Business Transformation.</span>
+            </h2>
+            <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+              Most training providers focus on "soft skills." We focus on the metric that matters: <strong>Conversion Rate.</strong>
+            </p>
+            
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <span className="font-bold text-lg">01</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">Automotive Specialists</h4>
+                  <p className="text-slate-400 text-sm">We don't do generic corporate training. We live and breathe the showroom floor.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <span className="font-bold text-lg">02</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">Mystery Audit Included</h4>
+                  <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses before we prescribe the training.</p>
+                </div>
+              </div>
+              <div className="flex gap-4">
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
+                  <span className="font-bold text-lg">03</span>
+                </div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">Immediate ROI</h4>
+                  <p className="text-slate-400 text-sm">Selling just 3 extra units covers our entire premium fee.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="lg:w-1/2 relative">
+            <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full"></div>
+            <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
+               <div className="space-y-6">
+                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                      <div>
+                          <p className="text-sm text-slate-500 uppercase">Average Closing Rate</p>
+                          <p className="text-3xl font-bold">28%</p>
+                      </div>
+                       <div className="text-green-400 text-sm font-bold flex items-center">
+                          +12% vs Industry
+                       </div>
+                  </div>
+                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                      <div>
+                          <p className="text-sm text-slate-500 uppercase">CSI Score Impact</p>
+                          <p className="text-3xl font-bold">96.5</p>
+                      </div>
+                       <div className="text-green-400 text-sm font-bold flex items-center">
+                          +4.5 Points
+                       </div>
+                  </div>
+                   <div className="flex justify-between items-end">
+                      <div>
+                          <p className="text-sm text-slate-500 uppercase">Gross Profit Retention</p>
+                          <p className="text-3xl font-bold">RM 4.2k</p>
+                      </div>
+                       <div className="text-green-400 text-sm font-bold flex items-center">
+                          +RM 800 / Unit
+                       </div>
+                  </div>
+               </div>
+               <div className="mt-8 pt-6 border-t border-white/10">
+                  <p className="text-xs text-slate-500 italic">
+                      *Projected results based on Module 3 implementation.
+                  </p>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <section className="py-24 relative overflow-hidden">
+      <div className="container mx-auto px-6 text-center relative z-10">
+         <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate?</h2>
+         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+           Schedule your complimentary "Mystery Shopper" audit and let us build a custom roadmap for your dealership.
+         </p>
+         <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
+           Get Your Proposal
+         </button>
+      </div>
+    </section>
+  </>
+);
+
+const AboutPage = () => (
+  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
+    {/* Header */}
+    <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-in-up">
+      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
+        HRD Corp Accredited Training
+      </div>
+      <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+        The Intersection of <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Intelligence & Innovation</span>
+      </h1>
+      <p className="text-xl text-slate-400">
+        Bridging the gap between traditional professional standards and the requirements of the Fourth Industrial Revolution.
+      </p>
+    </div>
+
+    {/* Lead Trainer Profile */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="lg:w-1/3">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Caleb's Image */}
+             <img 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/caleb_profile_pic.png" 
+               alt="Caleb Yong - Lead Trainer"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               onError={(e) => {
+                 e.currentTarget.style.display = 'none';
+                 e.currentTarget.nextSibling.style.display = 'block';
+               }}
+             />
+             {/* Fallback Placeholder */}
+             <div className="text-center p-8 hidden relative z-10">
+                <div className="w-24 h-24 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <GraduationCap size={48} className="text-blue-400"/>
+                </div>
+                <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
+                <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Trainer</p>
+             </div>
+             {/* Overlay for text readability if needed */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+             <div className="absolute bottom-6 left-6 z-[2]">
+                <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
+                <p className="text-blue-400 text-sm uppercase tracking-widest font-bold">Lead Trainer</p>
+             </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Caleb Yong Ze Kang</h2>
+          <p className="text-slate-300 leading-relaxed">
+            Caleb is a distinguished educator, technologist, and strategic consultant dedicated to catalyzing organizational growth. With a career defined by high-level technical consultancy for companies and transformative soft-skills coaching for local conglomerates, he offers a unique "Trans-Disciplinary" approach.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            He operates at the nexus of artificial intelligence and emotional intelligence, recognizing that the future of work requires a workforce that is technically proficient yet deeply human.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Globe size={20} className="text-blue-400 mb-2"/>
+                <div className="font-bold text-sm">Global Experience</div>
+                <div className="text-xs text-slate-500">Saudi Aramco, Apple</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Briefcase size={20} className="text-purple-400 mb-2"/>
+                <div className="font-bold text-sm">Local Impact</div>
+                <div className="text-xs text-slate-500">KPJ, Weststar, TNB</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Brain size={20} className="text-emerald-400 mb-2"/>
+                <div className="font-bold text-sm">AI Expert</div>
+                <div className="text-xs text-slate-500">LLMs & Comp. Vision</div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Dual Expertise Section */}
+    <div className="grid md:grid-cols-2 gap-8 mb-24">
+        {/* Tech */}
+        <div className="p-8 rounded-3xl bg-blue-900/10 border border-blue-500/20">
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
+                    <Brain size={24}/>
+                </div>
+                <h3 className="text-2xl font-bold">Technical Pedigree</h3>
+            </div>
+            <ul className="space-y-4">
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Generative AI & LLMs:</strong> Demystifying AI for the workforce. Prompt engineering and autonomous agents for 10x productivity.</span>
+                </li>
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Computer Vision:</strong> Visual data interpretation for manufacturing automation and quality control.</span>
+                </li>
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Predictive Analytics:</strong> Simplifying high-level math into actionable business insights.</span>
+                </li>
+            </ul>
+        </div>
+
+        {/* Soft Skills */}
+        <div className="p-8 rounded-3xl bg-purple-900/10 border border-purple-500/20">
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+                    <Users size={24}/>
+                </div>
+                <h3 className="text-2xl font-bold">The Human Element</h3>
+            </div>
+            <ul className="space-y-4">
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Intergenerational Communication:</strong> Helping Boomers, Gen X, Millennials, and Gen Z find a common language.</span>
+                </li>
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Growth-Based Leadership:</strong> Moving from "compliance-based" management to "growth-based" coaching and 360-feedback.</span>
+                </li>
+                <li className="flex gap-3">
+                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
+                    <span className="text-slate-300 text-sm"><strong className="text-white">Collaborative Intelligence:</strong> Breaking down silos to foster an environment where collective intelligence thrives.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {/* Philosophy */}
+    <div className="mb-24">
+        <h2 className="text-3xl font-bold mb-10 text-center">Training Philosophy</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                <h4 className="text-lg font-bold mb-2">Gamified Learning</h4>
+                <p className="text-sm text-slate-400">Using interactive simulations to teach complex AI and Machine Learning concepts.</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                <h4 className="text-lg font-bold mb-2">Real-World Roleplay</h4>
+                <p className="text-sm text-slate-400">Ensuring immediate skill transferability through scenarios specific to automotive and communication.</p>
+            </div>
+            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                <h4 className="text-lg font-bold mb-2">Metrics-Driven</h4>
+                <p className="text-sm text-slate-400">Every session is designed with an end-goal: reducing friction, increasing conversion, or implementing workflows.</p>
+            </div>
+        </div>
+    </div>
+  </div>
+);
+
+const ContactPage = () => (
+  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
+    <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
+      <div className="lg:w-1/2">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6">
+          Get in Touch
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br/>Training Roadmap.</h1>
+        <p className="text-lg text-slate-400 mb-12">
+          Ready to transform your sales floor? Fill out the form or reach out directly. We usually reply within 2 hours.
+        </p>
+
+        <div className="space-y-8">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+              <Mail className="text-white" size={20} />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold">Email Us</h3>
+              <p className="text-slate-400">training@lumina3sixty.com</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+              <Phone className="text-white" size={20} />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold">Call / WhatsApp</h3>
+              <p className="text-slate-400">+60 12-345 6789</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+              <MapPin className="text-white" size={20} />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold">HQ Location</h3>
+              <p className="text-slate-400">Petaling Jaya, Selangor, Malaysia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="lg:w-1/2">
+        <form className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">First Name</label>
+              <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">Last Name</label>
+              <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-300">Email Address</label>
+            <input type="email" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
+            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-slate-300">Message</label>
+            <textarea className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
+          </div>
+
+          <button className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+);
+
+// --- Main App Component ---
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [view, setView] = useState('home'); // 'home', 'contact', 'about'
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -53,6 +564,30 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const navigateTo = (target) => {
+    setIsMenuOpen(false);
+    
+    if (target === 'contact') {
+      setView('contact');
+      window.scrollTo(0, 0);
+    } else if (target === 'about') {
+      setView('about');
+      window.scrollTo(0, 0);
+    } else {
+      setView('home');
+      // Small delay to ensure the Home view renders before scrolling
+      setTimeout(() => {
+        if (target === 'services') {
+          document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+        } else if (target === 'approach') {
+          document.getElementById('approach')?.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }, 50);
+    }
+  };
 
   return (
     <div 
@@ -64,7 +599,7 @@ export default function App() {
       {/* Navigation */}
       <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+          <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img 
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
@@ -79,7 +614,7 @@ export default function App() {
                 }
               }} 
             />
-            {/* Fallback Text Logo (hidden by default unless image fails) */}
+            {/* Fallback Text Logo */}
             <div className="hidden text-2xl font-bold tracking-tighter items-center gap-2" style={{ display: 'none' }}>
                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <span className="text-white font-serif italic">L</span>
@@ -90,10 +625,10 @@ export default function App() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</a>
-            <a href="#approach" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Approach</a>
-            <a href="#about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About</a>
-            <button className="px-5 py-2 text-sm font-medium bg-white text-black rounded-full hover:bg-blue-50 transition-all transform hover:scale-105">
+            <button onClick={() => navigateTo('services')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</button>
+            <button onClick={() => navigateTo('approach')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Approach</button>
+            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>About</button>
+            <button onClick={() => navigateTo('contact')} className={`px-5 py-2 text-sm font-medium rounded-full transition-all transform hover:scale-105 ${view === 'contact' ? 'bg-blue-50 text-black' : 'bg-white text-black hover:bg-blue-50'}`}>
               Contact Us
             </button>
           </div>
@@ -107,298 +642,31 @@ export default function App() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 w-full bg-zinc-900 border-b border-white/10 p-6 flex flex-col space-y-4 shadow-2xl">
-            <a href="#services" className="text-lg text-slate-300 hover:text-white" onClick={() => setIsMenuOpen(false)}>Services</a>
-            <a href="#approach" className="text-lg text-slate-300 hover:text-white" onClick={() => setIsMenuOpen(false)}>Approach</a>
-            <a href="#about" className="text-lg text-slate-300 hover:text-white" onClick={() => setIsMenuOpen(false)}>About</a>
-            <button className="w-full py-3 bg-white text-black font-medium rounded-lg">Contact Us</button>
+            <button onClick={() => navigateTo('services')} className="text-left text-lg text-slate-300 hover:text-white">Services</button>
+            <button onClick={() => navigateTo('approach')} className="text-left text-lg text-slate-300 hover:text-white">Approach</button>
+            <button onClick={() => navigateTo('about')} className="text-left text-lg text-slate-300 hover:text-white">About</button>
+            <button onClick={() => navigateTo('contact')} className="w-full py-3 bg-white text-black font-medium rounded-lg">Contact Us</button>
           </div>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Background Effects - Enhanced visibility */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
-
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-300 mb-8 animate-fade-in-up">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            HRD Corp Registered Training Provider
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-500 max-w-5xl mx-auto pb-2">
-            A New Class of <br /> Automotive Ownership.
-          </h1>
-          
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            We move sales teams from "Order Takers" to "Mobility Consultants." 
-            Specialized psychology-based training for the modern automotive market.
-          </p>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <button className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2">
-              Start Transformation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
-              View Curriculum
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats/Trust Bar */}
-      <section className="border-y border-white/5 bg-white/[0.02]">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { label: "Training Provider", value: "Class A" },
-              { label: "Claimable", value: "100% HRD Corp" },
-              { label: "Focus", value: "Automotive" },
-              { label: "Approach", value: "Data-Driven" }
-            ].map((stat, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <span className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</span>
-                <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-24 relative">
-        <div className="container mx-auto px-6">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Signature Training Programs</h2>
-            <div className="h-1 w-20 bg-blue-500 rounded-full mb-6"></div>
-            <p className="text-slate-400 max-w-2xl">
-              Our curriculum is SBL-Khas Claimable and designed for high-impact results. 
-              Each module is a 2-day intensive workshop tailored to specific seniority levels.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1: Module 1 */}
-            <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-              <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400">
-                    <Users size={24} />
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-wider text-blue-300">
-                    Foundation
-                  </span>
-                </div>
-                
-                <h3 className="text-xl font-bold mb-1">The Modern Mobility Consultant</h3>
-                <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Junior - Mid Level</p>
-                
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                  Rewire your team's mindset from "Order Taker" to trusted Advisor. Master the SPIN Selling framework adapted for automotive to uncover hidden buyer needs.
-                </p>
-                
-                <div className="border-t border-white/10 pt-6 mt-auto">
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> SPIN Selling Framework</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> Psychology Profiling (4 Types)</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> The 5-Minute Trust Builder</li>
-                  </ul>
-                  <a href="#" className="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 group/link">
-                    View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 2: Module 2 */}
-            <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-              <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-              <div className="relative z-10 flex flex-col h-full">
-                 <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-400">
-                    <Zap size={24} />
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold uppercase tracking-wider text-purple-300">
-                    Lead Gen
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold mb-1">Digital Dominance: Click to Cockpit</h3>
-                 <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Digital / BDC Teams</p>
-
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                  Stop the scroll. Learn to convert cold Facebook/TikTok leads into hot showroom appointments using video and speed-to-lead psychology.
-                </p>
-
-                <div className="border-t border-white/10 pt-6 mt-auto">
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> 60-Second Video Walkarounds</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> High-Response WhatsApp Scripts</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> The "Appointment Sell" Method</li>
-                  </ul>
-                  <a href="#" className="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 group/link">
-                    View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3: Module 3 */}
-            <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-               <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="w-12 h-12 bg-emerald-900/30 rounded-lg flex items-center justify-center text-emerald-400">
-                    <BarChart3 size={24} />
-                  </div>
-                   <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                    Advanced
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold mb-1">The Profit-Preserving Close</h3>
-                 <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Senior Advisors</p>
-
-                <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                  Defend your Gross Profit. Advanced negotiation tactics to handle the "Discount Warrior" and close without giving away the margin.
-                </p>
-
-                <div className="border-t border-white/10 pt-6 mt-auto">
-                  <ul className="space-y-3 mb-6">
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> "Value Stack" Defense Strategy</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> Isolating False Objections</li>
-                    <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> 3 Low-Pressure Closing Loops</li>
-                  </ul>
-                  <a href="#" className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300 group/link">
-                    View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Split Section */}
-      <section id="approach" className="py-24 bg-gradient-to-r from-black via-slate-900 to-black relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
-                Why Choose Lumina
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-                Not Just Training.<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Business Transformation.</span>
-              </h2>
-              <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                Most training providers focus on "soft skills." We focus on the metric that matters: <strong>Conversion Rate.</strong>
-              </p>
-              
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                    <span className="font-bold text-lg">01</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">Automotive Specialists</h4>
-                    <p className="text-slate-400 text-sm">We don't do generic corporate training. We live and breathe the showroom floor.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                    <span className="font-bold text-lg">02</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">Mystery Audit Included</h4>
-                    <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses before we prescribe the training.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                    <span className="font-bold text-lg">03</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">Immediate ROI</h4>
-                    <p className="text-slate-400 text-sm">Selling just 3 extra units covers our entire premium fee.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="lg:w-1/2 relative">
-              <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full"></div>
-              <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
-                 <div className="space-y-6">
-                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase">Average Closing Rate</p>
-                            <p className="text-3xl font-bold">28%</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center">
-                            +12% vs Industry
-                         </div>
-                    </div>
-                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase">CSI Score Impact</p>
-                            <p className="text-3xl font-bold">96.5</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center">
-                            +4.5 Points
-                         </div>
-                    </div>
-                     <div className="flex justify-between items-end">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase">Gross Profit Retention</p>
-                            <p className="text-3xl font-bold">RM 4.2k</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center">
-                            +RM 800 / Unit
-                         </div>
-                    </div>
-                 </div>
-                 <div className="mt-8 pt-6 border-t border-white/10">
-                    <p className="text-xs text-slate-500 italic">
-                        *Projected results based on Module 3 implementation.
-                    </p>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto px-6 text-center relative z-10">
-           <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate?</h2>
-           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-             Schedule your complimentary "Mystery Shopper" audit and let us build a custom roadmap for your dealership.
-           </p>
-           <button className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-             Get Your Proposal
-           </button>
-        </div>
-      </section>
+      {/* Main Content Area */}
+      {view === 'home' && <HomePage navigateTo={navigateTo} />}
+      {view === 'about' && <AboutPage />}
+      {view === 'contact' && <ContactPage />}
 
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 pt-16 pb-8">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="col-span-2">
-               <div className="mb-6">
+               <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
                   alt="Lumina3Sixty" 
                   className="h-10 w-auto object-contain"
                    onError={(e) => {
-                    // Fallback if image is missing
-                    console.warn("Logo not found. Switching to text fallback.");
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
                         e.currentTarget.nextElementSibling.style.display = 'flex';
@@ -434,20 +702,20 @@ export default function App() {
             <div>
               <h4 className="font-bold mb-6">Services</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li className="hover:text-white cursor-pointer">Mobility Consultant</li>
-                <li className="hover:text-white cursor-pointer">Digital Dominance</li>
-                <li className="hover:text-white cursor-pointer">Profit-Preserving Close</li>
-                <li className="hover:text-white cursor-pointer">Management Toolkits</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Mobility Consultant</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Digital Dominance</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Profit-Preserving Close</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Management Toolkits</li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li className="hover:text-white cursor-pointer">About Us</li>
-                <li className="hover:text-white cursor-pointer">HRD Corp Status</li>
-                <li className="hover:text-white cursor-pointer">Contact</li>
-                <li className="hover:text-white cursor-pointer">Privacy Policy</li>
+                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">About Us</li>
+                <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
+                <li onClick={() => navigateTo('contact')} className="hover:text-white cursor-pointer">Contact</li>
+                <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">Privacy Policy</li>
               </ul>
             </div>
           </div>
