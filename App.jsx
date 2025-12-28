@@ -343,7 +343,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
@@ -435,9 +435,9 @@ const AboutPage = () => (
           </div>
         </div>
         <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Caleb Yong Ze Kang</h2>
+          <h2 className="text-3xl font-bold mb-2">Caleb Yong</h2>
           <p className="text-slate-300 leading-relaxed">
-            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models (LLMs) and Computer Vision with soft skills coaching.
+            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models and Computer Vision with soft skills coaching.
           </p>
           <p className="text-slate-300 leading-relaxed">
             His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high level consultancy and training for major organizations including Saudi Aramco, Apple, KPJ, Weststar, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
@@ -469,7 +469,7 @@ const AboutPage = () => (
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
@@ -592,85 +592,102 @@ const AboutPage = () => (
   </div>
 );
 
-const ContactPage = () => (
-  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
-      <div className="lg:w-1/2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6">
-          Get in Touch
+const ContactPage = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const firstName = formData.get('firstName');
+    const lastName = formData.get('lastName');
+    const email = formData.get('email');
+    const company = formData.get('company');
+    const message = formData.get('message');
+
+    const subject = `Lumina 3Sixty Inquiry: ${firstName} ${lastName}`;
+    const body = `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`;
+    
+    window.location.href = `mailto:yzkpremiums@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  return (
+    <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
+      <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
+        <div className="lg:w-1/2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6">
+            Get in Touch
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br/>Training Roadmap.</h1>
+          <p className="text-lg text-slate-400 mb-12">
+            Ready to transform your sales floor? Fill out the form or reach out directly. We usually reply within 2 hours.
+          </p>
+
+          <div className="space-y-8">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+                <Mail className="text-white" size={20} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold">Email Us</h3>
+                <p className="text-slate-400">training@lumina3sixty.com</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+                <Phone className="text-white" size={20} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold">Call / WhatsApp</h3>
+                <p className="text-slate-400">+60 12-345 6789</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
+                <MapPin className="text-white" size={20} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold">HQ Location</h3>
+                <p className="text-slate-400">Petaling Jaya, Selangor, Malaysia</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br/>Training Roadmap.</h1>
-        <p className="text-lg text-slate-400 mb-12">
-          Ready to transform your sales floor? Fill out the form or reach out directly. We usually reply within 2 hours.
-        </p>
 
-        <div className="space-y-8">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-              <Mail className="text-white" size={20} />
+        <div className="lg:w-1/2">
+          <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-300">First Name</label>
+                <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-300">Last Name</label>
+                <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-bold">Email Us</h3>
-              <p className="text-slate-400">training@lumina3sixty.com</p>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">Email Address</label>
+              <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
             </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-              <Phone className="text-white" size={20} />
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
+              <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
             </div>
-            <div>
-              <h3 className="text-lg font-bold">Call / WhatsApp</h3>
-              <p className="text-slate-400">+60 12-345 6789</p>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-300">Message</label>
+              <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
             </div>
-          </div>
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-              <MapPin className="text-white" size={20} />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold">HQ Location</h3>
-              <p className="text-slate-400">Petaling Jaya, Selangor, Malaysia</p>
-            </div>
-          </div>
+
+            <button type="submit" className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors">
+              Send Message
+            </button>
+          </form>
         </div>
-      </div>
-
-      <div className="lg:w-1/2">
-        <form className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">First Name</label>
-              <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
-            </div>
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Last Name</label>
-              <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Email Address</label>
-            <input type="email" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
-            <input type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
-          </div>
-
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300">Message</label>
-            <textarea className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
-          </div>
-
-          <button className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors">
-            Send Message
-          </button>
-        </form>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 // --- Main App Component ---
 
