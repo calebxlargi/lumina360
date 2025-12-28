@@ -22,6 +22,10 @@ const GraduationCap = (props) => <Icon {...props}><path d="M22 10v6M2 10l10-5 10
 const Briefcase = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></Icon>;
 const Brain = (props) => <Icon {...props}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></Icon>;
 const Globe = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></Icon>;
+const TrendingUp = (props) => <Icon {...props}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></Icon>;
+const Search = (props) => <Icon {...props}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></Icon>;
+const Target = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></Icon>;
+const MessageSquare = (props) => <Icon {...props}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></Icon>;
 
 // --- Styles ---
 const CustomStyles = () => (
@@ -327,18 +331,81 @@ const AboutPage = () => (
         HRD Corp Accredited Training
       </div>
       <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-        The Intersection of <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Intelligence & Innovation</span>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Our Trainers</span>
       </h1>
       <p className="text-xl text-slate-400">
-        Bridging the gap between traditional professional standards and the requirements of the Fourth Industrial Revolution.
+        A diverse team of industry veterans bridging the gap between traditional professional standards and the requirements of the Fourth Industrial Revolution.
       </p>
     </div>
 
-    {/* Lead Trainer Profile */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+    {/* Thiru's Profile */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="lg:w-1/3">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Thiru's Image */}
+             <img 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruh_profile_pic.png" 
+               alt="Thiruh Shan - Lead Trainer"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               onError={(e) => {
+                 e.currentTarget.style.display = 'none';
+                 e.currentTarget.nextSibling.style.display = 'block';
+               }}
+             />
+             {/* Fallback Placeholder */}
+             <div className="text-center p-8 hidden relative z-10">
+                <div className="w-24 h-24 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Briefcase size={48} className="text-purple-400"/>
+                </div>
+                <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
+                <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Trainer</p>
+             </div>
+             {/* Overlay */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+             <div className="absolute bottom-6 left-6 z-[2]">
+                <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
+                <p className="text-purple-400 text-sm uppercase tracking-widest font-bold">Lead Trainer</p>
+             </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Thiruh Shan</h2>
+          <p className="text-slate-300 leading-relaxed">
+            With 28 years of comprehensive experience in the Automotive Industry, Thiruh is a veteran in Sales, After Sales, and Network Development. As a former Chief Operating Officer (COO) for EON Berhad, General Manager of Rolls-Royce Motor Cars Kuala Lumpur, and Manager at Auto Bavaria, he brings a proven track record in turning around dealership profitability and operational efficiency.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            His primary focus is on Profitability, Operational Improvement, and Business Intelligence. Having overseen operations with combined revenues close to RM1 Billion, he offers unmatched insights into high-stakes automotive management.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <TrendingUp size={20} className="text-blue-400 mb-2"/>
+                <div className="font-bold text-sm">Strategic Leadership</div>
+                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Zap size={20} className="text-purple-400 mb-2"/>
+                <div className="font-bold text-sm">Ops Excellence</div>
+                <div className="text-xs text-slate-500">Profitability & Process</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Globe size={20} className="text-emerald-400 mb-2"/>
+                <div className="font-bold text-sm">ASEAN Consultant</div>
+                <div className="text-xs text-slate-500">Network Development</div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Caleb's Profile - REARRANGED SECOND */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
         <div className="lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Caleb's Image */}
@@ -397,74 +464,130 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Dual Expertise Section */}
-    <div className="grid md:grid-cols-2 gap-8 mb-24">
-        {/* Tech */}
-        <div className="p-8 rounded-3xl bg-blue-900/10 border border-blue-500/20">
-            <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
-                    <Brain size={24}/>
+    {/* Jack Zaal's Profile */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="lg:w-1/3">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Jack's Image */}
+             <img 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png" 
+               alt="Jack Zaal - Associate Trainer"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               onError={(e) => {
+                 e.currentTarget.style.display = 'none';
+                 e.currentTarget.nextSibling.style.display = 'block';
+               }}
+             />
+             {/* Fallback Placeholder */}
+             <div className="text-center p-8 hidden relative z-10">
+                <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Globe size={48} className="text-orange-400"/>
                 </div>
-                <h3 className="text-2xl font-bold">Technical Pedigree</h3>
-            </div>
-            <ul className="space-y-4">
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Generative AI & LLMs:</strong> Demystifying AI for the workforce. Prompt engineering and autonomous agents for 10x productivity.</span>
-                </li>
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Computer Vision:</strong> Visual data interpretation for manufacturing automation and quality control.</span>
-                </li>
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-blue-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Predictive Analytics:</strong> Simplifying high-level math into actionable business insights.</span>
-                </li>
-            </ul>
+                <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
+                <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+             </div>
+             {/* Overlay */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+             <div className="absolute bottom-6 left-6 z-[2]">
+                <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
+                <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+             </div>
+          </div>
         </div>
-
-        {/* Soft Skills */}
-        <div className="p-8 rounded-3xl bg-purple-900/10 border border-purple-500/20">
-            <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
-                    <Users size={24}/>
-                </div>
-                <h3 className="text-2xl font-bold">The Human Element</h3>
-            </div>
-            <ul className="space-y-4">
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Intergenerational Communication:</strong> Helping Boomers, Gen X, Millennials, and Gen Z find a common language.</span>
-                </li>
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Growth-Based Leadership:</strong> Moving from "compliance-based" management to "growth-based" coaching and 360-feedback.</span>
-                </li>
-                <li className="flex gap-3">
-                    <CheckCircle2 className="text-purple-500 shrink-0 mt-1" size={18}/>
-                    <span className="text-slate-300 text-sm"><strong className="text-white">Collaborative Intelligence:</strong> Breaking down silos to foster an environment where collective intelligence thrives.</span>
-                </li>
-            </ul>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Jack Zaal</h2>
+          <p className="text-slate-300 leading-relaxed">
+            A strategic retail automotive executive with a strong focus on growing Sales and securing profitability through efficient After-Sales operations. Jack has led retail automotive companies in Malaysia for the past 15 years, overseeing Sales, After Sales, Marketing, HR, Facilities, and Finance.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            Jack's extensive career includes 19 years at Volvo Car Corporation, with key roles in Product Planning and Area Management across the Netherlands, Sweden, Belgium, and Italy. He has successfully acquired new franchises, built new facilities, and driven business strategy for premium brands including Volvo, Volkswagen, Audi, BMW, Rolls-Royce, and Lotus.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <TrendingUp size={20} className="text-orange-400 mb-2"/>
+                <div className="font-bold text-sm">Profitability Focus</div>
+                <div className="text-xs text-slate-500">Sales & After-Sales</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Briefcase size={20} className="text-blue-400 mb-2"/>
+                <div className="font-bold text-sm">Brand Portfolio</div>
+                <div className="text-xs text-slate-500">Volvo, BMW, Rolls-Royce</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Globe size={20} className="text-white mb-2"/>
+                <div className="font-bold text-sm">International</div>
+                <div className="text-xs text-slate-500">Fluent in 4 Languages</div>
+             </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    {/* Philosophy */}
-    <div className="mb-24">
-        <h2 className="text-3xl font-bold mb-10 text-center">Training Philosophy</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-                <h4 className="text-lg font-bold mb-2">Gamified Learning</h4>
-                <p className="text-sm text-slate-400">Using interactive simulations to teach complex AI and Machine Learning concepts.</p>
-            </div>
-            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-                <h4 className="text-lg font-bold mb-2">Real-World Roleplay</h4>
-                <p className="text-sm text-slate-400">Ensuring immediate skill transferability through scenarios specific to automotive and communication.</p>
-            </div>
-            <div className="bg-white/5 p-6 rounded-2xl border border-white/10">
-                <h4 className="text-lg font-bold mb-2">Metrics-Driven</h4>
-                <p className="text-sm text-slate-400">Every session is designed with an end-goal: reducing friction, increasing conversion, or implementing workflows.</p>
-            </div>
+    {/* Hal Serudin's Profile */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
+        <div className="lg:w-1/3">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Hal's Image */}
+             <img 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png" 
+               alt="Hal Serudin - Associate Trainer"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               onError={(e) => {
+                 e.currentTarget.style.display = 'none';
+                 e.currentTarget.nextSibling.style.display = 'block';
+               }}
+             />
+             {/* Fallback Placeholder */}
+             <div className="text-center p-8 hidden relative z-10">
+                <div className="w-24 h-24 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MessageSquare size={48} className="text-pink-400"/>
+                </div>
+                <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
+                <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+             </div>
+             {/* Overlay */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+             <div className="absolute bottom-6 left-6 z-[2]">
+                <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
+                <p className="text-pink-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+             </div>
+          </div>
         </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Hal Serudin</h2>
+          <p className="text-slate-300 leading-relaxed">
+            Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape, he has worked closely with automotive dealerships across the Asia Pacific region, consulting for BMW, MINI, and Motorrad.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            Most notably, Hal served as a highly experienced member of Rolls-Royce Motor Cars’ global PR team for nearly two decades. He is a specialist in crisis communications and a dedicated mentor, training numerous professionals throughout the region in strategic communications.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <MessageSquare size={20} className="text-pink-400 mb-2"/>
+                <div className="font-bold text-sm">Crisis Comms</div>
+                <div className="text-xs text-slate-500">Expert Management</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Briefcase size={20} className="text-purple-400 mb-2"/>
+                <div className="font-bold text-sm">Luxury Auto</div>
+                <div className="text-xs text-slate-500">Rolls-Royce Global PR</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Users size={20} className="text-blue-400 mb-2"/>
+                <div className="font-bold text-sm">Mentorship</div>
+                <div className="text-xs text-slate-500">Regional Trainer</div>
+             </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -627,7 +750,7 @@ export default function App() {
           <div className="hidden md:flex items-center space-x-8">
             <button onClick={() => navigateTo('services')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</button>
             <button onClick={() => navigateTo('approach')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Approach</button>
-            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>About</button>
+            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>Trainers</button>
             <button onClick={() => navigateTo('contact')} className={`px-5 py-2 text-sm font-medium rounded-full transition-all transform hover:scale-105 ${view === 'contact' ? 'bg-blue-50 text-black' : 'bg-white text-black hover:bg-blue-50'}`}>
               Contact Us
             </button>
@@ -644,7 +767,7 @@ export default function App() {
           <div className="md:hidden absolute top-full left-0 w-full bg-zinc-900 border-b border-white/10 p-6 flex flex-col space-y-4 shadow-2xl">
             <button onClick={() => navigateTo('services')} className="text-left text-lg text-slate-300 hover:text-white">Services</button>
             <button onClick={() => navigateTo('approach')} className="text-left text-lg text-slate-300 hover:text-white">Approach</button>
-            <button onClick={() => navigateTo('about')} className="text-left text-lg text-slate-300 hover:text-white">About</button>
+            <button onClick={() => navigateTo('about')} className="text-left text-lg text-slate-300 hover:text-white">Trainers</button>
             <button onClick={() => navigateTo('contact')} className="w-full py-3 bg-white text-black font-medium rounded-lg">Contact Us</button>
           </div>
         )}
@@ -712,7 +835,7 @@ export default function App() {
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">About Us</li>
+                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Trainers</li>
                 <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
                 <li onClick={() => navigateTo('contact')} className="hover:text-white cursor-pointer">Contact</li>
                 <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">Privacy Policy</li>
