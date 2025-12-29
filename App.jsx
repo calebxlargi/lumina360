@@ -26,6 +26,12 @@ const TrendingUp = (props) => <Icon {...props}><polyline points="22 7 13.5 15.5 
 const Search = (props) => <Icon {...props}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></Icon>;
 const Target = (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></Icon>;
 const MessageSquare = (props) => <Icon {...props}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></Icon>;
+const Car = (props) => <Icon {...props}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></Icon>;
+const Shield = (props) => <Icon {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></Icon>;
+const HardHat = (props) => <Icon {...props}><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6h0"/><path d="M14 6h0a6 6 0 0 1 6 9v3"/></Icon>;
+const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></Icon>;
+const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></Icon>;
+
 
 // --- Styles ---
 const CustomStyles = () => (
@@ -37,6 +43,25 @@ const CustomStyles = () => (
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translate3d(-20px, 0, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+    .animate-fade-in-right {
+      animation: fadeInRight 0.8s ease-out forwards;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    
     body, html, #root, #__next {
       background-color: #000000 !important;
       color: #ffffff !important;
@@ -45,282 +70,380 @@ const CustomStyles = () => (
       padding: 0;
       scroll-behavior: smooth;
     }
+    
+    /* Custom Scrollbar for modern look */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #000; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
   `}</style>
 );
 
 // --- Sub-Components ---
 
-const HomePage = ({ navigateTo }) => (
-  <>
-    {/* Hero Section */}
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
+const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
+  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col animate-fade-in-up ${delay}`}>
+    <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
+      <IconComp size={32} />
+    </div>
+    <h3 className="text-2xl font-bold mb-6">{title}</h3>
+    <ul className="space-y-3 flex-grow">
+      {items.map((item, idx) => (
+        <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
+          <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 group-hover:text-${color}-400 transition-colors`} size={16}/>
+          <span className="group-hover:text-slate-200 transition-colors">{item}</span>
+        </li>
+      ))}
+    </ul>
+    <div className={`mt-8 pt-6 border-t border-white/10`}>
+      <button className={`text-${color}-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all`}>
+        Explore Module <ArrowRight size={16} />
+      </button>
+    </div>
+  </div>
+);
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-300 mb-8 animate-fade-in-up">
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-          HRD Corp Registered Training Provider
-        </div>
-        
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-500 max-w-5xl mx-auto pb-2">
-          A New Class of <br /> Automotive Ownership.
-        </h1>
-        
-        <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-          We move sales teams from "Order Takers" to "Mobility Consultants." 
-          Specialized psychology-based training for the modern automotive market.
-        </p>
+const HomePage = ({ navigateTo }) => {
+  const autoTraining = [
+    "Accelerate Your Close: Advanced Negotiation Tactics",
+    "The Art of the Walk-Around: Features into Benefits",
+    "Service Advisor Mastery: Workshop to Customer Gap",
+    "Showroom Floor Dynamics & Traffic Management",
+    "Brand DNA: Living the Manufacturer’s Philosophy",
+    "From Leads to Keys: Digital Inquiry Conversion",
+    "The Platinum Delivery Experience",
+    "After-Sales Retention Strategies",
+    "Luxury Clienteling: Long-Term Relationships",
+    "Objection Handling: Price & Trade-In Resistance",
+    "Visual Merchandising & Showroom Aesthetics",
+    "The 360-Degree Customer Journey",
+    "Workshop Workflow Efficiency Management",
+    "Compliance and Ethics in Selling",
+    "Psychology of the Car Buyer: Emotional vs Logical"
+  ];
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2">
-            Start Transformation
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
-            View Curriculum
-          </a>
-        </div>
-      </div>
-    </section>
+  const softSkills = [
+    "Emotional Intelligence (EQ) for High-Performance",
+    "Navigating Conflict & Constructive Outcomes",
+    "The Art of Active Listening",
+    "Time Management: Prioritization and Focus",
+    "Adaptive Leadership in Fast-Paced Environments",
+    "Persuasive Communication: Influence Without Authority",
+    "Resilience at Work: Bouncing Back from Stress",
+    "Collaborative Intelligence in Diverse Teams",
+    "Critical Thinking and Problem Solving",
+    "Professional Etiquette and Grooming",
+    "Feedback Loops: Constructive Criticism",
+    "Public Speaking and Presentation Mastery",
+    "Customer Centricity: Service-First Mindset",
+    "Decision Making Under Pressure",
+    "The Growth Mindset Culture"
+  ];
 
-    {/* Stats/Trust Bar */}
-    <section className="border-y border-white/5 bg-white/[0.02]">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { label: "Training Provider", value: "Class A" },
-            { label: "Claimable", value: "100% HRD Corp" },
-            { label: "Focus", value: "Automotive" },
-            { label: "Approach", value: "Data-Driven" }
-          ].map((stat, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <span className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</span>
-              <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+  const safetyTraining = [
+    "Hazard Identification and Risk Assessment (HIRA)",
+    "Ergonomics Essentials: Preventing Disorders",
+    "Fire Safety and Emergency Evacuation Protocols",
+    "Slips, Trips, and Falls Prevention",
+    "PPE Compliance & Maintenance",
+    "Chemical Safety: SDS and GHS Labels",
+    "Electrical Safety Basics (LOTO)",
+    "Safe Manual Handling Techniques",
+    "Workshop Safety: Machine Guarding",
+    "Workplace Violence and Harassment Prevention",
+    "First Aid and CPR: Basic Life Support",
+    "Noise Conservation & Hearing Protection",
+    "Defensive Driving for Company Vehicles",
+    "Confined Space Awareness",
+    "Building a Safety Culture: Leadership’s Role"
+  ];
 
-    {/* Services Section */}
-    <section id="services" className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Signature Training Programs</h2>
-          <div className="h-1 w-20 bg-blue-500 rounded-full mb-6"></div>
-          <p className="text-slate-400 max-w-2xl">
-            Our curriculum is SBL-Khas Claimable and designed for high-impact results. 
-            Each module is a 2-day intensive workshop tailored to specific seniority levels.
-          </p>
-        </div>
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] opacity-40 pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Card 1: Module 1 */}
-          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-            <div className="relative z-10 flex flex-col h-full">
-              <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-400">
-                  <Users size={24} />
-                </div>
-                <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold uppercase tracking-wider text-blue-300">
-                  Foundation
-                </span>
-              </div>
-              
-              <h3 className="text-xl font-bold mb-1">The Modern Mobility Consultant</h3>
-              <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Junior - Mid Level</p>
-              
-              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                Rewire your team's mindset from "Order Taker" to trusted Advisor. Master the SPIN Selling framework adapted for automotive to uncover hidden buyer needs.
-              </p>
-              
-              <div className="border-t border-white/10 pt-6 mt-auto">
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> SPIN Selling Framework</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> Psychology Profiling (4 Types)</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-blue-500 mr-2 flex-shrink-0"/> The 5-Minute Trust Builder</li>
-                </ul>
-                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-blue-400 hover:text-blue-300 group/link">
-                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Module 2 */}
-          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-            <div className="relative z-10 flex flex-col h-full">
-               <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-400">
-                  <Zap size={24} />
-                </div>
-                <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold uppercase tracking-wider text-purple-300">
-                  Lead Gen
-                </span>
-              </div>
-
-              <h3 className="text-xl font-bold mb-1">Digital Dominance: Click to Cockpit</h3>
-               <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Digital / BDC Teams</p>
-
-              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                Stop the scroll. Learn to convert cold Facebook/TikTok leads into hot showroom appointments using video and speed-to-lead psychology.
-              </p>
-
-              <div className="border-t border-white/10 pt-6 mt-auto">
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> 60-Second Video Walkarounds</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> High-Response WhatsApp Scripts</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-purple-500 mr-2 flex-shrink-0"/> The "Appointment Sell" Method</li>
-                </ul>
-                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-purple-400 hover:text-purple-300 group/link">
-                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Module 3 */}
-          <div className="group relative p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
-             <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
-            <div className="relative z-10 flex flex-col h-full">
-              <div className="flex justify-between items-start mb-6">
-                <div className="w-12 h-12 bg-emerald-900/30 rounded-lg flex items-center justify-center text-emerald-400">
-                  <BarChart3 size={24} />
-                </div>
-                 <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                  Advanced
-                </span>
-              </div>
-
-              <h3 className="text-xl font-bold mb-1">The Profit-Preserving Close</h3>
-               <p className="text-xs text-slate-500 uppercase tracking-widest mb-4 font-semibold">Target: Senior Advisors</p>
-
-              <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-                Defend your Gross Profit. Advanced negotiation tactics to handle the "Discount Warrior" and close without giving away the margin.
-              </p>
-
-              <div className="border-t border-white/10 pt-6 mt-auto">
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> "Value Stack" Defense Strategy</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> Isolating False Objections</li>
-                  <li className="flex items-center text-sm text-slate-300"><CheckCircle2 size={14} className="text-emerald-500 mr-2 flex-shrink-0"/> 3 Low-Pressure Closing Loops</li>
-                </ul>
-                <button onClick={() => navigateTo('contact')} className="inline-flex items-center text-sm font-medium text-emerald-400 hover:text-emerald-300 group/link">
-                  View Agenda <ChevronRight size={16} className="ml-1 group-hover/link:translate-x-1 transition-transform"/>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Feature Split Section */}
-    <section id="approach" className="py-24 bg-gradient-to-r from-black via-slate-900 to-black relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-1/2">
-             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
-              Why Choose Lumina
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-              Not Just Training.<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Business Transformation.</span>
-            </h2>
-            <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-              Most training providers focus on "soft skills." We focus on the metric that matters: <strong>Conversion Rate.</strong>
-            </p>
-            
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                  <span className="font-bold text-lg">01</span>
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Automotive Specialists</h4>
-                  <p className="text-slate-400 text-sm">We don't do generic corporate training. We live and breathe the showroom floor.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                  <span className="font-bold text-lg">02</span>
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Mystery Audit Included</h4>
-                  <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses before we prescribe the training.</p>
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0">
-                  <span className="font-bold text-lg">03</span>
-                </div>
-                <div>
-                  <h4 className="text-xl font-bold mb-2">Immediate ROI</h4>
-                  <p className="text-slate-400 text-sm">Selling just 3 extra units covers our entire premium fee.</p>
-                </div>
-              </div>
-            </div>
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-fade-in-up">
+            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+            HRD Corp Registered Training Provider
           </div>
           
-          <div className="lg:w-1/2 relative">
-            <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full"></div>
-            <div className="relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
-               <div className="space-y-6">
-                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                      <div>
-                          <p className="text-sm text-slate-500 uppercase">Average Closing Rate</p>
-                          <p className="text-3xl font-bold">28%</p>
-                      </div>
-                       <div className="text-green-400 text-sm font-bold flex items-center">
-                          +12% vs Industry
-                       </div>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 animate-fade-in-up delay-100">
+            Empowering Workforces. <br className="hidden md:block"/>
+            <span className="text-white">Elevating Standards.</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200">
+            From high-performance automotive sales to critical workplace safety and leadership. 
+            We provide comprehensive, data-driven training solutions that drive measurable business results.
+          </p>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
+            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105">
+              Start Transformation
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
+              Explore Courses
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats/Trust Bar */}
+      <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {[
+              { label: "Training Provider", value: "Class A" },
+              { label: "Claimable", value: "100% HRD Corp" },
+              { label: "Focus", value: "Multi-Industry" },
+              { label: "Approach", value: "Data-Driven" }
+            ].map((stat, index) => (
+              <div key={index} className="flex flex-col items-center group cursor-default">
+                <span className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">{stat.value}</span>
+                <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Comprehensive Training Solutions Section */}
+      <section id="services" className="py-24 relative bg-gradient-to-b from-black to-zinc-950">
+        <div className="container mx-auto px-6">
+          <div className="mb-20 text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training Ecosystem</h2>
+            <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
+            <p className="text-slate-400 text-lg">
+              We don't just train; we transform. Our curriculum spans three critical pillars of organizational success, ensuring your team is skilled, safe, and motivated.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Automotive Column */}
+            <TrainingList 
+              title="Automotive Excellence" 
+              icon={Car} 
+              color="blue" 
+              items={autoTraining}
+              delay="delay-100"
+            />
+
+            {/* Soft Skills Column */}
+            <TrainingList 
+              title="Leadership & Soft Skills" 
+              icon={Brain} 
+              color="purple" 
+              items={softSkills}
+              delay="delay-200"
+            />
+
+            {/* OSHA Column */}
+            <TrainingList 
+              title="OSHA & Safety" 
+              icon={HardHat} 
+              color="emerald" 
+              items={safetyTraining}
+              delay="delay-300"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Feature Split Section - Rebranded for General HR */}
+      <section id="approach" className="py-24 bg-gradient-to-r from-zinc-900 to-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            <div className="lg:w-1/2 animate-fade-in-right">
+               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
+                Why Choose Lumina
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+                Beyond Theory.<br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> measurable Impact.</span>
+              </h2>
+              <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+                Most training providers focus on "participation." We focus on "implementation." Our methodologies are designed to stick long after the session ends.
+              </p>
+              
+              <div className="space-y-8">
+                <div className="flex gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
+                    <Target className="text-blue-400" size={28} />
                   </div>
-                  <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                      <div>
-                          <p className="text-sm text-slate-500 uppercase">CSI Score Impact</p>
-                          <p className="text-3xl font-bold">96.5</p>
-                      </div>
-                       <div className="text-green-400 text-sm font-bold flex items-center">
-                          +4.5 Points
-                       </div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">Customized Context</h4>
+                    <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
                   </div>
-                   <div className="flex justify-between items-end">
-                      <div>
-                          <p className="text-sm text-slate-500 uppercase">Gross Profit Retention</p>
-                          <p className="text-3xl font-bold">RM 4.2k</p>
-                      </div>
-                       <div className="text-green-400 text-sm font-bold flex items-center">
-                          +RM 800 / Unit
-                       </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
+                    <Search className="text-purple-400" size={28} />
                   </div>
-               </div>
-               <div className="mt-8 pt-6 border-t border-white/10">
-                  <p className="text-xs text-slate-500 italic">
-                      *Projected results based on Module 3 implementation.
-                  </p>
-               </div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">Pre-Training Audit</h4>
+                    <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
+                  </div>
+                </div>
+                <div className="flex gap-5">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
+                    <TrendingUp className="text-emerald-400" size={28} />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-bold mb-2">ROI Focused</h4>
+                    <p className="text-slate-400 text-sm">Whether it's reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="lg:w-1/2 relative">
+              <div className="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full animate-pulse"></div>
+              <div className="relative bg-zinc-900/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl animate-float">
+                 <div className="space-y-6">
+                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                        <div>
+                            <p className="text-sm text-slate-500 uppercase font-semibold">Employee Retention</p>
+                            <p className="text-3xl font-bold">+24%</p>
+                        </div>
+                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
+                            <TrendingUp size={14} className="mr-1"/> 6 Months Post-Training
+                         </div>
+                    </div>
+                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
+                        <div>
+                            <p className="text-sm text-slate-500 uppercase font-semibold">Safety Incidents</p>
+                            <p className="text-3xl font-bold">-40%</p>
+                        </div>
+                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
+                             <Shield size={14} className="mr-1"/> Year over Year
+                         </div>
+                    </div>
+                     <div className="flex justify-between items-end">
+                        <div>
+                            <p className="text-sm text-slate-500 uppercase font-semibold">Customer Satisfaction</p>
+                            <p className="text-3xl font-bold">96.5</p>
+                        </div>
+                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
+                            <Users size={14} className="mr-1"/> Net Promoter Score
+                         </div>
+                    </div>
+                 </div>
+                 <div className="mt-8 pt-6 border-t border-white/10">
+                    <p className="text-xs text-slate-500 italic">
+                        *Aggregated results from our 2024 client impact report.
+                    </p>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 relative overflow-hidden">
+        <div className="container mx-auto px-6 text-center relative z-10">
+           <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate Your Workforce?</h2>
+           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+             Schedule your complimentary needs analysis audit and let us build a custom training roadmap for your organization.
+           </p>
+           <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transform hover:scale-105">
+             Get Your Proposal
+           </button>
+        </div>
+      </section>
+    </>
+  );
+};
+
+const HRDCorpPage = () => (
+  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
+    <div className="max-w-4xl mx-auto">
+      <div className="mb-10 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm font-medium text-blue-400 mb-6">
+          <FileCheck size={16} /> Accredited Training Provider
+        </div>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">HRD Corp Status</h1>
+        <p className="text-lg text-slate-400">
+          Lumina 3Sixty PLT is a registered training provider with the Human Resource Development Corporation (HRD Corp) Malaysia.
+        </p>
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
+        <h2 className="text-2xl font-bold mb-4">What This Means For You</h2>
+        <div className="space-y-6 text-slate-300">
+          <p>
+            As an HRD Corp registered provider, all training programs offered by Lumina 3Sixty are 100% claimable under the SBL-Khas scheme. This allows employers to utilize their HRD levy to upskill their workforce without upfront payment, as the cost is deducted directly from the levy fund.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6 mt-6">
+            <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
+              <h3 className="text-lg font-bold text-white mb-2">SBL-Khas Scheme</h3>
+              <p className="text-sm">
+                Under this scheme, employers do not need to pay the training fees upfront. HRD Corp pays the training provider directly, easing cash flow for your organization.
+              </p>
+            </div>
+            <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
+              <h3 className="text-lg font-bold text-white mb-2">Quality Assurance</h3>
+              <p className="text-sm">
+                Our accreditation ensures that all our trainers and modules meet the rigorous quality standards set by HRD Corp, guaranteeing valuable and effective learning outcomes.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+);
 
-    {/* CTA Section */}
-    <section className="py-24 relative overflow-hidden">
-      <div className="container mx-auto px-6 text-center relative z-10">
-         <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate?</h2>
-         <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-           Schedule your complimentary "Mystery Shopper" audit and let us build a custom roadmap for your dealership.
-         </p>
-         <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-           Get Your Proposal
-         </button>
+const PrivacyPolicyPage = () => (
+  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
+    <div className="max-w-3xl mx-auto">
+      <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
+      <div className="space-y-6 text-slate-300">
+        <p>
+          At Lumina 3Sixty PLT, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and safeguard your personal information when you visit our website or engage with our services.
+        </p>
+        
+        <h2 className="text-2xl font-bold text-white mt-8 mb-4">1. Information We Collect</h2>
+        <p>
+          We may collect personal information such as your name, email address, phone number, and company details when you fill out our contact forms or request information about our training programs.
+        </p>
+
+        <h2 className="text-2xl font-bold text-white mt-8 mb-4">2. How We Use Your Information</h2>
+        <p>
+          The information we collect is used to:
+          <ul className="list-disc pl-5 mt-2 space-y-1">
+            <li>Respond to your inquiries and provide customer support.</li>
+            <li>Send you information about our training courses and services.</li>
+            <li>Improve our website and service offerings based on your feedback.</li>
+          </ul>
+        </p>
+
+        <h2 className="text-2xl font-bold text-white mt-8 mb-4">3. Data Protection</h2>
+        <p>
+          We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. We do not sell or share your personal information with third parties for marketing purposes.
+        </p>
+
+        <h2 className="text-2xl font-bold text-white mt-8 mb-4">4. Contact Us</h2>
+        <p>
+          If you have any questions about this Privacy Policy or our data practices, please contact us at training@lumina3sixty.com.
+        </p>
       </div>
-    </section>
-  </>
+    </div>
+  </div>
 );
 
 const AboutPage = () => (
@@ -343,7 +466,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
@@ -469,7 +592,7 @@ const AboutPage = () => (
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="lg:w-1/3">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
@@ -694,7 +817,7 @@ const ContactPage = () => {
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [view, setView] = useState('home'); // 'home', 'contact', 'about'
+  const [view, setView] = useState('home'); // 'home', 'contact', 'about', 'hrd', 'privacy'
 
   // Handle scroll effect for navbar
   useEffect(() => {
@@ -725,6 +848,12 @@ export default function App() {
       window.scrollTo(0, 0);
     } else if (target === 'about') {
       setView('about');
+      window.scrollTo(0, 0);
+    } else if (target === 'hrd') {
+      setView('hrd');
+      window.scrollTo(0, 0);
+    } else if (target === 'privacy') {
+      setView('privacy');
       window.scrollTo(0, 0);
     } else {
       setView('home');
@@ -806,12 +935,14 @@ export default function App() {
       {view === 'home' && <HomePage navigateTo={navigateTo} />}
       {view === 'about' && <AboutPage />}
       {view === 'contact' && <ContactPage />}
+      {view === 'hrd' && <HRDCorpPage />}
+      {view === 'privacy' && <PrivacyPolicyPage />}
 
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-2">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            <div className="col-span-1 md:col-span-2">
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
@@ -834,8 +965,8 @@ export default function App() {
                   </div>
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
-                Lumina 3Sixty and Service PLT.<br/>
-                We bridge the gap between traditional showroom hospitality and modern digital sales psychology.
+                Lumina 3Sixty PLT.<br/>
+                Your premier partner for HRD Corp accredited training. We empower organizations through comprehensive solutions in Automotive Excellence, Executive Leadership, and Workplace Safety.
               </p>
               <div className="flex space-x-4">
                  {/* Social placeholders */}
@@ -850,30 +981,20 @@ export default function App() {
                  </div>
               </div>
             </div>
-            
-            <div>
-              <h4 className="font-bold mb-6">Services</h4>
-              <ul className="space-y-4 text-slate-400 text-sm">
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Mobility Consultant</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Digital Dominance</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Profit-Preserving Close</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Management Toolkits</li>
-              </ul>
-            </div>
 
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
                 <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Trainers</li>
-                <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
+                <li onClick={() => navigateTo('hrd')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
                 <li onClick={() => navigateTo('contact')} className="hover:text-white cursor-pointer">Contact</li>
-                <li onClick={() => navigateTo('home')} className="hover:text-white cursor-pointer">Privacy Policy</li>
+                <li onClick={() => navigateTo('privacy')} className="hover:text-white cursor-pointer">Privacy Policy</li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty and Service PLT. All rights reserved.</p>
+            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
             <p className="text-slate-600 text-xs">Designed for Excellence.</p>
           </div>
         </div>
