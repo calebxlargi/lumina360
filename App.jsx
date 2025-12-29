@@ -104,11 +104,6 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
         </li>
       ))}
     </ul>
-    <div className={`mt-8 pt-6 border-t border-white/10`}>
-      <button className={`text-${color}-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all`}>
-        Explore Module <ArrowRight size={16} />
-      </button>
-    </div>
   </div>
 );
 
@@ -266,88 +261,42 @@ const HomePage = ({ navigateTo }) => {
       {/* Feature Split Section - Rebranded for General HR */}
       <section id="approach" className="py-24 bg-gradient-to-r from-zinc-900 to-black relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            <div className="lg:w-1/2 animate-fade-in-right">
-               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
-                Why Choose Lumina
-              </div>
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-                Beyond Theory.<br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> measurable Impact.</span>
-              </h2>
-              <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-                Most training providers focus on "participation." We focus on "implementation." Our methodologies are designed to stick long after the session ends.
-              </p>
-              
-              <div className="space-y-8">
-                <div className="flex gap-5">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
-                    <Target className="text-blue-400" size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">Customized Context</h4>
-                    <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
-                    <Search className="text-purple-400" size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">Pre-Training Audit</h4>
-                    <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
-                  </div>
-                </div>
-                <div className="flex gap-5">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0 border border-white/10">
-                    <TrendingUp className="text-emerald-400" size={28} />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold mb-2">ROI Focused</h4>
-                    <p className="text-slate-400 text-sm">Whether it's reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.</p>
-                  </div>
-                </div>
-              </div>
+          <div className="max-w-4xl mx-auto text-center mb-12">
+             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
+              Why Choose Lumina
             </div>
-            
-            <div className="lg:w-1/2 relative">
-              <div className="absolute inset-0 bg-blue-500/20 blur-[120px] rounded-full animate-pulse"></div>
-              <div className="relative bg-zinc-900/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl animate-float">
-                 <div className="space-y-6">
-                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase font-semibold">Employee Retention</p>
-                            <p className="text-3xl font-bold">+24%</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
-                            <TrendingUp size={14} className="mr-1"/> 6 Months Post-Training
-                         </div>
-                    </div>
-                    <div className="flex justify-between items-end border-b border-white/10 pb-4">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase font-semibold">Safety Incidents</p>
-                            <p className="text-3xl font-bold">-40%</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
-                             <Shield size={14} className="mr-1"/> Year over Year
-                         </div>
-                    </div>
-                     <div className="flex justify-between items-end">
-                        <div>
-                            <p className="text-sm text-slate-500 uppercase font-semibold">Customer Satisfaction</p>
-                            <p className="text-3xl font-bold">96.5</p>
-                        </div>
-                         <div className="text-green-400 text-sm font-bold flex items-center bg-green-400/10 px-2 py-1 rounded">
-                            <Users size={14} className="mr-1"/> Net Promoter Score
-                         </div>
-                    </div>
-                 </div>
-                 <div className="mt-8 pt-6 border-t border-white/10">
-                    <p className="text-xs text-slate-500 italic">
-                        *Aggregated results from our 2024 client impact report.
-                    </p>
-                 </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+              Beyond Theory.<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> measurable Impact.</span>
+            </h2>
+            <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+              Most training providers focus on "participation." We focus on "implementation." Our methodologies are designed to stick long after the session ends.
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
+                <Target className="text-blue-400" size={28} />
               </div>
+              <h4 className="text-xl font-bold mb-3">Customized Context</h4>
+              <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
+            </div>
+
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
+                <Search className="text-purple-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">Pre-Training Audit</h4>
+              <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
+            </div>
+
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-900/20 flex items-center justify-center mb-6 border border-emerald-500/10">
+                <TrendingUp className="text-emerald-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">ROI Focused</h4>
+              <p className="text-slate-400 text-sm">Whether it's reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.</p>
             </div>
           </div>
         </div>
