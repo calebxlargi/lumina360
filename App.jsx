@@ -419,7 +419,7 @@ const AboutPage = () => (
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
-               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruh_profile_pic.png" 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png" 
                alt="Thiruh Shan - Lead Trainer"
                className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
