@@ -104,11 +104,6 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
         </li>
       ))}
     </ul>
-    <div className={`mt-8 pt-6 border-t border-white/10`}>
-      <button className={`text-${color}-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all`}>
-        Explore Module <ArrowRight size={16} />
-      </button>
-    </div>
   </div>
 );
 
@@ -424,7 +419,7 @@ const AboutPage = () => (
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
-               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png" 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruh_shans_profile_pic.png" 
                alt="Thiruh Shan - Lead Trainer"
                className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
@@ -451,10 +446,13 @@ const AboutPage = () => (
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-3xl font-bold mb-2">Thiruh Shan</h2>
           <p className="text-slate-300 leading-relaxed">
-            With 28 years of comprehensive experience in the Automotive Industry, Thiruh is a veteran in Sales, After Sales, and Network Development. As a former Chief Operating Officer (COO) for EON Berhad, General Manager of Rolls-Royce Motor Cars Kuala Lumpur, and Manager at Auto Bavaria, he brings a proven track record in turning around dealership profitability and operational efficiency.
+            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thiruh specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce, BMW, Audi, VW, JEEP, and Mitsubishi.
           </p>
           <p className="text-slate-300 leading-relaxed">
-            His primary focus is on Profitability, Operational Improvement, and Business Intelligence. Having overseen operations with combined revenues close to RM1 Billion, he offers unmatched insights into high-stakes automotive management.
+             Thiruh is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
+          </p>
+          <p className="text-slate-300 leading-relaxed italic">
+            “I don’t teach what I’ve read; I teach what I have lived, built, and scaled.”
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
@@ -895,8 +893,8 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div className="col-span-2">
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
@@ -934,6 +932,16 @@ export default function App() {
                     <MapPin size={18}/>
                  </div>
               </div>
+            </div>
+            
+            <div>
+              <h4 className="font-bold mb-6">Services</h4>
+              <ul className="space-y-4 text-slate-400 text-sm">
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Mobility Consultant</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Digital Dominance</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Profit-Preserving Close</li>
+                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Management Toolkits</li>
+              </ul>
             </div>
 
             <div>
