@@ -129,11 +129,29 @@ const HomePage = ({ navigateTo }) => {
   ];
 
   const itSkills = [
-    "Generative AI Essentials: Boosting Office Productivity Without Coding",
-    "Cyber Smart: Data Privacy and Security Best Practices for the AI Era",
-    "Data Literacy for Business: Reading, Understanding, and Communicating with Data",
-    "Prompt Engineering for Professionals: Writing Effective Inputs for Better Business Results",
-    "Automating the Mundane: Introduction to No-Code Workflows & AI Agents"
+    "Generative AI for Business Productivity",
+    "AI Data Privacy & Security Awareness",
+    "Data Literacy for Non-Technical Professionals",
+    "Prompt Engineering for Corporate Workflows",
+    "Office Automation with No-Code Tools & AI"
+  ];
+
+  const safetyTraining = [
+    "Hazard Identification and Risk Assessment (HIRA)",
+    "Ergonomics Essentials: Preventing Disorders",
+    "Fire Safety and Emergency Evacuation Protocols",
+    "Slips, Trips, and Falls Prevention",
+    "PPE Compliance & Maintenance",
+    "Chemical Safety: SDS and GHS Labels",
+    "Electrical Safety Basics (LOTO)",
+    "Safe Manual Handling Techniques",
+    "Workshop Safety: Machine Guarding",
+    "Workplace Violence and Harassment Prevention",
+    "First Aid and CPR: Basic Life Support",
+    "Noise Conservation & Hearing Protection",
+    "Defensive Driving for Company Vehicles",
+    "Confined Space Awareness",
+    "Building a Safety Culture: Leadership’s Role"
   ];
 
   return (
