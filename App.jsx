@@ -31,6 +31,7 @@ const Shield = (props) => <Icon {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7
 const HardHat = (props) => <Icon {...props}><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z"/><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M4 15v-3a6 6 0 0 1 6-6h0"/><path d="M14 6h0a6 6 0 0 1 6 9v3"/></Icon>;
 const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></Icon>;
 const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></Icon>;
+const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="3" rx="2" ry="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></Icon>;
 
 
 // --- Styles ---
@@ -104,62 +105,35 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
         </li>
       ))}
     </ul>
+    <div className={`mt-8 pt-6 border-t border-white/10`}>
+      {/* Buttons removed as requested */}
+    </div>
   </div>
 );
 
 const HomePage = ({ navigateTo }) => {
   const autoTraining = [
-    "Accelerate Your Close: Advanced Negotiation Tactics",
-    "The Art of the Walk-Around: Features into Benefits",
-    "Service Advisor Mastery: Workshop to Customer Gap",
-    "Showroom Floor Dynamics & Traffic Management",
-    "Brand DNA: Living the Manufacturer’s Philosophy",
-    "From Leads to Keys: Digital Inquiry Conversion",
-    "The Platinum Delivery Experience",
-    "After-Sales Retention Strategies",
-    "Luxury Clienteling: Long-Term Relationships",
-    "Objection Handling: Price & Trade-In Resistance",
-    "Visual Merchandising & Showroom Aesthetics",
-    "The 360-Degree Customer Journey",
-    "Workshop Workflow Efficiency Management",
-    "Compliance and Ethics in Selling",
-    "Psychology of the Car Buyer: Emotional vs Logical"
+    "Transformational Leadership: Showroom to Boardroom",
+    "Modern Consultative Sales Mastery",
+    "Sales Management 1: Protect your Margin & Increase your Market Share",
+    "Sales Management 2: Financials, Manage your P&L",
+    "Creating Customers for Life"
   ];
 
   const softSkills = [
-    "Emotional Intelligence (EQ) for High-Performance",
-    "Navigating Conflict & Constructive Outcomes",
     "The Art of Active Listening",
     "Time Management: Prioritization and Focus",
-    "Adaptive Leadership in Fast-Paced Environments",
     "Persuasive Communication: Influence Without Authority",
-    "Resilience at Work: Bouncing Back from Stress",
     "Collaborative Intelligence in Diverse Teams",
-    "Critical Thinking and Problem Solving",
-    "Professional Etiquette and Grooming",
-    "Feedback Loops: Constructive Criticism",
-    "Public Speaking and Presentation Mastery",
-    "Customer Centricity: Service-First Mindset",
-    "Decision Making Under Pressure",
-    "The Growth Mindset Culture"
+    "Critical Thinking and Problem Solving"
   ];
 
-  const safetyTraining = [
-    "Hazard Identification and Risk Assessment (HIRA)",
-    "Ergonomics Essentials: Preventing Disorders",
-    "Fire Safety and Emergency Evacuation Protocols",
-    "Slips, Trips, and Falls Prevention",
-    "PPE Compliance & Maintenance",
-    "Chemical Safety: SDS and GHS Labels",
-    "Electrical Safety Basics (LOTO)",
-    "Safe Manual Handling Techniques",
-    "Workshop Safety: Machine Guarding",
-    "Workplace Violence and Harassment Prevention",
-    "First Aid and CPR: Basic Life Support",
-    "Noise Conservation & Hearing Protection",
-    "Defensive Driving for Company Vehicles",
-    "Confined Space Awareness",
-    "Building a Safety Culture: Leadership’s Role"
+  const itSkills = [
+    "Generative AI Essentials: Boosting Office Productivity Without Coding",
+    "Cyber Smart: Data Privacy and Security Best Practices for the AI Era",
+    "Data Literacy for Business: Reading, Understanding, and Communicating with Data",
+    "Prompt Engineering for Professionals: Writing Effective Inputs for Better Business Results",
+    "Automating the Mundane: Introduction to No-Code Workflows & AI Agents"
   ];
 
   return (
@@ -239,19 +213,19 @@ const HomePage = ({ navigateTo }) => {
 
             {/* Soft Skills Column */}
             <TrainingList 
-              title="Leadership & Soft Skills" 
+              title="Soft Skills" 
               icon={Brain} 
               color="purple" 
               items={softSkills}
               delay="delay-200"
             />
 
-            {/* OSHA Column */}
+            {/* IT Skills Column */}
             <TrainingList 
-              title="OSHA & Safety" 
-              icon={HardHat} 
+              title="IT Skills" 
+              icon={Monitor} 
               color="emerald" 
-              items={safetyTraining}
+              items={itSkills}
               delay="delay-300"
             />
           </div>
