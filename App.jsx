@@ -104,11 +104,6 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
         </li>
       ))}
     </ul>
-    <div className={`mt-8 pt-6 border-t border-white/10`}>
-      <button className={`text-${color}-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all`}>
-        Explore Module <ArrowRight size={16} />
-      </button>
-    </div>
   </div>
 );
 
@@ -456,7 +451,8 @@ const AboutPage = () => (
           <p className="text-slate-300 leading-relaxed">
              Thiruh is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
           </p>
-          <p className="text-slate-300 leading-relaxed italic">
+          
+          <p className="text-slate-300 leading-relaxed italic font-bold">
             “I don’t teach what I’ve read; I teach what I have lived, built, and scaled.”
           </p>
           
