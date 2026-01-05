@@ -104,6 +104,11 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
         </li>
       ))}
     </ul>
+    <div className={`mt-8 pt-6 border-t border-white/10`}>
+      <button className={`text-${color}-400 text-sm font-bold uppercase tracking-wider flex items-center gap-2 hover:gap-3 transition-all`}>
+        Explore Module <ArrowRight size={16} />
+      </button>
+    </div>
   </div>
 );
 
@@ -419,7 +424,7 @@ const AboutPage = () => (
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
-               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruh_shans_profile_pic.png" 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png" 
                alt="Thiruh Shan - Lead Trainer"
                className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
