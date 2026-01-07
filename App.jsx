@@ -173,7 +173,7 @@ const HomePage = ({ navigateTo }) => {
           </h1>
           
           <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200">
-            From high-performance automotive sales to critical workplace safety and leadership. 
+            From Automotive Excellence to transformative Soft Skills and essential IT Skills. 
             We provide comprehensive, data-driven training solutions that drive measurable business results.
           </p>
 
