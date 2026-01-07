@@ -452,7 +452,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
+                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -532,14 +532,14 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Sophia Catha's Profile */}
+    {/* Sofia Catha's Profile */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-             {/* Sophia's Image */}
+             {/* Sofia's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png" 
                alt="Sophia Catha - Associate Trainer"
@@ -643,8 +643,8 @@ const AboutPage = () => (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-orange-400 mb-2"/>
-                <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">Volvo, BMW, Audi, Lotus</div>
+                <div className="font-bold text-sm">Profitability Focus</div>
+                <div className="text-xs text-slate-500">Sales & After-Sales</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Briefcase size={20} className="text-blue-400 mb-2"/>
