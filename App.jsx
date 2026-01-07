@@ -977,7 +977,7 @@ export default function App() {
               </div>
               <p className="text-slate-400 max-w-sm mb-6">
                 Lumina 3Sixty PLT.<br/>
-                Your premier partner for HRD Corp accredited training. We empower organizations through comprehensive solutions in Automotive Excellence, Executive Leadership, and Workplace Safety.
+                Your premier partner for HRD Corp accredited training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, and IT Skills.
               </p>
             </div>
 
