@@ -452,7 +452,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -532,7 +532,7 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Sofia Catha's Profile */}
+    {/* Sofia Catha's Profile - REARRANGED THIRD */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
@@ -598,11 +598,11 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Jack Zaal's Profile */}
+    {/* Jack Zaal's Profile - REARRANGED FOURTH */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
@@ -661,11 +661,11 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Hal Serudin's Profile */}
+    {/* Hal Serudin's Profile - REARRANGED FIFTH */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
@@ -896,7 +896,7 @@ export default function App() {
             <img 
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
               alt="Lumina 3Sixty" 
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
               onError={(e) => {
                 // Fallback if image is missing
                 console.warn("Logo not found. Switching to text fallback.");
@@ -959,7 +959,7 @@ export default function App() {
                 <img 
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
                   alt="Lumina 3Sixty" 
-                  className="h-10 w-auto object-contain"
+                  className="h-14 w-auto object-contain"
                    onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
