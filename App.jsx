@@ -541,7 +541,7 @@ const AboutPage = () => (
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Sofia's Image */}
              <img 
-               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_profile_pic.png" 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png" 
                alt="Sofia Catha - Associate Trainer"
                className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
@@ -602,7 +602,7 @@ const AboutPage = () => (
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
@@ -665,7 +665,7 @@ const AboutPage = () => (
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
