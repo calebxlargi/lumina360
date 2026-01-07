@@ -452,7 +452,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -642,12 +642,12 @@ const AboutPage = () => (
           
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-                <TrendingUp size={20} className="text-blue-400 mb-2"/>
+                <TrendingUp size={20} className="text-orange-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Volvo, BMW, Audi, Lotus</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-                <Zap size={20} className="text-purple-400 mb-2"/>
+                <Briefcase size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Brand Portfolio</div>
                 <div className="text-xs text-slate-500">Volvo, BMW, Rolls-Royce</div>
              </div>
@@ -896,7 +896,7 @@ export default function App() {
             <img 
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
               alt="Lumina 3Sixty" 
-              className="h-14 w-auto object-contain"
+              className="h-12 w-auto object-contain"
               onError={(e) => {
                 // Fallback if image is missing
                 console.warn("Logo not found. Switching to text fallback.");
@@ -959,7 +959,7 @@ export default function App() {
                 <img 
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
                   alt="Lumina 3Sixty" 
-                  className="h-12 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                    onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
