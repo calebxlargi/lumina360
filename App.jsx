@@ -117,7 +117,7 @@ const HomePage = ({ navigateTo }) => {
     "Modern Consultative Sales Mastery",
     "Sales Management 1: Protect your Margin & Increase your Market Share",
     "Sales Management 2: Financials, Manage your P&L",
-    "Creating Customers for Life"
+    "After Sales: Creating Customers for Life"
   ];
 
   const softSkills = [
@@ -452,7 +452,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -532,17 +532,17 @@ const AboutPage = () => (
       </div>
     </div>
 
-    {/* Sofia Catha's Profile */}
+    {/* Sophia Catha's Profile */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-             {/* Sofia's Image */}
+             {/* Sophia's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png" 
-               alt="Sofia Catha - Associate Trainer"
+               alt="Sophia Catha - Associate Trainer"
                className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
@@ -554,19 +554,19 @@ const AboutPage = () => (
                 <div className="w-24 h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users size={48} className="text-red-400"/>
                 </div>
-                <h3 className="text-2xl font-bold mb-1">Sofia Catha</h3>
+                <h3 className="text-2xl font-bold mb-1">Sophia Catha</h3>
                 <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
              </div>
              {/* Overlay */}
              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
              <div className="absolute bottom-6 left-6 z-[2]">
-                <h3 className="text-2xl font-bold mb-1">Sofia Catha</h3>
+                <h3 className="text-2xl font-bold mb-1">Sophia Catha</h3>
                 <p className="text-red-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
              </div>
           </div>
         </div>
         <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Sofia Catha</h2>
+          <h2 className="text-3xl font-bold mb-2">Sophia Catha</h2>
           <p className="text-slate-300 leading-relaxed">
             Sophia Catha is a business owner and a corporate seer whose business speciality is anticipating future trends while working with people in Senior and Middle Management to bring their people up to speed with current changes in the global business ecosystem. With international exposure spanning a 33-year career, Sophia’s approach has been transparent and straightforward towards maximizing people potential.
           </p>
