@@ -407,7 +407,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
@@ -452,7 +452,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -474,7 +474,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Caleb's Image */}
              <img 
@@ -537,7 +537,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Sofia's Image */}
              <img 
@@ -603,7 +603,7 @@ const AboutPage = () => (
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
@@ -666,7 +666,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
              <img 
@@ -739,7 +739,7 @@ const ContactPage = () => {
     const subject = `Lumina 3Sixty Inquiry: ${firstName} ${lastName}`;
     const body = `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`;
     
-    window.location.href = `mailto:yzkpremiums@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:sales@lumina3sixty.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -761,7 +761,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Email Us</h3>
-                <p className="text-slate-400">training@lumina3sixty.com</p>
+                <p className="text-slate-400">sales@lumina3sixty.com</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -770,7 +770,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Call / WhatsApp</h3>
-                <p className="text-slate-400">+60 12-345 6789</p>
+                <p className="text-slate-400">019-441 9999 / 018-346 6889</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -779,7 +779,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">HQ Location</h3>
-                <p className="text-slate-400">Petaling Jaya, Selangor, Malaysia</p>
+                <p className="text-slate-400">Windsor Tower, 2, Jalan Sri Hartamas 17,<br/>Taman Sri Hartamas, 50480 Kuala Lumpur,<br/>Malaysia</p>
               </div>
             </div>
           </div>
@@ -994,7 +994,8 @@ export default function App() {
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
-            <p className="text-slate-600 text-xs">Designed for Excellence.</p>
+            <p className="text-slate-600 text-xs">Empowering Workforces.
+Elevating Standards. </p>
           </div>
         </div>
       </footer>
