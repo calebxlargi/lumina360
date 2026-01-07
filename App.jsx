@@ -532,11 +532,77 @@ const AboutPage = () => (
       </div>
     </div>
 
+    {/* Sofia Catha's Profile */}
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+      
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="hidden lg:block lg:w-1/3">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+             {/* Sofia's Image */}
+             <img 
+               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_profile_pic.png" 
+               alt="Sofia Catha - Associate Trainer"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               onError={(e) => {
+                 e.currentTarget.style.display = 'none';
+                 e.currentTarget.nextSibling.style.display = 'block';
+               }}
+             />
+             {/* Fallback Placeholder */}
+             <div className="text-center p-8 hidden relative z-10">
+                <div className="w-24 h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users size={48} className="text-red-400"/>
+                </div>
+                <h3 className="text-2xl font-bold mb-1">Sofia Catha</h3>
+                <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+             </div>
+             {/* Overlay */}
+             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+             <div className="absolute bottom-6 left-6 z-[2]">
+                <h3 className="text-2xl font-bold mb-1">Sofia Catha</h3>
+                <p className="text-red-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+             </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Sofia Catha</h2>
+          <p className="text-slate-300 leading-relaxed">
+            Sophia Catha is a business owner and a corporate seer whose business speciality is anticipating future trends while working with people in Senior and Middle Management to bring their people up to speed with current changes in the global business ecosystem. With international exposure spanning a 33-year career, Sophia’s approach has been transparent and straightforward towards maximizing people potential.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            An in-demand Speaker, Senior Facilitator and Business Coach in local and multinational organizations that expect excellence in people, performance and profits, Sophia’s passion for people development has led her to work in 20 countries going past 140,000 people as of 2024.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+             Her incisive and dynamic training presentations have captivated audiences in various business forums. She continues to speak, steer, lead, train, coach and mentor organizations to actualize their corporate vision, guided by her mission to serve and inspire teams to their highest potential.
+          </p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Users size={20} className="text-red-400 mb-2"/>
+                <div className="font-bold text-sm">Global Impact</div>
+                <div className="text-xs text-slate-500">140,000+ Trainees</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Globe size={20} className="text-white mb-2"/>
+                <div className="font-bold text-sm">International</div>
+                <div className="text-xs text-slate-500">20+ Countries</div>
+             </div>
+             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+                <Briefcase size={20} className="text-purple-400 mb-2"/>
+                <div className="font-bold text-sm">MNC Clients</div>
+                <div className="text-xs text-slate-500">JP Morgan, Petronas</div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     {/* Jack Zaal's Profile */}
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
@@ -599,7 +665,7 @@ const AboutPage = () => (
     <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
