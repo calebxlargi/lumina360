@@ -952,14 +952,14 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-12 mb-12">
-            <div className="col-span-2">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            <div className="col-span-1 md:col-span-2">
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
                   alt="Lumina 3Sixty" 
-                  className="h-14 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                    onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
@@ -979,28 +979,6 @@ export default function App() {
                 Lumina 3Sixty PLT.<br/>
                 Your premier partner for HRD Corp accredited training. We empower organizations through comprehensive solutions in Automotive Excellence, Executive Leadership, and Workplace Safety.
               </p>
-              <div className="flex space-x-4">
-                 {/* Social placeholders */}
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer text-slate-400 hover:text-white transition-colors">
-                    <Mail size={18}/>
-                 </div>
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer text-slate-400 hover:text-white transition-colors">
-                    <Phone size={18}/>
-                 </div>
-                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 cursor-pointer text-slate-400 hover:text-white transition-colors">
-                    <MapPin size={18}/>
-                 </div>
-              </div>
-            </div>
-            
-            <div>
-              <h4 className="font-bold mb-6">Services</h4>
-              <ul className="space-y-4 text-slate-400 text-sm">
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Mobility Consultant</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Digital Dominance</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Profit-Preserving Close</li>
-                <li onClick={() => navigateTo('services')} className="hover:text-white cursor-pointer">Management Toolkits</li>
-              </ul>
             </div>
 
             <div>
