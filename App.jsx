@@ -761,7 +761,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Email Us</h3>
-                <p className="text-slate-400">training@lumina3sixty.com</p>
+                <p className="text-slate-400">sales@lumina3sixty.com</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -770,7 +770,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Call / WhatsApp</h3>
-                <p className="text-slate-400">+60 12-345 6789</p>
+                <p className="text-slate-400">019-441 9999 / 018-346 6889</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -779,7 +779,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">HQ Location</h3>
-                <p className="text-slate-400">Petaling Jaya, Selangor, Malaysia</p>
+                <p className="text-slate-400">Windsor Tower, 2, Jalan Sri Hartamas 17,<br/>Taman Sri Hartamas, 50480 Kuala Lumpur,<br/>Malaysia</p>
               </div>
             </div>
           </div>
@@ -952,8 +952,8 @@ export default function App() {
       {/* Footer */}
       <footer className="bg-black border-t border-white/10 pt-16 pb-8">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div className="col-span-1 md:col-span-2">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div className="col-span-2">
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
@@ -979,7 +979,12 @@ export default function App() {
                 Lumina 3Sixty PLT.<br/>
                 Your premier partner for HRD Corp accredited training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, and IT Skills.
               </p>
+              <div className="flex space-x-4">
+                 {/* Social placeholders removed as per previous request */}
+              </div>
             </div>
+            
+            {/* Services Links Removed */}
 
             <div>
               <h4 className="font-bold mb-6">Company</h4>
