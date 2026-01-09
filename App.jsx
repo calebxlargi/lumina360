@@ -151,7 +151,7 @@ const HomePage = ({ navigateTo }) => {
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
     "Critical Thinking and Problem Solving",
-    "Team Building: Uniting for High Performance"
+    "Team Building"
   ];
 
   const itSkills = [
