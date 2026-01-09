@@ -150,7 +150,8 @@ const HomePage = ({ navigateTo }) => {
     "Time Management: Prioritization and Focus",
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
-    "Critical Thinking and Problem Solving"
+    "Critical Thinking and Problem Solving",
+    "Team Building: Uniting for High Performance"
   ];
 
   const itSkills = [
