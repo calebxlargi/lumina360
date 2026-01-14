@@ -902,7 +902,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img 
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.svg" 
               alt="Lumina 3Sixty" 
               className="h-14 w-auto object-contain"
               onError={(e) => {
@@ -965,7 +965,7 @@ export default function App() {
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo.png" 
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.svg" 
                   alt="Lumina 3Sixty" 
                   className="h-12 w-auto object-contain"
                    onError={(e) => {
