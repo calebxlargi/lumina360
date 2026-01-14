@@ -673,7 +673,7 @@ const AboutPage = () => (
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png" 
                alt="Hal Serudin - Associate Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -849,7 +849,7 @@ export default function App() {
       link.rel = 'icon';
       document.head.appendChild(link);
     }
-    link.href = 'https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_favicon.png';
+    link.href = 'https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_favicon_v2.png';
   }, []);
 
   const navigateTo = (target) => {
@@ -895,7 +895,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img 
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo.png" 
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png" 
               alt="Lumina 3Sixty" 
               className="h-14 w-auto object-contain"
               onError={(e) => {
@@ -958,7 +958,7 @@ export default function App() {
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo.png" 
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png" 
                   alt="Lumina 3Sixty" 
                   className="h-12 w-auto object-contain"
                    onError={(e) => {
