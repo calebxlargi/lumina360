@@ -163,7 +163,7 @@ const HomePage = ({ navigateTo }) => {
         <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-fade-in-up mt-8 md:mt-0"> {/* Added top margin for mobile */}
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
             HRD Corp Registered Training Provider
           </div>
