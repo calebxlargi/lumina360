@@ -408,7 +408,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
@@ -453,7 +453,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
+                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -475,7 +475,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Caleb's Image */}
              <img 
@@ -538,7 +538,7 @@ const AboutPage = () => (
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Sofia's Image */}
              <img 
@@ -604,7 +604,7 @@ const AboutPage = () => (
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
@@ -667,7 +667,7 @@ const AboutPage = () => (
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="hidden lg:block lg:w-1/3">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
              <img 
@@ -895,7 +895,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img 
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.svg" 
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo.png" 
               alt="Lumina 3Sixty" 
               className="h-14 w-auto object-contain"
               onError={(e) => {
@@ -958,7 +958,7 @@ export default function App() {
                <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img 
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumima_logo_website.svg" 
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo.png" 
                   alt="Lumina 3Sixty" 
                   className="h-12 w-auto object-contain"
                    onError={(e) => {
