@@ -37,59 +37,31 @@ const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y
 // --- Styles ---
 const CustomStyles = () => (
   <style>{`
-    /* SMOOTH KEYFRAME ANIMATIONS */
-    @keyframes slideUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translate3d(0, 20px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
     }
-    @keyframes scaleIn {
-      0% { opacity: 0; transform: scale(0.95); }
-      100% { opacity: 1; transform: scale(1); }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translate3d(-20px, 0, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
-    @keyframes floatSlow {
+    .animate-fade-in-right {
+      animation: fadeInRight 0.8s ease-out forwards;
+    }
+    @keyframes float {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0px); }
     }
-
-    /* Animation Utility Classes with Cubic-Bezier for slick feel */
-    .animate-slide-up {
-      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0; /* Start invisible */
-    }
-    .animate-fade-in {
-      animation: fadeIn 1s ease-out forwards;
-      opacity: 0;
-    }
-    .animate-scale-in {
-      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-    }
     .animate-float {
-      animation: floatSlow 6s ease-in-out infinite;
+      animation: float 6s ease-in-out infinite;
     }
-
-    /* Staggered Delays */
     .delay-100 { animation-delay: 100ms; }
     .delay-200 { animation-delay: 200ms; }
     .delay-300 { animation-delay: 300ms; }
-    .delay-400 { animation-delay: 400ms; }
-    .delay-500 { animation-delay: 500ms; }
-    .delay-700 { animation-delay: 700ms; }
-
-    /* Hover Effects */
-    .hover-card {
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-    }
-    .hover-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.1);
-      border-color: rgba(59, 130, 246, 0.4);
-    }
     
     body, html, #root, #__next {
       background-color: #000000 !important;
@@ -100,7 +72,7 @@ const CustomStyles = () => (
       scroll-behavior: smooth;
     }
     
-    /* Modern Scrollbar */
+    /* Custom Scrollbar for modern look */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -120,19 +92,22 @@ const CustomStyles = () => (
 // --- Sub-Components ---
 
 const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
-  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover-card h-full flex flex-col animate-slide-up ${delay}`}>
-    <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 transition-transform duration-500 group-hover:scale-110`}>
+  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col animate-fade-in-up ${delay}`}>
+    <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
       <IconComp size={32} />
     </div>
     <h3 className="text-2xl font-bold mb-6">{title}</h3>
     <ul className="space-y-3 flex-grow">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
-          <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 transition-all duration-300 group-hover:scale-110`} size={16}/>
-          <span className="group-hover:text-slate-200 transition-colors duration-300">{item}</span>
+          <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 group-hover:text-${color}-400 transition-colors`} size={16}/>
+          <span className="group-hover:text-slate-200 transition-colors">{item}</span>
         </li>
       ))}
     </ul>
+    <div className={`mt-8 pt-6 border-t border-white/10`}>
+      {/* Buttons removed as requested */}
+    </div>
   </div>
 );
 
@@ -162,35 +137,53 @@ const HomePage = ({ navigateTo }) => {
     "Office Automation with No-Code Tools & AI"
   ];
 
+  const safetyTraining = [
+    "Hazard Identification and Risk Assessment (HIRA)",
+    "Ergonomics Essentials: Preventing Disorders",
+    "Fire Safety and Emergency Evacuation Protocols",
+    "Slips, Trips, and Falls Prevention",
+    "PPE Compliance & Maintenance",
+    "Chemical Safety: SDS and GHS Labels",
+    "Electrical Safety Basics (LOTO)",
+    "Safe Manual Handling Techniques",
+    "Workshop Safety: Machine Guarding",
+    "Workplace Violence and Harassment Prevention",
+    "First Aid and CPR: Basic Life Support",
+    "Noise Conservation & Hearing Protection",
+    "Defensive Driving for Company Vehicles",
+    "Confined Space Awareness",
+    "Building a Safety Culture: Leadership’s Role"
+  ];
+
   return (
     <>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] opacity-40 pointer-events-none animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-scale-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
             HRD Corp Registered Training Provider
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 animate-slide-up delay-100">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 animate-fade-in-up delay-100">
             Empowering Workforces. <br className="hidden md:block"/>
             <span className="text-white">Elevating Standards.</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-slide-up delay-200">
+          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200">
             From Automotive Excellence to transformative Soft Skills and essential IT Skills. 
             We provide comprehensive, data-driven training solutions that drive measurable business results.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-slide-up delay-300">
-            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105 active:scale-95 duration-300">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
+            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105">
               Start Transformation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all transform hover:scale-105 active:scale-95 duration-300">
+            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
               Explore Courses
             </a>
           </div>
@@ -198,7 +191,7 @@ const HomePage = ({ navigateTo }) => {
       </section>
 
       {/* Stats/Trust Bar */}
-      <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm animate-fade-in delay-500">
+      <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm">
         <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -208,7 +201,7 @@ const HomePage = ({ navigateTo }) => {
               { label: "Approach", value: "Data-Driven" }
             ].map((stat, index) => (
               <div key={index} className="flex flex-col items-center group cursor-default">
-                <span className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors duration-300">{stat.value}</span>
+                <span className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">{stat.value}</span>
                 <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
               </div>
             ))}
@@ -219,7 +212,7 @@ const HomePage = ({ navigateTo }) => {
       {/* Comprehensive Training Solutions Section */}
       <section id="services" className="py-24 relative bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6">
-          <div className="mb-20 text-center max-w-3xl mx-auto animate-slide-up">
+          <div className="mb-20 text-center max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training Ecosystem</h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
             <p className="text-slate-400 text-lg">
@@ -261,7 +254,7 @@ const HomePage = ({ navigateTo }) => {
       {/* Feature Split Section - Rebranded for General HR */}
       <section id="approach" className="py-24 bg-gradient-to-r from-zinc-900 to-black relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-12 animate-slide-up">
+          <div className="max-w-4xl mx-auto text-center mb-12">
              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
               Why Choose Lumina
             </div>
@@ -275,24 +268,24 @@ const HomePage = ({ navigateTo }) => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover-card animate-slide-up delay-100">
-              <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10 transition-transform duration-500 group-hover:rotate-6">
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
                 <Target className="text-blue-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">Customized Context</h4>
               <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
             </div>
 
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover-card animate-slide-up delay-200">
-              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10 transition-transform duration-500 group-hover:rotate-6">
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
                 <Search className="text-purple-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">Pre-Training Audit</h4>
               <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
             </div>
 
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover-card animate-slide-up delay-300">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-900/20 flex items-center justify-center mb-6 border border-emerald-500/10 transition-transform duration-500 group-hover:rotate-6">
+            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-900/20 flex items-center justify-center mb-6 border border-emerald-500/10">
                 <TrendingUp className="text-emerald-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">ROI Focused</h4>
@@ -305,11 +298,11 @@ const HomePage = ({ navigateTo }) => {
       {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="container mx-auto px-6 text-center relative z-10">
-           <h2 className="text-4xl md:text-6xl font-bold mb-8 animate-scale-in">Ready to Elevate Your Workforce?</h2>
-           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto animate-slide-up delay-100">
+           <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate Your Workforce?</h2>
+           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
              Schedule your complimentary needs analysis audit and let us build a custom training roadmap for your organization.
            </p>
-           <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transform hover:scale-105 animate-slide-up delay-200">
+           <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transform hover:scale-105">
              Get Your Proposal
            </button>
         </div>
@@ -320,7 +313,7 @@ const HomePage = ({ navigateTo }) => {
 
 const HRDCorpPage = () => (
   <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    <div className="max-w-4xl mx-auto animate-slide-up">
+    <div className="max-w-4xl mx-auto">
       <div className="mb-10 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm font-medium text-blue-400 mb-6">
           <FileCheck size={16} /> Accredited Training Provider
@@ -331,7 +324,7 @@ const HRDCorpPage = () => (
         </p>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12 hover-card">
+      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
         <h2 className="text-2xl font-bold mb-4">What This Means For You</h2>
         <div className="space-y-6 text-slate-300">
           <p>
@@ -359,7 +352,7 @@ const HRDCorpPage = () => (
 
 const PrivacyPolicyPage = () => (
   <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    <div className="max-w-3xl mx-auto animate-slide-up">
+    <div className="max-w-3xl mx-auto">
       <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
       <div className="space-y-6 text-slate-300">
         <p>
@@ -398,7 +391,7 @@ const PrivacyPolicyPage = () => (
 const AboutPage = () => (
   <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
     {/* Header */}
-    <div className="text-center max-w-4xl mx-auto mb-20 animate-slide-up">
+    <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-in-up">
       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
         HRD Corp Accredited Training
       </div>
@@ -411,17 +404,17 @@ const AboutPage = () => (
     </div>
 
     {/* Thiru's Profile */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden animate-slide-up delay-100 hover-card">
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Thiru's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png" 
                alt="Thiruh Shan - Lead Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -460,7 +453,7 @@ const AboutPage = () => (
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <TrendingUp size={20} className="text-blue-400 mb-2"/>
                 <div className="font-bold text-sm">Strategic Leadership</div>
-                <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+                <div className="text-xs text-slate-500">Sime Darby, Eon Berhad, Rolls-Royce</div>
              </div>
              <div className="bg-black/40 p-4 rounded-xl border border-white/5">
                 <Zap size={20} className="text-purple-400 mb-2"/>
@@ -478,17 +471,17 @@ const AboutPage = () => (
     </div>
 
     {/* Caleb's Profile - REARRANGED SECOND */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden animate-slide-up delay-200 hover-card">
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Caleb's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/caleby_profile_pic%20.png" 
                alt="Caleb Yong - Lead Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -541,17 +534,17 @@ const AboutPage = () => (
     </div>
 
     {/* Sofia Catha's Profile - REARRANGED THIRD */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden animate-slide-up delay-300 hover-card">
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Sofia's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png" 
                alt="Sophia Catha - Associate Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -607,17 +600,17 @@ const AboutPage = () => (
     </div>
 
     {/* Jack Zaal's Profile - REARRANGED FOURTH */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden animate-slide-up delay-400 hover-card">
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Jack's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png" 
                alt="Jack Zaal - Associate Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -670,17 +663,17 @@ const AboutPage = () => (
     </div>
 
     {/* Hal Serudin's Profile - REARRANGED FIFTH */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden animate-slide-up delay-500 hover-card">
+    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
       
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+        <div className="hidden lg:block lg:w-1/3">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
              {/* Hal's Image */}
              <img 
                src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png" 
                alt="Hal Serudin - Associate Trainer"
-               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
                onError={(e) => {
                  e.currentTarget.style.display = 'none';
                  e.currentTarget.nextSibling.style.display = 'block';
@@ -752,7 +745,7 @@ const ContactPage = () => {
 
   return (
     <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-      <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto animate-fade-in-up">
+      <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
         <div className="lg:w-1/2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6">
             Get in Touch
@@ -794,7 +787,7 @@ const ContactPage = () => {
         </div>
 
         <div className="lg:w-1/2">
-          <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6 hover-card">
+          <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-300">First Name</label>
@@ -821,7 +814,7 @@ const ContactPage = () => {
               <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
             </div>
 
-            <button type="submit" className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors transform hover:scale-105 active:scale-95 duration-200">
+            <button type="submit" className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors">
               Send Message
             </button>
           </form>
