@@ -86,13 +86,33 @@ const CustomStyles = () => (
     ::-webkit-scrollbar-thumb:hover {
       background: #555; 
     }
+    .reveal-hidden {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-100 { transition-delay: 100ms; }
+    .reveal-delay-200 { transition-delay: 200ms; }
+    .reveal-delay-300 { transition-delay: 300ms; }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .animate-zoom-in {
+      animation: zoomIn 1s ease-out forwards;
+    }
   `}</style>
 );
 
 // --- Sub-Components ---
 
 const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
-  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col animate-fade-in-up ${delay}`}>
+  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col`}>
     <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
       <IconComp size={32} />
     </div>
@@ -110,6 +130,33 @@ const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
     </div>
   </div>
 );
+
+const RevealOnScroll = ({ children, className = "", delay = 0 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const domRef = React.useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => setIsVisible(entry.isIntersecting));
+    }, { threshold: 0.1 });
+
+    const currentRef = domRef.current;
+    if (currentRef) observer.observe(currentRef);
+
+    return () => {
+      if (currentRef) observer.unobserve(currentRef);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={domRef}
+      className={`${className} ${isVisible ? 'reveal-visible' : 'reveal-hidden'} ${delay ? `reveal-delay-${delay}` : ''}`}
+    >
+      {children}
+    </div>
+  );
+};
 
 const HomePage = ({ navigateTo }) => {
   const autoTraining = [
@@ -226,31 +273,37 @@ const HomePage = ({ navigateTo }) => {
 
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Automotive Column */}
-            <TrainingList
-              title="Automotive Excellence"
-              icon={Car}
-              color="blue"
-              items={autoTraining}
-              delay="delay-100"
-            />
+            {/* Automotive Column */}
+            <RevealOnScroll delay={100}>
+              <TrainingList
+                title="Automotive Excellence"
+                icon={Car}
+                color="blue"
+                items={autoTraining}
+              />
+            </RevealOnScroll>
 
             {/* Soft Skills Column */}
-            <TrainingList
-              title="Soft Skills"
-              icon={Brain}
-              color="purple"
-              items={softSkills}
-              delay="delay-200"
-            />
+            {/* Soft Skills Column */}
+            <RevealOnScroll delay={200}>
+              <TrainingList
+                title="Soft Skills"
+                icon={Brain}
+                color="purple"
+                items={softSkills}
+              />
+            </RevealOnScroll>
 
             {/* IT Skills Column */}
-            <TrainingList
-              title="IT Skills"
-              icon={Monitor}
-              color="emerald"
-              items={itSkills}
-              delay="delay-300"
-            />
+            {/* IT Skills Column */}
+            <RevealOnScroll delay={300}>
+              <TrainingList
+                title="IT Skills"
+                icon={Monitor}
+                color="emerald"
+                items={itSkills}
+              />
+            </RevealOnScroll>
           </div>
         </div>
       </section>
@@ -272,29 +325,29 @@ const HomePage = ({ navigateTo }) => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+            <RevealOnScroll className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
                 <Target className="text-blue-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">Customized Context</h4>
               <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
-            </div>
+            </RevealOnScroll>
 
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+            <RevealOnScroll delay={100} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
                 <Search className="text-purple-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">Pre-Training Audit</h4>
               <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
-            </div>
+            </RevealOnScroll>
 
-            <div className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
+            <RevealOnScroll delay={200} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-emerald-900/20 flex items-center justify-center mb-6 border border-emerald-500/10">
                 <TrendingUp className="text-emerald-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">ROI Focused</h4>
               <p className="text-slate-400 text-sm">Whether it's reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.</p>
-            </div>
+            </RevealOnScroll>
           </div>
         </div>
       </section>
@@ -408,7 +461,7 @@ const AboutPage = () => (
     </div>
 
     {/* Thiru's Profile */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
@@ -472,10 +525,10 @@ const AboutPage = () => (
           </div>
         </div>
       </div>
-    </div>
+    </RevealOnScroll>
 
     {/* Caleb's Profile - REARRANGED SECOND */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
@@ -535,10 +588,10 @@ const AboutPage = () => (
           </div>
         </div>
       </div>
-    </div>
+    </RevealOnScroll>
 
     {/* Sofia Catha's Profile - REARRANGED THIRD */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
@@ -601,10 +654,10 @@ const AboutPage = () => (
           </div>
         </div>
       </div>
-    </div>
+    </RevealOnScroll>
 
     {/* Jack Zaal's Profile - REARRANGED FOURTH */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
@@ -664,10 +717,10 @@ const AboutPage = () => (
           </div>
         </div>
       </div>
-    </div>
+    </RevealOnScroll>
 
     {/* Hal Serudin's Profile - REARRANGED FIFTH */}
-    <div className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
@@ -727,8 +780,8 @@ const AboutPage = () => (
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </RevealOnScroll>
+  </div >
 );
 
 const ContactPage = () => {
