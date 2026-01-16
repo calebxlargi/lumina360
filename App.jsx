@@ -170,11 +170,12 @@ const HomePage = ({ navigateTo }) => {
   ];
 
   const leadershipSkills = [
+    "Executive Coaching 1 on 1",
     "Change Management and Its Impact on Leadership",
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
     "Team Building",
-    "Emotional Intelligence in the Workplace"
+    "Emotional Intelligence: Building Resilient Teams"
   ];
 
   const cxSkills = [
@@ -197,8 +198,7 @@ const HomePage = ({ navigateTo }) => {
     "HIRARC Made Easy: Identifying Hazards & Controlling Risks",
     "Safety Leadership: Empowering Supervisors & Managers",
     "Office Ergonomics & Sedentary Risk Management (Work Smart, Work Safe)",
-    "Workplace Mental Health",
-    "Emotional Intelligence: Building Resilient Teams"
+    "Workplace Mental Health"
   ];
 
   const safetyTraining = [
@@ -280,7 +280,7 @@ const HomePage = ({ navigateTo }) => {
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training Ecosystem</h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
             <p className="text-slate-400 text-lg">
-              We don't just train; we transform. Our curriculum spans three critical pillars of organizational success, ensuring your team is skilled, safe, and motivated.
+              We don't just train; we transform. Our curriculum spans five critical pillars of organizational success, ensuring your team is skilled, safe, motivated, and future-ready.
             </p>
           </div>
 
@@ -308,7 +308,7 @@ const HomePage = ({ navigateTo }) => {
             {/* CX Column */}
             <RevealOnScroll delay={300}>
               <TrainingList
-                title="Customer Experience and Personal Mastery"
+                title="Customer Experience & Personal Mastery"
                 icon={Target}
                 color="orange"
                 items={cxSkills}
