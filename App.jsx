@@ -98,6 +98,8 @@ const CustomStyles = () => (
     .reveal-delay-100 { transition-delay: 100ms; }
     .reveal-delay-200 { transition-delay: 200ms; }
     .reveal-delay-300 { transition-delay: 300ms; }
+    .reveal-delay-400 { transition-delay: 400ms; }
+    .reveal-delay-500 { transition-delay: 500ms; }
 
     @keyframes zoomIn {
       from { opacity: 0; transform: scale(0.95); }
@@ -112,11 +114,11 @@ const CustomStyles = () => (
 // --- Sub-Components ---
 
 const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
-  <div className={`bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col`}>
+  <div className={`bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col`}>
     <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
       <IconComp size={32} />
     </div>
-    <h3 className="text-2xl font-bold mb-6">{title}</h3>
+    <h3 className="text-xl font-bold mb-6">{title}</h3>
     <ul className="space-y-3 flex-grow">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
@@ -167,17 +169,20 @@ const HomePage = ({ navigateTo }) => {
     "After Sales: Creating Customers for Life"
   ];
 
-  const softSkills = [
-    "The Art of Active Listening",
-    "Time Management: Prioritization and Focus",
+  const leadershipSkills = [
+    "Change Management and Its Impact on Leadership",
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
-    "Critical Thinking and Problem Solving",
     "Team Building",
-    "Emotional Intelligence in the Workplace",
+    "Emotional Intelligence in the Workplace"
+  ];
+
+  const cxSkills = [
     "Owning and Championing the Customer Experience",
     "Managing Customer Expectations and Service Recovery",
-    "Change Management and Its Impact on Leadership"
+    "The Art of Active Listening",
+    "Critical Thinking and Problem Solving",
+    "Time Management: Prioritization and Focus"
   ];
 
   const itSkills = [
@@ -270,7 +275,7 @@ const HomePage = ({ navigateTo }) => {
 
       {/* Comprehensive Training Solutions Section */}
       <section id="services" className="py-24 relative bg-gradient-to-b from-black to-zinc-950">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-6 max-w-[1600px]">
           <div className="mb-20 text-center max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training Ecosystem</h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
@@ -279,8 +284,7 @@ const HomePage = ({ navigateTo }) => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Automotive Column */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {/* Automotive Column */}
             <RevealOnScroll delay={100}>
               <TrainingList
@@ -291,20 +295,28 @@ const HomePage = ({ navigateTo }) => {
               />
             </RevealOnScroll>
 
-            {/* Soft Skills Column */}
-            {/* Soft Skills Column */}
+            {/* Leadership Column */}
             <RevealOnScroll delay={200}>
               <TrainingList
-                title="Soft Skills"
-                icon={Brain}
+                title="Leadership & Team Dynamics"
+                icon={Users}
                 color="purple"
-                items={softSkills}
+                items={leadershipSkills}
+              />
+            </RevealOnScroll>
+
+            {/* CX Column */}
+            <RevealOnScroll delay={300}>
+              <TrainingList
+                title="Customer Experience and Personal Mastery"
+                icon={Target}
+                color="orange"
+                items={cxSkills}
               />
             </RevealOnScroll>
 
             {/* IT Skills Column */}
-            {/* IT Skills Column */}
-            <RevealOnScroll delay={300}>
+            <RevealOnScroll delay={400}>
               <TrainingList
                 title="IT Skills"
                 icon={Monitor}
@@ -314,7 +326,7 @@ const HomePage = ({ navigateTo }) => {
             </RevealOnScroll>
 
             {/* OSH Skills Column */}
-            <RevealOnScroll delay={400}>
+            <RevealOnScroll delay={500}>
               <TrainingList
                 title="OSH Compliance"
                 icon={HardHat}

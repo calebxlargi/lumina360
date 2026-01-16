@@ -13,6 +13,8 @@ export default {
     'bg-purple-900/30', 'text-purple-400', 'text-purple-500', 'hover:border-purple-500/50', 'group-hover:text-purple-400',
     // Emerald (IT)
     'bg-emerald-900/30', 'text-emerald-400', 'text-emerald-500', 'hover:border-emerald-500/50', 'group-hover:text-emerald-400',
+    // Orange (CX)
+    'bg-orange-900/30', 'text-orange-400', 'text-orange-500', 'hover:border-orange-500/50', 'group-hover:text-orange-400',
   ],
   theme: {
     extend: {
