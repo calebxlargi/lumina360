@@ -5,11 +5,14 @@ export default {
     "./*.{js,ts,jsx,tsx}",
   ],
   safelist: [
-    'bg-red-900/30',
-    'text-red-400',
-    'text-red-500',
-    'hover:border-red-500/50',
-    'group-hover:text-red-400'
+    // Red (OSH)
+    'bg-red-900/30', 'text-red-400', 'text-red-500', 'hover:border-red-500/50', 'group-hover:text-red-400',
+    // Blue (Automotive)
+    'bg-blue-900/30', 'text-blue-400', 'text-blue-500', 'hover:border-blue-500/50', 'group-hover:text-blue-400',
+    // Purple (Soft Skills)
+    'bg-purple-900/30', 'text-purple-400', 'text-purple-500', 'hover:border-purple-500/50', 'group-hover:text-purple-400',
+    // Emerald (IT)
+    'bg-emerald-900/30', 'text-emerald-400', 'text-emerald-500', 'hover:border-emerald-500/50', 'group-hover:text-emerald-400',
   ],
   theme: {
     extend: {
