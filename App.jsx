@@ -827,7 +827,7 @@ const ContactPage = () => {
     const subject = `Lumina 3Sixty Inquiry: ${firstName} ${lastName}`;
     const body = `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`;
 
-    window.location.href = `mailto:yzkpremiums@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:sales@lumina3sixty.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
