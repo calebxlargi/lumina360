@@ -815,19 +815,38 @@ const AboutPage = () => (
 );
 
 const ContactPage = () => {
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
     const formData = new FormData(e.target);
-    const firstName = formData.get('firstName');
-    const lastName = formData.get('lastName');
-    const email = formData.get('email');
-    const company = formData.get('company');
-    const message = formData.get('message');
+    formData.append('access_key', 'd9e9b36a-e67c-4029-a0e5-5791a7f12bcd');
+    formData.append('subject', `Lumina 3Sixty Inquiry: ${formData.get('firstName')} ${formData.get('lastName')}`);
+    formData.append('from_name', 'Lumina 3Sixty Website');
 
-    const subject = `Lumina 3Sixty Inquiry: ${firstName} ${lastName}`;
-    const body = `Name: ${firstName} ${lastName}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`;
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
 
-    window.location.href = `mailto:sales@lumina3sixty.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        e.target.reset();
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -874,37 +893,76 @@ const ContactPage = () => {
         </div>
 
         <div className="lg:w-1/2">
-          <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">First Name</label>
-                <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
+          {submitStatus === 'success' ? (
+            <div className="bg-emerald-900/20 border border-emerald-500/30 p-8 rounded-3xl text-center">
+              <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 className="text-emerald-400" size={32} />
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Last Name</label>
-                <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
+              <h3 className="text-2xl font-bold mb-4 text-emerald-400">Message Sent!</h3>
+              <p className="text-slate-400 mb-6">Thank you for reaching out. We'll get back to you within 2 hours.</p>
+              <button
+                onClick={() => setSubmitStatus(null)}
+                className="px-6 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
+              >
+                Send Another Message
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
+              {/* Honeypot spam protection */}
+              <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+
+              {submitStatus === 'error' && (
+                <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg text-red-400 text-sm">
+                  Something went wrong. Please try again or email us directly.
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-300">First Name</label>
+                  <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-slate-300">Last Name</label>
+                  <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
+                </div>
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Email Address</label>
-              <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
-            </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-300">Email Address</label>
+                <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
+              </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
-              <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
-            </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
+                <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
+              </div>
 
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300">Message</label>
-              <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
-            </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-slate-300">Message</label>
+                <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
+              </div>
 
-            <button type="submit" className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors">
-              Send Message
-            </button>
-          </form>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  'Send Message'
+                )}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </div>
