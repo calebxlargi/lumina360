@@ -4,6 +4,13 @@ export default {
     "./index.html",
     "./*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'bg-red-900/30',
+    'text-red-400',
+    'text-red-500',
+    'hover:border-red-500/50',
+    'group-hover:text-red-400'
+  ],
   theme: {
     extend: {
       animation: {

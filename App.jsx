@@ -188,6 +188,14 @@ const HomePage = ({ navigateTo }) => {
     "Office Automation with No-Code Tools & AI"
   ];
 
+  const oshSkills = [
+    "HIRARC Made Easy: Identifying Hazards & Controlling Risks",
+    "Safety Leadership: Empowering Supervisors & Managers",
+    "Office Ergonomics & Sedentary Risk Management (Work Smart, Work Safe)",
+    "Workplace Mental Health",
+    "Emotional Intelligence: Building Resilient Teams"
+  ];
+
   const safetyTraining = [
     "Hazard Identification and Risk Assessment (HIRA)",
     "Ergonomics Essentials: Preventing Disorders",
@@ -271,7 +279,7 @@ const HomePage = ({ navigateTo }) => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Automotive Column */}
             {/* Automotive Column */}
             <RevealOnScroll delay={100}>
@@ -302,6 +310,16 @@ const HomePage = ({ navigateTo }) => {
                 icon={Monitor}
                 color="emerald"
                 items={itSkills}
+              />
+            </RevealOnScroll>
+
+            {/* OSH Skills Column */}
+            <RevealOnScroll delay={400}>
+              <TrainingList
+                title="OSH Compliance"
+                icon={HardHat}
+                color="red"
+                items={oshSkills}
               />
             </RevealOnScroll>
           </div>
