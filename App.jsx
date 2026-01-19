@@ -109,6 +109,12 @@ const CustomStyles = () => (
       animation: zoomIn 1s ease-out forwards;
     }
 
+    /* Hero Porthole Entrance Animation */
+    @keyframes portholeEntrance {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
     /* Hero Circular Reveal Animation */
     @keyframes circleReveal {
       0% { clip-path: circle(13% at 50% 50%); }
@@ -116,22 +122,25 @@ const CustomStyles = () => (
     }
     .hero-reveal {
       clip-path: circle(13% at 50% 50%);
-      animation: circleReveal 1.8s cubic-bezier(0.65, 0, 0.35, 1) 1s forwards;
+      opacity: 0;
+      animation: 
+        portholeEntrance 0.6s ease-out forwards,
+        circleReveal 1.8s cubic-bezier(0.65, 0, 0.35, 1) 1.4s forwards;
     }
 
-    /* Hero content entrance - delayed until reveal mostly complete */
+    /* Hero content entrance - delayed until reveal completes */
     @keyframes heroContentIn {
-      0% { opacity: 0; transform: translateY(40px); }
+      0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
     .hero-content-animate {
       opacity: 0;
-      animation: heroContentIn 1s ease-out forwards;
+      animation: heroContentIn 0.4s ease-out forwards;
     }
-    .hero-delay-1 { animation-delay: 1.0s; }
-    .hero-delay-2 { animation-delay: 1.3s; }
-    .hero-delay-3 { animation-delay: 1.6s; }
-    .hero-delay-4 { animation-delay: 1.9s; }
+    .hero-delay-1 { animation-delay: 3.2s; }
+    .hero-delay-2 { animation-delay: 3.28s; }
+    .hero-delay-3 { animation-delay: 3.36s; }
+    .hero-delay-4 { animation-delay: 3.44s; }
 
     /* Film grain overlay */
     .film-grain::before {
