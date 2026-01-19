@@ -108,6 +108,57 @@ const CustomStyles = () => (
     .animate-zoom-in {
       animation: zoomIn 1s ease-out forwards;
     }
+
+    /* Hero Circular Reveal Animation */
+    @keyframes circleReveal {
+      0% { clip-path: circle(13% at 50% 50%); }
+      100% { clip-path: circle(150% at 50% 50%); }
+    }
+    .hero-reveal {
+      clip-path: circle(13% at 50% 50%);
+      animation: circleReveal 1.8s cubic-bezier(0.65, 0, 0.35, 1) 1s forwards;
+    }
+
+    /* Hero content entrance - delayed until reveal mostly complete */
+    @keyframes heroContentIn {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content-animate {
+      opacity: 0;
+      animation: heroContentIn 1s ease-out forwards;
+    }
+    .hero-delay-1 { animation-delay: 1.0s; }
+    .hero-delay-2 { animation-delay: 1.3s; }
+    .hero-delay-3 { animation-delay: 1.6s; }
+    .hero-delay-4 { animation-delay: 1.9s; }
+
+    /* Film grain overlay */
+    .film-grain::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Subtle vignette effect */
+    .hero-vignette::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
   `}</style>
 );
 
@@ -221,28 +272,38 @@ const HomePage = ({ navigateTo }) => {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] opacity-40 pointer-events-none animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] opacity-30 pointer-events-none"></div>
+      {/* Hero Section with Circular Reveal */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-reveal film-grain hero-vignette">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/src/images/lumina_background.jpg)' }}
+        ></div>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* Background gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
+        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] opacity-50 pointer-events-none"></div>
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 animate-fade-in-up mt-8 md:mt-0"> {/* Added top margin for mobile */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 hero-content-animate hero-delay-1 mt-8 md:mt-0">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
             HRD Corp Registered Training Provider
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 animate-fade-in-up delay-100">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
             Empowering Workforces. <br className="hidden md:block" />
             <span className="text-white">Elevating Standards.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in-up delay-200">
+          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed hero-content-animate hero-delay-3">
             From Automotive Excellence to transformative Soft Skills and essential IT Skills.
             We provide comprehensive, data-driven training solutions that drive measurable business results.
           </p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up delay-300">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-content-animate hero-delay-4">
             <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105">
               Start Transformation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
