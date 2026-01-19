@@ -111,7 +111,7 @@ const CustomStyles = () => (
 
     /* Hero Porthole Entrance Animation */
     @keyframes portholeEntrance {
-      0% { opacity: 0; transform: translateY(30px); }
+      0% { opacity: 0; transform: translateY(80px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
