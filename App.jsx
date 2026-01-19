@@ -277,7 +277,7 @@ const HomePage = ({ navigateTo }) => {
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/src/images/lumina_background.jpg)' }}
+          style={{ backgroundImage: 'url(https://raw.githubusercontent.com/calebxlargi/lumina360/main/src/images/lumina_background.jpg)' }}
         ></div>
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/60"></div>
