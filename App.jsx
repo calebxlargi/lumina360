@@ -235,7 +235,8 @@ const HomePage = ({ navigateTo }) => {
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
     "Team Building",
-    "Emotional Intelligence: Building Resilient Teams"
+    "Emotional Intelligence: Building Resilient Teams",
+    "Leading a Diverse Work Force"
   ];
 
   const cxSkills = [
@@ -243,7 +244,8 @@ const HomePage = ({ navigateTo }) => {
     "Managing Customer Expectations and Service Recovery",
     "The Art of Active Listening",
     "Critical Thinking and Problem Solving",
-    "Time Management: Prioritization and Focus"
+    "Time Management: Prioritization and Focus",
+    "Conflict Management"
   ];
 
   const itSkills = [
