@@ -245,7 +245,8 @@ const HomePage = ({ navigateTo }) => {
     "The Art of Active Listening",
     "Critical Thinking and Problem Solving",
     "Time Management: Prioritization and Focus",
-    "Conflict Management"
+    "Conflict Resolution",
+    "Crisis Management"
   ];
 
   const itSkills = [
