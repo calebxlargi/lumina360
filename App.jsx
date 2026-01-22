@@ -612,7 +612,7 @@ const AboutPage = () => (
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <TrendingUp size={20} className="text-blue-400 mb-2" />
               <div className="font-bold text-sm">Strategic Leadership</div>
-              <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce</div>
+              <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce Motor Cars</div>
             </div>
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <Zap size={20} className="text-purple-400 mb-2" />
