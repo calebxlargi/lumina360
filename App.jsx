@@ -234,7 +234,7 @@ const HomePage = ({ navigateTo }) => {
     "Change Management and Its Impact on Leadership",
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
-    "Team Building",
+    "Team Leadership",
     "Emotional Intelligence: Building Resilient Teams",
     "Leading a Diverse Work Force"
   ];
