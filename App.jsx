@@ -357,18 +357,8 @@ const HomePage = ({ navigateTo }) => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {/* Automotive Column */}
-            <RevealOnScroll delay={100}>
-              <TrainingList
-                title="Automotive Excellence"
-                icon={Car}
-                color="blue"
-                items={autoTraining}
-              />
-            </RevealOnScroll>
-
             {/* Leadership Column */}
-            <RevealOnScroll delay={200}>
+            <RevealOnScroll delay={100}>
               <TrainingList
                 title="Leadership & Team Dynamics"
                 icon={Users}
@@ -378,12 +368,22 @@ const HomePage = ({ navigateTo }) => {
             </RevealOnScroll>
 
             {/* CX Column */}
-            <RevealOnScroll delay={300}>
+            <RevealOnScroll delay={200}>
               <TrainingList
                 title="Customer Experience & Personal Mastery"
                 icon={Target}
                 color="orange"
                 items={cxSkills}
+              />
+            </RevealOnScroll>
+
+            {/* Automotive Column */}
+            <RevealOnScroll delay={300}>
+              <TrainingList
+                title="Automotive Excellence"
+                icon={Car}
+                color="blue"
+                items={autoTraining}
               />
             </RevealOnScroll>
 
