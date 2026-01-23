@@ -1257,12 +1257,6 @@ export default function App() {
                 Contact Us
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
-
-              {/* Badge */}
-              <div className="flex items-center justify-center gap-2 pt-4">
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-                <span className="text-xs text-slate-500 font-medium">HRD Corp Registered</span>
-              </div>
             </div>
           </div>
         )}
