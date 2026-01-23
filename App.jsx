@@ -721,7 +721,7 @@ const AboutPage = () => (
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Umar</h3>
+              <h3 className="text-2xl font-bold mb-1">Umar Zaman Mydeen</h3>
               <p className="text-cyan-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
             </div>
           </div>
