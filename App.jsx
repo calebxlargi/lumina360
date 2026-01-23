@@ -693,6 +693,69 @@ const AboutPage = () => (
       </div>
     </RevealOnScroll>
 
+    {/* Umar Zaman Mydeen's Profile */}
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+            {/* Umar's Image */}
+            <img
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/profile_pic_umar.png"
+              alt="Umar Zaman Mydeen - Associate Trainer"
+              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextSibling.style.display = 'block';
+              }}
+            />
+            {/* Fallback Placeholder */}
+            <div className="text-center p-8 hidden relative z-10">
+              <div className="w-24 h-24 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users size={48} className="text-cyan-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-1">Umar Zaman Mydeen</h3>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+            </div>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+            <div className="absolute bottom-6 left-6 z-[2]">
+              <h3 className="text-2xl font-bold mb-1">Umar</h3>
+              <p className="text-cyan-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+            </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Umar Zaman Mydeen</h2>
+          <p className="text-slate-300 leading-relaxed">
+            Umar is a highly qualified professional coach and facilitator with over 26 years of experience across the Malaysian industry. He brings a strong and diverse background in both management and technical disciplines, with a proven track record in leading high-performing teams to achieve demanding revenue targets while consistently delivering exceptional customer service.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            As an effective change agent, Umar supports organisations in unlocking their people's potential and driving sustainable performance. He delivers a broad range of learning interventions covering personal development, supervisory and leadership excellence, personality and communication effectiveness, values and organisational behaviour, team alignment, and the habits of highly effective professionals.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <Briefcase size={20} className="text-cyan-400 mb-2" />
+              <div className="font-bold text-sm">Experience & Leadership</div>
+              <div className="text-xs text-slate-500">26+ Years, Management & Technical</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <TrendingUp size={20} className="text-purple-400 mb-2" />
+              <div className="font-bold text-sm">Change Agent</div>
+              <div className="text-xs text-slate-500">Unlocking Potential, Sustainable Performance</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <Users size={20} className="text-emerald-400 mb-2" />
+              <div className="font-bold text-sm">Core Expertise</div>
+              <div className="text-xs text-slate-500">Leadership Excellence, Effective Communication</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </RevealOnScroll>
+
     {/* Sofia Catha's Profile - REARRANGED THIRD */}
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
