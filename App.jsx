@@ -1215,11 +1215,55 @@ export default function App() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-zinc-900 border-b border-white/10 p-6 flex flex-col space-y-4 shadow-2xl">
-            <button onClick={() => navigateTo('services')} className="text-left text-lg text-slate-300 hover:text-white">Services</button>
-            <button onClick={() => navigateTo('approach')} className="text-left text-lg text-slate-300 hover:text-white">Approach</button>
-            <button onClick={() => navigateTo('about')} className="text-left text-lg text-slate-300 hover:text-white">Trainers</button>
-            <button onClick={() => navigateTo('contact')} className="w-full py-3 bg-white text-black font-medium rounded-lg">Contact Us</button>
+          <div className="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl overflow-hidden">
+            {/* Decorative gradient blur */}
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-purple-600/20 rounded-full blur-[80px] pointer-events-none"></div>
+
+            <div className="relative z-10 p-6 flex flex-col space-y-2">
+              {/* Navigation Links */}
+              <button
+                onClick={() => navigateTo('services')}
+                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
+              >
+                <span className="font-medium">Services</span>
+                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+              </button>
+
+              <button
+                onClick={() => navigateTo('approach')}
+                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
+              >
+                <span className="font-medium">Approach</span>
+                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+              </button>
+
+              <button
+                onClick={() => navigateTo('about')}
+                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
+              >
+                <span className="font-medium">Trainers</span>
+                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+              </button>
+
+              {/* Divider */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2"></div>
+
+              {/* CTA Button */}
+              <button
+                onClick={() => navigateTo('contact')}
+                className="group w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
+              >
+                Contact Us
+                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              {/* Badge */}
+              <div className="flex items-center justify-center gap-2 pt-4">
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                <span className="text-xs text-slate-500 font-medium">HRD Corp Registered</span>
+              </div>
+            </div>
           </div>
         )}
       </nav>
