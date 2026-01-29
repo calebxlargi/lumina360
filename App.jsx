@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // --- Icon Components ---
 const Icon = ({ children, size = 24, className = "" }) => (
@@ -33,6 +33,89 @@ const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v1
 const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>;
 const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="3" rx="2" ry="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></Icon>;
 
+// --- Custom Hook for Scroll Position ---
+const useScrollPosition = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return scrollY;
+};
+
+// --- 3D Parallax Section Component ---
+const Parallax3DSection = ({ children, className = "", speed = 0.5, zDepth = 0 }) => {
+  const scrollY = useScrollPosition();
+  const ref = useRef(null);
+  const [offsetTop, setOffsetTop] = useState(0);
+
+  useEffect(() => {
+    if (ref.current) {
+      setOffsetTop(ref.current.offsetTop);
+    }
+  }, []);
+
+  const relativeScroll = scrollY - offsetTop + window.innerHeight;
+  const translateY = relativeScroll * speed * 0.1;
+  const translateZ = zDepth;
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        transform: `translate3d(0, ${translateY}px, ${translateZ}px)`,
+        willChange: 'transform',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+// --- 3D Tilt Card Component ---
+const Tilt3DCard = ({ children, className = "", intensity = 10 }) => {
+  const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg)');
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -intensity;
+    const rotateY = ((x - centerX) / centerX) * intensity;
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform,
+        transition: 'transform 0.3s ease-out',
+        transformStyle: 'preserve-3d',
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 // --- Styles ---
 const CustomStyles = () => (
@@ -168,32 +251,110 @@ const CustomStyles = () => (
       pointer-events: none;
       z-index: 2;
     }
+
+    /* 3D Perspective Container */
+    .perspective-container {
+      perspective: 1000px;
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Parallax Layers */
+    .parallax-layer-back {
+      transform: translateZ(-100px) scale(1.1);
+    }
+    .parallax-layer-mid {
+      transform: translateZ(-50px) scale(1.05);
+    }
+    .parallax-layer-front {
+      transform: translateZ(0);
+    }
+
+    /* 3D Float Animation */
+    @keyframes float3D {
+      0%, 100% { transform: translateY(0) translateZ(0) rotateX(0deg); }
+      25% { transform: translateY(-15px) translateZ(20px) rotateX(2deg); }
+      50% { transform: translateY(-10px) translateZ(30px) rotateX(0deg); }
+      75% { transform: translateY(-20px) translateZ(15px) rotateX(-2deg); }
+    }
+    .animate-float-3d {
+      animation: float3D 8s ease-in-out infinite;
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Scroll Reveal */
+    .scroll-reveal-3d {
+      opacity: 0;
+      transform: perspective(1000px) rotateX(10deg) translateY(60px) translateZ(-50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .scroll-reveal-3d.is-visible {
+      opacity: 1;
+      transform: perspective(1000px) rotateX(0deg) translateY(0) translateZ(0);
+    }
+
+    /* 3D Card Hover Effect */
+    .card-3d {
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+      transform-style: preserve-3d;
+    }
+    .card-3d:hover {
+      transform: perspective(1000px) translateZ(30px);
+      box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
+    }
+
+    /* Staggered 3D entrance for grid items */
+    .stagger-3d > *:nth-child(1) { transition-delay: 0ms; }
+    .stagger-3d > *:nth-child(2) { transition-delay: 100ms; }
+    .stagger-3d > *:nth-child(3) { transition-delay: 200ms; }
+    .stagger-3d > *:nth-child(4) { transition-delay: 300ms; }
+    .stagger-3d > *:nth-child(5) { transition-delay: 400ms; }
+
+    /* Hero 3D Background Parallax */
+    .hero-3d-bg {
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Depth shadow for floating elements */
+    .depth-shadow {
+      box-shadow: 
+        0 10px 30px -10px rgba(0, 0, 0, 0.5),
+        0 20px 50px -20px rgba(59, 130, 246, 0.2);
+    }
+
+    /* Smooth scroll container for 3D effect */
+    .smooth-scroll-3d {
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
   `}</style>
 );
 
 // --- Sub-Components ---
 
 const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
-  <div className={`bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-${color}-500/50 transition-all duration-300 hover:-translate-y-2 h-full flex flex-col`}>
-    <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
-      <IconComp size={32} />
+  <Tilt3DCard className="h-full" intensity={5}>
+    <div className={`bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-${color}-500/50 transition-all duration-300 h-full flex flex-col card-3d depth-shadow`}>
+      <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
+        <IconComp size={32} />
+      </div>
+      <h3 className="text-xl font-bold mb-6">{title}</h3>
+      <ul className="space-y-3 flex-grow">
+        {items.map((item, idx) => (
+          <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
+            <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 group-hover:text-${color}-400 transition-colors`} size={16} />
+            <span className="group-hover:text-slate-200 transition-colors">{item}</span>
+          </li>
+        ))}
+      </ul>
+      <div className={`mt-8 pt-6 border-t border-white/10`}>
+        {/* Buttons removed as requested */}
+      </div>
     </div>
-    <h3 className="text-xl font-bold mb-6">{title}</h3>
-    <ul className="space-y-3 flex-grow">
-      {items.map((item, idx) => (
-        <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
-          <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 group-hover:text-${color}-400 transition-colors`} size={16} />
-          <span className="group-hover:text-slate-200 transition-colors">{item}</span>
-        </li>
-      ))}
-    </ul>
-    <div className={`mt-8 pt-6 border-t border-white/10`}>
-      {/* Buttons removed as requested */}
-    </div>
-  </div>
+  </Tilt3DCard>
 );
 
-const RevealOnScroll = ({ children, className = "", delay = 0 }) => {
+const RevealOnScroll = ({ children, className = "", delay = 0, use3D = true }) => {
   const [isVisible, setIsVisible] = useState(false);
   const domRef = React.useRef();
 
@@ -210,10 +371,14 @@ const RevealOnScroll = ({ children, className = "", delay = 0 }) => {
     };
   }, []);
 
+  const baseClass = use3D ? 'scroll-reveal-3d' : 'reveal-hidden';
+  const visibleClass = use3D ? 'is-visible' : 'reveal-visible';
+
   return (
     <div
       ref={domRef}
-      className={`${className} ${isVisible ? 'reveal-visible' : 'reveal-hidden'} ${delay ? `reveal-delay-${delay}` : ''}`}
+      className={`${className} ${baseClass} ${isVisible ? visibleClass : ''} ${delay ? `reveal-delay-${delay}` : ''}`}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
     </div>
@@ -282,25 +447,44 @@ const HomePage = ({ navigateTo }) => {
     "Building a Safety Culture: Leadership’s Role"
   ];
 
+  const scrollY = useScrollPosition();
+
   return (
     <>
-      {/* Hero Section with Circular Reveal */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-reveal film-grain hero-vignette">
-        {/* Background Image */}
+      {/* Hero Section with 3D Parallax */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-reveal film-grain hero-vignette perspective-container">
+        {/* Background Image with parallax */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(https://raw.githubusercontent.com/calebxlargi/lumina360/main/src/images/lumina_background.jpg)' }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-3d-bg"
+          style={{
+            backgroundImage: 'url(https://raw.githubusercontent.com/calebxlargi/lumina360/main/src/images/lumina_background.jpg)',
+            transform: `translateY(${scrollY * 0.3}px) translateZ(-100px) scale(1.2)`,
+          }}
         ></div>
         {/* Dark overlay for text readability */}
         <div className="absolute inset-0 bg-black/60"></div>
 
-        {/* Background gradients */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-60 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] opacity-50 pointer-events-none"></div>
-        <div className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
+        {/* 3D Parallax Background gradients - floating at different depths */}
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-60 pointer-events-none animate-float-3d"
+          style={{ transform: `translate(-50%, ${scrollY * -0.15}px) translateZ(50px)` }}
+        ></div>
+        <div
+          className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] opacity-50 pointer-events-none"
+          style={{ transform: `translateY(${scrollY * -0.25}px) translateZ(30px)` }}
+        ></div>
+        <div
+          className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] opacity-40 pointer-events-none"
+          style={{ transform: `translateY(${scrollY * -0.1}px) translateZ(20px)` }}
+        ></div>
+        {/* Additional 3D floating orbs */}
+        <div
+          className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] opacity-30 pointer-events-none"
+          style={{ transform: `translateY(${scrollY * -0.2}px) translateZ(40px)` }}
+        ></div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 hero-content-animate hero-delay-1 mt-8 md:mt-0">
+        <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 hero-content-animate hero-delay-1 mt-8 md:mt-0 depth-shadow">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
             HRD Corp Registered Training Provider
           </div>
@@ -316,11 +500,11 @@ const HomePage = ({ navigateTo }) => {
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-content-animate hero-delay-4">
-            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105">
+            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105 depth-shadow">
               Start Transformation
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all">
+            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all hover:border-white/40">
               Explore Courses
             </a>
           </div>
