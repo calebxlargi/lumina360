@@ -395,11 +395,11 @@ const HomePage = ({ navigateTo }) => {
   ];
 
   const leadershipSkills = [
+    "Team Building",
     "Executive Coaching 1 on 1",
     "Change Management and Its Impact on Leadership",
     "Persuasive Communication: Influence Without Authority",
     "Collaborative Intelligence in Diverse Teams",
-    "Team Leadership",
     "Emotional Intelligence: Building Resilient Teams",
     "Leading a Diverse Work Force"
   ];
