@@ -206,18 +206,18 @@ const App = () => {
         {/* Contact info */}
         <div className="animate-fade-in-5 flex flex-col sm:flex-row items-center gap-6 text-sm text-slate-500">
           <a
-            href="mailto:training@lumina3sixty.com"
+            href="mailto:sales@lumina3sixty.com"
             className="flex items-center gap-2 hover:text-white transition-colors duration-300 group"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400/60 group-hover:text-blue-400 transition-colors">
               <rect width="20" height="16" x="2" y="4" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
-            training@lumina3sixty.com
+            sales@lumina3sixty.com
           </a>
           <span className="hidden sm:block w-1 h-1 rounded-full bg-slate-700"></span>
           <a
-            href="tel:+60123456789"
+            href="tel:+60183466889"
             className="flex items-center gap-2 hover:text-white transition-colors duration-300 group"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400/60 group-hover:text-blue-400 transition-colors">
