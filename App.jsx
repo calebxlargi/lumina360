@@ -751,10 +751,10 @@ const AboutPage = () => (
     <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-in-up">
 
       <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Our Trainers</span>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Our Consultant Trainers</span>
       </h1>
       <p className="text-xl text-slate-400">
-        A diverse team of industry veterans bridging the gap between traditional professional standards and the requirements of the Fourth Industrial Revolution.
+        A diverse team of industry experts with deep experience, trusted insights who are solutions and results driven with the aim of transforming business units or companies. The Lumina 3Sixty team hunt for blind spots, break down challenges, and build lasting capabilities.
       </p>
     </div>
 
