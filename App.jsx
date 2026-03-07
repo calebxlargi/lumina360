@@ -1119,7 +1119,7 @@ const AboutPage = () => (
             Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape and Sime Darby, he has worked closely with automotive dealerships across the Asia Pacific region, and consulted for BMW, MINI, and Motorrad brands.
           </p>
           <p className="text-slate-300 leading-relaxed">
-            Most notably, Hal served as a highly experienced member of Rolls-Royce Motor Cars’ global PR team for nearly two decades. He is a specialist in crisis communications and a dedicated mentor, training numerous professionals throughout the region in strategic communications.
+            Most notably, Hal served as a highly experienced member of Rolls-Royce Motor Cars’ global PR team for nearly two decades. He is a specialist in crisis communications and a dedicated mentor, training numerous professionals throughout the region in strategic communications. He has led Royal Brunei Airlines' PR, Customer Relations and Publishing unit; consulted for Singapore's IDA (Infocomms Development Authority); AIA Singapore; Bayer Healthcare; Cerebos Pacific Limited; Lockheed Martin, Life Glow Asia Private Limited, United Airlines.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
