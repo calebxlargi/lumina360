@@ -617,7 +617,7 @@ const HomePage = ({ navigateTo }) => {
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
               Beyond Theory.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> measurable Impact.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> Measurable Impact.</span>
             </h2>
             <p className="text-slate-400 text-lg mb-8 leading-relaxed">
               Most consultancy or training providers focus on "participation." We focus on "implementation." Our methodologies are designed to stick long after the session ends.
