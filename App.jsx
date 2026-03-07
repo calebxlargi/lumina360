@@ -617,20 +617,20 @@ const HomePage = ({ navigateTo }) => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <RevealOnScroll className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
+            <RevealOnScroll className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
+                <Search className="text-purple-400" size={28} />
+              </div>
+              <h4 className="text-xl font-bold mb-3">Pre-Training Consultation</h4>
+              <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
+            </RevealOnScroll>
+
+            <RevealOnScroll delay={100} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
                 <Target className="text-blue-400" size={28} />
               </div>
               <h4 className="text-xl font-bold mb-3">Customized Context</h4>
               <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
-            </RevealOnScroll>
-
-            <RevealOnScroll delay={100} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
-                <Search className="text-purple-400" size={28} />
-              </div>
-              <h4 className="text-xl font-bold mb-3">Pre-Training Audit</h4>
-              <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
             </RevealOnScroll>
 
             <RevealOnScroll delay={200} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
