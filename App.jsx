@@ -1514,7 +1514,7 @@ export default function App() {
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
-            <p className="text-slate-600 text-xs">Empowering Workforces. Elevating Standards.</p>
+            <p className="text-slate-600 text-xs">Empowering Workforces. Elevating Standards.<br className="md:hidden" /> Transforming businesses.</p>
           </div>
         </div>
       </footer>
