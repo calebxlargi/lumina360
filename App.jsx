@@ -738,7 +738,7 @@ const PrivacyPolicyPage = () => (
 
         <h2 className="text-2xl font-bold text-white mt-8 mb-4">4. Contact Us</h2>
         <p>
-          If you have any questions about this Privacy Policy or our data practices, please contact us at training@lumina3sixty.com.
+          If you have any questions about this Privacy Policy or our data practices, please contact us at sales@lumina3sixty.com.
         </p>
       </div>
     </div>
