@@ -1252,27 +1252,27 @@ const ContactPage = () => {
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-300">First Name</label>
-                  <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="John" />
+                  <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-300">Last Name</label>
-                  <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Doe" />
+                  <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-300">Email Address</label>
-                <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="john@dealership.com" />
+                <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Dealership / Company</label>
-                <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="Honda PJ..." />
+                <label className="text-sm font-medium text-slate-300">Company</label>
+                <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-300">Message</label>
-                <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" placeholder="Tell us about your team's challenges..." />
+                <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" />
               </div>
 
               <button
