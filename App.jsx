@@ -748,9 +748,7 @@ const AboutPage = () => (
   <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
     {/* Header */}
     <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-in-up">
-      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
-        HRD Corp Accredited Training
-      </div>
+
       <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Our Trainers</span>
       </h1>
