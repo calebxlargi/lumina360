@@ -1399,7 +1399,7 @@ export default function App() {
           <div className="hidden md:flex items-center space-x-8">
             <button onClick={() => navigateTo('services')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</button>
             <button onClick={() => navigateTo('approach')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Approach</button>
-            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>Trainers</button>
+            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>Consultants/ Trainers</button>
             <button onClick={() => navigateTo('contact')} className={`px-5 py-2 text-sm font-medium rounded-full transition-all transform hover:scale-105 ${view === 'contact' ? 'bg-blue-50 text-black' : 'bg-white text-black hover:bg-blue-50'}`}>
               Contact Us
             </button>
@@ -1440,7 +1440,7 @@ export default function App() {
                 onClick={() => navigateTo('about')}
                 className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
               >
-                <span className="font-medium">Trainers</span>
+                <span className="font-medium">Consultants/ Trainers</span>
                 <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
               </button>
 
@@ -1502,7 +1502,7 @@ export default function App() {
             <div>
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
-                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Trainers</li>
+                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Consultants/ Trainers</li>
                 {ENABLE_HRD_CORP_STATUS && (
                   <li onClick={() => navigateTo('hrd')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
                 )}
