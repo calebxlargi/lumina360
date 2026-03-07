@@ -612,7 +612,7 @@ const HomePage = ({ navigateTo }) => {
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
-              Why Choose Lumina
+              Why Choose Lumina 3Sixty
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
               Beyond Theory.<br />
