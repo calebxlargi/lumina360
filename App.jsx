@@ -1208,7 +1208,7 @@ const ContactPage = () => {
               </div>
               <div>
                 <h3 className="text-lg font-bold">Call / WhatsApp</h3>
-                <p className="text-slate-400">019-441 9999 / 018-346 6889</p>
+                <p className="text-slate-400">+6019-441 9999 / +6018-346 6889</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
