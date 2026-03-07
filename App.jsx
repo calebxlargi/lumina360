@@ -8,6 +8,13 @@ import UnderConstruction from './UnderConstruction';
 // ============================================================
 const UNDER_CONSTRUCTION = false;
 
+// ============================================================
+// ⚙️ FEATURE FLAGS
+// Set to `true`  → Enable the feature
+// Set to `false` → Disable the feature
+// ============================================================
+const ENABLE_HRD_CORP_STATUS = false;
+
 // --- Icon Components ---
 const Icon = ({ children, size = 24, className = "" }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
@@ -1497,7 +1504,9 @@ export default function App() {
               <h4 className="font-bold mb-6">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm">
                 <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Trainers</li>
-                <li onClick={() => navigateTo('hrd')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
+                {ENABLE_HRD_CORP_STATUS && (
+                  <li onClick={() => navigateTo('hrd')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
+                )}
                 <li onClick={() => navigateTo('contact')} className="hover:text-white cursor-pointer">Contact</li>
                 <li onClick={() => navigateTo('privacy')} className="hover:text-white cursor-pointer">Privacy Policy</li>
               </ul>
