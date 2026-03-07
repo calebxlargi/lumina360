@@ -503,7 +503,8 @@ const HomePage = ({ navigateTo }) => {
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
             Empowering Workforces. <br className="hidden md:block" />
-            <span className="text-white">Elevating Standards.</span>
+            Elevating Standards. <br className="hidden md:block" />
+            <span className="text-white">Transforming businesses.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed hero-content-animate hero-delay-3">
