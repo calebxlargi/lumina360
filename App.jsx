@@ -522,7 +522,7 @@ const HomePage = ({ navigateTo }) => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { label: "Training Provider", value: "Class A" },
-              { label: "Claimable", value: "100% HRD Corp" },
+              { label: "Claimable", value: "HRD Corp" },
               { label: "Focus", value: "Multi-Industry" },
               { label: "Approach", value: "Data-Driven" }
             ].map((stat, index) => (
