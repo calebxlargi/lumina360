@@ -6,7 +6,7 @@ import UnderConstruction from './UnderConstruction';
 // Set to `true`  → visitors see the "Under Construction" page
 // Set to `false` → visitors see the full website
 // ============================================================
-const UNDER_CONSTRUCTION = true;
+const UNDER_CONSTRUCTION = false;
 
 // --- Icon Components ---
 const Icon = ({ children, size = 24, className = "" }) => (
