@@ -612,7 +612,7 @@ const HomePage = ({ navigateTo }) => {
       <section id="approach" className="py-24 bg-gradient-to-r from-zinc-900 to-black relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[15.6px] font-medium text-blue-400 mb-6">
               Why Choose Lumina 3Sixty
             </div>
             <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
@@ -672,7 +672,7 @@ const HRDCorpPage = () => (
   <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
     <div className="max-w-4xl mx-auto">
       <div className="mb-10 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm font-medium text-blue-400 mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-[18.2px] font-medium text-blue-400 mb-6">
           <FileCheck size={16} /> Accredited Training Provider
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-6">HRD Corp Status</h1>
@@ -1184,7 +1184,7 @@ const ContactPage = () => {
     <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
       <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
         <div className="lg:w-1/2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-slate-300 mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[15.6px] font-medium text-slate-300 mb-6">
             Get in Touch
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br />Training Roadmap.</h1>
@@ -1376,7 +1376,7 @@ export default function App() {
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png"
               alt="Lumina 3Sixty"
-              className="h-14 w-auto object-contain"
+              className="h-[67px] w-auto object-contain"
               onError={(e) => {
                 // Fallback if image is missing
                 console.warn("Logo not found. Switching to text fallback.");
@@ -1477,7 +1477,7 @@ export default function App() {
                 <img
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png"
                   alt="Lumina 3Sixty"
-                  className="h-12 w-auto object-contain"
+                  className="h-[58px] w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
