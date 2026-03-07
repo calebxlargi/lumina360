@@ -550,7 +550,7 @@ const HomePage = ({ navigateTo }) => {
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Consultancy & Training Ecosystem</h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
             <p className="text-slate-400 text-lg">
-              We don't just train; we transform. Our programmes span five critical pillars of organizational success, ensuring your team is skilled, safe, motivated, and future-ready.
+              We don't just train; we transform. We provide holistic solutions. Our programmes span five critical pillars of organizational success, ensuring your team is skilled, safe, motivated, and future-ready.
             </p>
           </div>
 
