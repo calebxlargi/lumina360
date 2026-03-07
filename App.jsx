@@ -1477,7 +1477,7 @@ export default function App() {
                 <img
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png"
                   alt="Lumina 3Sixty"
-                  className="h-[58px] w-auto object-contain"
+                  className="h-[67px] w-auto object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
