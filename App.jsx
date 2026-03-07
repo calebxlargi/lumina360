@@ -768,7 +768,7 @@ const AboutPage = () => (
             {/* Thiru's Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png"
-              alt="Thiruh Shan - Lead Trainer"
+              alt="Thiruh Shan - Lead Consultant / Trainer"
               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -781,20 +781,20 @@ const AboutPage = () => (
                 <Briefcase size={48} className="text-purple-400" />
               </div>
               <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Trainer</p>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Consultant / Trainer</p>
             </div>
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
               <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
-              <p className="text-purple-400 text-sm uppercase tracking-widest font-bold">Lead Trainer</p>
+              <p className="text-purple-400 text-sm uppercase tracking-widest font-bold">Lead Consultant / Trainer</p>
             </div>
           </div>
         </div>
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-3xl font-bold mb-2">Thiruh Shan</h2>
           <p className="text-slate-300 leading-relaxed">
-            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thiruh specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce, BMW, Audi, VW, JEEP, and Mitsubishi.
+            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thiruh specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce Motor Cars, BMW, Audi, VW, JEEP, and Mitsubishi.
           </p>
           <p className="text-slate-300 leading-relaxed">
             Thiruh is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
@@ -835,7 +835,7 @@ const AboutPage = () => (
             {/* Caleb's Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/caleby_profile_pic%20.png"
-              alt="Caleb Yong - Lead Trainer"
+              alt="Caleb Yong - Lead Consultant / Trainer"
               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -848,13 +848,13 @@ const AboutPage = () => (
                 <GraduationCap size={48} className="text-blue-400" />
               </div>
               <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Trainer</p>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Consultant / Trainer</p>
             </div>
             {/* Overlay for text readability if needed */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
               <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
-              <p className="text-blue-400 text-sm uppercase tracking-widest font-bold">Lead Trainer</p>
+              <p className="text-blue-400 text-sm uppercase tracking-widest font-bold">Lead Consultant / Trainer</p>
             </div>
           </div>
         </div>
@@ -1027,7 +1027,7 @@ const AboutPage = () => (
             {/* Jack's Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png"
-              alt="Jack Zaal - Associate Trainer"
+              alt="Jack Zaal - Associate Consultant / Trainer"
               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -1040,13 +1040,13 @@ const AboutPage = () => (
                 <Globe size={48} className="text-orange-400" />
               </div>
               <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
             </div>
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
               <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+              <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
             </div>
           </div>
         </div>
@@ -1090,7 +1090,7 @@ const AboutPage = () => (
             {/* Hal's Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png"
-              alt="Hal Serudin - Associate Trainer"
+              alt="Hal Serudin - Associate Consultant / Trainer"
               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -1103,20 +1103,20 @@ const AboutPage = () => (
                 <MessageSquare size={48} className="text-pink-400" />
               </div>
               <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
             </div>
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
               <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
-              <p className="text-pink-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+              <p className="text-pink-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
             </div>
           </div>
         </div>
         <div className="lg:w-2/3 space-y-6">
           <h2 className="text-3xl font-bold mb-2">Hal Serudin</h2>
           <p className="text-slate-300 leading-relaxed">
-            Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape, he has worked closely with automotive dealerships across the Asia Pacific region, consulting for BMW, MINI, and Motorrad.
+            Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape and Sime Darby, he has worked closely with automotive dealerships across the Asia Pacific region, and consulted for BMW, MINI, and Motorrad brands.
           </p>
           <p className="text-slate-300 leading-relaxed">
             Most notably, Hal served as a highly experienced member of Rolls-Royce Motor Cars’ global PR team for nearly two decades. He is a specialist in crisis communications and a dedicated mentor, training numerous professionals throughout the region in strategic communications.
