@@ -1187,7 +1187,7 @@ const ContactPage = () => {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[15.6px] font-medium text-slate-300 mb-6">
             Get in Touch
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br />Training Roadmap.</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br />Business Transformation / Training Roadmap.</h1>
           <p className="text-lg text-slate-400 mb-12">
             Ready to transform your sales floor? Fill out the form or reach out directly. We usually reply within 2 hours.
           </p>
