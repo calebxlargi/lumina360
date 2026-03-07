@@ -1189,7 +1189,7 @@ const ContactPage = () => {
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br />Business Transformation / Training Roadmap.</h1>
           <p className="text-lg text-slate-400 mb-12">
-            Ready to transform your sales floor? Fill out the form or reach out directly. We usually reply within 2 hours.
+            Ready to transform your business? Fill out the form or reach out directly. We usually reply within 24 hours.
           </p>
 
           <div className="space-y-8">
