@@ -657,7 +657,7 @@ const HomePage = ({ navigateTo }) => {
         <div className="container mx-auto px-6 text-center relative z-10">
           <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate Your Workforce?</h2>
           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-            Schedule your complimentary needs analysis consultation and let us build a custom training roadmap for your organization.
+            Schedule your complimentary needs analysis consultation and let us build a custom business transformation / training roadmap for your organization.
           </p>
           <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transform hover:scale-105">
             Get Your Proposal
