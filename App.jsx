@@ -492,10 +492,7 @@ const HomePage = ({ navigateTo }) => {
         ></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-blue-300 mb-8 hero-content-animate hero-delay-1 mt-8 md:mt-0 depth-shadow">
-            <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-            HRD Corp Registered Training Provider
-          </div>
+
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
             Empowering Workforces. <br className="hidden md:block" />
