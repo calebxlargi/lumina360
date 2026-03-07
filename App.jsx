@@ -636,7 +636,7 @@ const HomePage = ({ navigateTo }) => {
               <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
                 <Target className="text-blue-400" size={28} />
               </div>
-              <h4 className="text-xl font-bold mb-3">Customized Content</h4>
+              <h4 className="text-xl font-bold mb-3">Customised Programme</h4>
               <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
             </RevealOnScroll>
 
