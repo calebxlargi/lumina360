@@ -502,7 +502,7 @@ const HomePage = ({ navigateTo }) => {
 
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
-            Empowering Workforces. <br className="hidden md:block" />
+            Developing Workforces. <br className="hidden md:block" />
             Elevating Standards. <br className="hidden md:block" />
             <span className="text-white">Transforming businesses.</span>
           </h1>
@@ -1514,7 +1514,7 @@ export default function App() {
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
-            <p className="text-slate-600 text-xs">Empowering Workforces. Elevating Standards.<br className="md:hidden" /> Transforming businesses.</p>
+            <p className="text-slate-600 text-xs">Developing Workforces. Elevating Standards.<br className="md:hidden" /> Transforming businesses.</p>
           </div>
         </div>
       </footer>
