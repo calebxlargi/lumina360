@@ -945,7 +945,7 @@ const AboutPage = () => (
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <Users size={20} className="text-blue-400 mb-2" />
               <div className="font-bold text-sm">Holistic Coaching</div>
-              <div className="text-xs text-slate-500">Prof. Development & Image</div>
+              <div className="text-xs text-slate-500">Professional Development, Image & Self-Confidence, Self projection and Presentation</div>
             </div>
           </div>
         </div>
