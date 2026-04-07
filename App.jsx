@@ -956,7 +956,7 @@ const AboutPage = () => (
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
         <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
             {/* Umar's Image */}
@@ -1015,11 +1015,11 @@ const AboutPage = () => (
       </div>
     </RevealOnScroll>
 
-    {/* Sofia Catha's Profile - REARRANGED THIRD */}
+    {/* Sofia Catha's Profile */}
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
             {/* Sofia's Image */}
