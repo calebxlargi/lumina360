@@ -935,7 +935,7 @@ const AboutPage = () => (
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <TrendingUp size={20} className="text-emerald-400 mb-2" />
               <div className="font-bold text-sm">Background</div>
-              <div className="text-xs text-slate-500">28 Years Broadcasting & Finance</div>
+              <div className="text-xs text-slate-500">28 years of experience in Broadcasting & Finance. RTM, CapitalCorp Securities</div>
             </div>
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <BookOpen size={20} className="text-purple-400 mb-2" />
