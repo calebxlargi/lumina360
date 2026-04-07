@@ -47,6 +47,7 @@ const HardHat = (props) => <Icon {...props}><path d="M2 18a1 1 0 0 0 1 1h18a1 1 
 const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><path d="m9 15 2 2 4-4" /></Icon>;
 const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>;
 const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="3" rx="2" ry="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></Icon>;
+const BookOpen = (props) => <Icon {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></Icon>;
 
 // --- Custom Hook for Scroll Position ---
 const useScrollPosition = () => {
@@ -888,6 +889,69 @@ const AboutPage = () => (
       </div>
     </RevealOnScroll>
 
+    {/* Datin Hamidah Hamzah's Profile */}
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+            {/* Datin Hamidah's Image */}
+            <img
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/datin_hamidah_profile_pic.png"
+              alt="Datin Hamidah Hamzah - Associate Trainer"
+              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextSibling.style.display = 'block';
+              }}
+            />
+            {/* Fallback Placeholder */}
+            <div className="text-center p-8 hidden relative z-10">
+              <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users size={48} className="text-emerald-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-1">Datin Hamidah Hamzah</h3>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
+            </div>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+            <div className="absolute bottom-6 left-6 z-[2]">
+              <h3 className="text-2xl font-bold mb-1">Datin Hamidah Hamzah</h3>
+              <p className="text-emerald-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
+            </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Datin Hamidah Hamzah</h2>
+          <p className="text-slate-300 leading-relaxed">
+            Datin Hamidah is a unique leader, role model and coach. She bridges corporate professionalism and spiritual mastery, while motivating aspiring executives to project the best image of themselves. Datin’s accomplished career spans the financial sector, national broadcasting, and religious Islamic education.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            Datin Hamidah may be best known as the face of RTM with her roles as a prominent news anchor and presenter for "Berita Perdana”, “Berita Dunia” and “Selamat Pagi Malaysia”. A dedicated student of Islam, Datin Hamidah is a certified Al-Quran Teacher holding the prestigious "Riwayat Hafs 'An 'Asim" Sanad. She also has a degree in Business Administration.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <TrendingUp size={20} className="text-emerald-400 mb-2" />
+              <div className="font-bold text-sm">Background</div>
+              <div className="text-xs text-slate-500">28 Years Broadcasting & Finance</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <BookOpen size={20} className="text-purple-400 mb-2" />
+              <div className="font-bold text-sm">Expertise</div>
+              <div className="text-xs text-slate-500">Al-Quran Specialist & Author</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <Users size={20} className="text-blue-400 mb-2" />
+              <div className="font-bold text-sm">Holistic Coaching</div>
+              <div className="text-xs text-slate-500">Prof. Development & Image</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </RevealOnScroll>
+
     {/* Umar Zaman Mydeen's Profile */}
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -1017,71 +1081,8 @@ const AboutPage = () => (
       </div>
     </RevealOnScroll>
 
-    {/* Jack Zaal's Profile - REARRANGED FOURTH */}
+    {/* Hal Serudin's Profile */}
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Jack's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png"
-              alt="Jack Zaal - Associate Consultant / Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Globe size={48} className="text-orange-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Jack Zaal</h2>
-          <p className="text-slate-300 leading-relaxed">
-            A strategic retail automotive executive with a strong focus on growing Sales and securing profitability through efficient After-Sales operations. Jack has led retail automotive companies in Malaysia for the past 15 years, overseeing Sales, After Sales, Marketing, HR, Facilities, and Finance.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Jack's extensive career includes 19 years at Volvo Car Corporation, with key roles in Product Planning and Area Management across the Netherlands, Sweden, Belgium, and Italy. He has successfully acquired new franchises, built new facilities, and driven business strategy for premium brands including Volvo, Volkswagen, Audi, BMW, Rolls-Royce, and Lotus.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-orange-400 mb-2" />
-              <div className="font-bold text-sm">Profitability Focus</div>
-              <div className="text-xs text-slate-500">Sales & After-Sales</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Brand Portfolio</div>
-              <div className="text-xs text-slate-500">Volvo, BMW, Rolls-Royce</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Globe size={20} className="text-white mb-2" />
-              <div className="font-bold text-sm">International</div>
-              <div className="text-xs text-slate-500">Fluent in 4 Languages</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Hal Serudin's Profile - REARRANGED FIFTH */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
@@ -1137,6 +1138,69 @@ const AboutPage = () => (
               <Users size={20} className="text-blue-400 mb-2" />
               <div className="font-bold text-sm">Mentorship</div>
               <div className="text-xs text-slate-500">Regional Trainer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </RevealOnScroll>
+
+    {/* Jack Zaal's Profile */}
+    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
+        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
+          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
+            {/* Jack's Image */}
+            <img
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png"
+              alt="Jack Zaal - Associate Consultant / Trainer"
+              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.nextSibling.style.display = 'block';
+              }}
+            />
+            {/* Fallback Placeholder */}
+            <div className="text-center p-8 hidden relative z-10">
+              <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Globe size={48} className="text-orange-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
+              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
+            </div>
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
+            <div className="absolute bottom-6 left-6 z-[2]">
+              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
+              <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
+            </div>
+          </div>
+        </div>
+        <div className="lg:w-2/3 space-y-6">
+          <h2 className="text-3xl font-bold mb-2">Jack Zaal</h2>
+          <p className="text-slate-300 leading-relaxed">
+            A strategic retail automotive executive with a strong focus on growing Sales and securing profitability through efficient After-Sales operations. Jack has led retail automotive companies in Malaysia for the past 15 years, overseeing Sales, After Sales, Marketing, HR, Facilities, and Finance.
+          </p>
+          <p className="text-slate-300 leading-relaxed">
+            Jack's extensive career includes 19 years at Volvo Car Corporation, with key roles in Product Planning and Area Management across the Netherlands, Sweden, Belgium, and Italy. He has successfully acquired new franchises, built new facilities, and driven business strategy for premium brands including Volvo, Volkswagen, Audi, BMW, Rolls-Royce, and Lotus.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <TrendingUp size={20} className="text-orange-400 mb-2" />
+              <div className="font-bold text-sm">Profitability Focus</div>
+              <div className="text-xs text-slate-500">Sales & After-Sales</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <Briefcase size={20} className="text-blue-400 mb-2" />
+              <div className="font-bold text-sm">Brand Portfolio</div>
+              <div className="text-xs text-slate-500">Volvo, BMW, Rolls-Royce</div>
+            </div>
+            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
+              <Globe size={20} className="text-white mb-2" />
+              <div className="font-bold text-sm">International</div>
+              <div className="text-xs text-slate-500">Fluent in 4 Languages</div>
             </div>
           </div>
         </div>
