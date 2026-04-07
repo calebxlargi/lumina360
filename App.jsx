@@ -940,7 +940,7 @@ const AboutPage = () => (
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <BookOpen size={20} className="text-purple-400 mb-2" />
               <div className="font-bold text-sm">Expertise</div>
-              <div className="text-xs text-slate-500">Al-Quran Specialist & Author</div>
+              <div className="text-xs text-slate-500">Al-Quran Specialist & High Sanad Recipient & Author</div>
             </div>
             <div className="bg-black/40 p-4 rounded-xl border border-white/5">
               <Users size={20} className="text-blue-400 mb-2" />
