@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import UnderConstruction from './UnderConstruction';
+import tpHRDC from './src/images/tp_hrdc.png';
+import claimableHRDC from './src/images/claimable_hrdc.png';
 
 // ============================================================
 // 🚧 UNDER CONSTRUCTION TOGGLE
@@ -468,7 +470,7 @@ const HomePage = ({ navigateTo }) => {
   return (
     <>
       {/* Hero Section with 3D Parallax */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 hero-reveal film-grain hero-vignette perspective-container">
+      <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 pb-24 md:pb-0 hero-reveal film-grain hero-vignette perspective-container">
         {/* Background Image with parallax */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-3d-bg"
@@ -1559,6 +1561,18 @@ export default function App() {
                 Lumina 3Sixty PLT.<br />
                 Your premier partner for business transformation / customised training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, and IT Skills.
               </p>
+              <div className="flex items-center gap-4 mb-6">
+                <img
+                  src={tpHRDC}
+                  alt="HRD Corp Registered Training Provider"
+                  className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                />
+                <img
+                  src={claimableHRDC}
+                  alt="HRD Corp Claimable"
+                  className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                />
+              </div>
             </div>
 
             <div>
