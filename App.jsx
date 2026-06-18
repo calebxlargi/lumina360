@@ -500,15 +500,6 @@ const HomePage = ({ navigateTo }) => {
         ></div>
 
         <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 hero-content-animate hero-delay-1">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm sm:text-[15.6px] font-medium text-blue-400">
-              HRD Corp Registered Training Provider
-            </div>
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-sm sm:text-[15.6px] font-medium text-blue-400">
-              100% HRD Corp Claimable
-            </div>
-          </div>
-
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
             Developing Workforces. <br className="hidden md:block" />
             Elevating Standards. <br className="hidden md:block" />
@@ -537,8 +528,8 @@ const HomePage = ({ navigateTo }) => {
         <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { label: "Training Provider", value: "Class A" },
-              { label: "Claimable", value: "HRD Corp" },
+              { label: "Registered Training Provider", value: "HRD Corp" },
+              { label: "Claimable", value: "100% HRD Corp" },
               { label: "Focus", value: "Multi-Industry" },
               { label: "Approach", value: "Data-Driven" }
             ].map((stat, index) => (
