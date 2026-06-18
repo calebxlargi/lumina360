@@ -1565,12 +1565,12 @@ export default function App() {
                 <img
                   src={tpHRDC}
                   alt="HRD Corp Registered Training Provider"
-                  className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                  className="h-[83px] w-auto object-contain hover:scale-105 transition-transform duration-300"
                 />
                 <img
                   src={claimableHRDC}
                   alt="HRD Corp Claimable"
-                  className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-300"
+                  className="h-[83px] w-auto object-contain hover:scale-105 transition-transform duration-300"
                 />
               </div>
             </div>
