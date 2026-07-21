@@ -143,7 +143,7 @@ const UnderConstruction = () => {
         {/* Logo */}
         <div className="animate-fade-in-1 mb-10">
           <img
-            src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v3.1.png"
+            src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
             alt="Lumina 3Sixty"
             className="h-[77px] md:h-[96px] w-auto object-contain mx-auto"
             onError={(e) => {
