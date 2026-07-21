@@ -145,7 +145,7 @@ const UnderConstruction = () => {
           <img
             src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
             alt="Lumina 3Sixty"
-            className="h-[77px] md:h-[96px] w-auto object-contain mx-auto"
+            className="h-[77px] md:h-[120px] w-auto object-contain mx-auto"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
               e.currentTarget.nextSibling.style.display = 'flex';
