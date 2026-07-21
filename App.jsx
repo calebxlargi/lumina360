@@ -503,9 +503,9 @@ const HomePage = ({ navigateTo }) => {
 
         <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
-            Developing Workforces. <br className="hidden md:block" />
-            Elevating Standards. <br className="hidden md:block" />
-            <span className="text-white">Transforming businesses.</span>
+            Define. <br className="hidden md:block" />
+            Drive. <br className="hidden md:block" />
+            <span className="text-white">Deliver.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed hero-content-animate hero-delay-3">
@@ -1595,7 +1595,7 @@ export default function App() {
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
-            <p className="text-slate-600 text-xs">Developing Workforces. Elevating Standards.<br className="md:hidden" /> Transforming businesses.</p>
+            <p className="text-slate-600 text-xs">Define. Drive. Deliver.</p>
           </div>
         </div>
       </footer>
