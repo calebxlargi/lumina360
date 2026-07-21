@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import UnderConstruction from './UnderConstruction';
 import tpHRDC from './src/images/tp_hrdc.png';
 import claimableHRDC from './src/images/claimable_hrdc.png';
@@ -1599,6 +1600,7 @@ export default function App() {
           </div>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 }
