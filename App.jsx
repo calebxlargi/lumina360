@@ -470,7 +470,7 @@ const HomePage = ({ navigateTo }) => {
   return (
     <>
       {/* Hero Section with 3D Parallax */}
-      <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20 pb-24 md:pb-0 hero-reveal film-grain hero-vignette perspective-container">
+      <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-36 pb-20 md:pt-20 md:pb-0 hero-reveal film-grain hero-vignette perspective-container">
         {/* Background Image with parallax */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-3d-bg"
@@ -501,7 +501,7 @@ const HomePage = ({ navigateTo }) => {
           style={{ transform: `translateY(${scrollY * -0.2}px) translateZ(40px)` }}
         ></div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
+        <div className="container mx-auto px-6 relative z-10 text-center pt-8 md:pt-0" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
             Define Drive Deliver
           </h1>
@@ -1431,14 +1431,14 @@ export default function App() {
       <CustomStyles />
 
       {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-4' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-3 md:py-4' : 'bg-transparent py-4 md:py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
               alt="Lumina 3Sixty"
-              className="h-[67px] w-auto object-contain"
+              className="h-[48px] sm:h-[56px] md:h-[67px] w-auto object-contain transition-all"
               onError={(e) => {
                 // Fallback if image is missing
                 console.warn("Logo not found. Switching to text fallback.");
