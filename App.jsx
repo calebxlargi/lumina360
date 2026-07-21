@@ -1438,7 +1438,7 @@ export default function App() {
           <div className="cursor-pointer" onClick={() => navigateTo('home')}>
             {/* Logo Image */}
             <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png"
+              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v3.1.png"
               alt="Lumina 3Sixty"
               className="h-[67px] w-auto object-contain"
               onError={(e) => {
@@ -1539,7 +1539,7 @@ export default function App() {
               <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                 {/* Footer Logo */}
                 <img
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v2.png"
+                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo-v3.1.png"
                   alt="Lumina 3Sixty"
                   className="h-[67px] w-auto object-contain"
                   onError={(e) => {
