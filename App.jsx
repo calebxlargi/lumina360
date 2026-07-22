@@ -757,17 +757,17 @@ const AboutPage = () => (
       </p>
     </div>
 
-    {/* Thiru's Profile */}
+    {/* Thirumurugan's Profile */}
     <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
         <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
           <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Thiru's Image */}
+            {/* Thirumurugan's Image */}
             <img
               src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thiruhs_profile_pic.png"
-              alt="Thiruh Shan - Lead Consultant / Trainer"
+              alt="Thirumurugan - Lead Consultant / Trainer"
               className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
@@ -779,24 +779,24 @@ const AboutPage = () => (
               <div className="w-24 h-24 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Briefcase size={48} className="text-purple-400" />
               </div>
-              <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
+              <h3 className="text-2xl font-bold mb-1">Thirumurugan</h3>
               <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Consultant / Trainer</p>
             </div>
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
             <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Thiruh Shan</h3>
+              <h3 className="text-2xl font-bold mb-1">Thirumurugan</h3>
               <p className="text-purple-400 text-sm uppercase tracking-widest font-bold">Lead Consultant / Trainer</p>
             </div>
           </div>
         </div>
         <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Thiruh Shan</h2>
+          <h2 className="text-3xl font-bold mb-2">Thirumurugan</h2>
           <p className="text-slate-300 leading-relaxed">
-            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thiruh specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce Motor Cars, BMW, Audi, VW, JEEP, and Mitsubishi.
+            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thirumurugan specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce Motor Cars, BMW, Audi, VW, JEEP, and Mitsubishi.
           </p>
           <p className="text-slate-300 leading-relaxed">
-            Thiruh is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
+            Thirumurugan is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
           </p>
 
           <p className="text-slate-300 leading-relaxed italic font-bold">
