@@ -863,7 +863,7 @@ const AboutPage = () => (
             Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models and Computer Vision with soft skills coaching.
           </p>
           <p className="text-slate-300 leading-relaxed">
-            His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high level consultancy and training for major organizations including Saudi Aramco, Apple, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
+            His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high level consultancy and training for major organizations including Saudi Aramco, Apple, Monash University, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
           </p>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
