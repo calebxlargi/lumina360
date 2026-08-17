@@ -242,6 +242,7 @@ const CustomStyles = () => (
     .hero-delay-2 { animation-delay: 3.28s; }
     .hero-delay-3 { animation-delay: 3.36s; }
     .hero-delay-4 { animation-delay: 3.44s; }
+    .hero-delay-5 { animation-delay: 3.52s; }
 
     /* Film grain overlay */
     .film-grain::before {
@@ -519,6 +520,52 @@ const HomePage = ({ navigateTo }) => {
             <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all hover:border-white/40">
               Explore Courses
             </a>
+          </div>
+
+          {/* Key Expertise & Faculty Highlights */}
+          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8 px-5 py-3 md:px-8 md:py-3.5 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
+            <button 
+              onClick={() => navigateTo('about')}
+              className="flex items-center gap-2.5 text-left group transition-all"
+            >
+              <div className="w-8 h-8 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all">
+                <Users className="w-4 h-4" />
+              </div>
+              <div className="leading-tight">
+                <span className="font-bold text-white text-base md:text-lg">5</span>
+                <span className="text-slate-300 group-hover:text-white text-xs md:text-sm ml-1.5 font-medium transition-colors">Trainers</span>
+              </div>
+            </button>
+
+            <div className="hidden sm:block w-px h-6 bg-white/10" />
+
+            <button 
+              onClick={() => navigateTo('about')}
+              className="flex items-center gap-2.5 text-left group transition-all"
+            >
+              <div className="w-8 h-8 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all">
+                <GraduationCap className="w-4 h-4" />
+              </div>
+              <div className="leading-tight">
+                <span className="font-bold text-white text-base md:text-lg">3</span>
+                <span className="text-slate-300 group-hover:text-white text-xs md:text-sm ml-1.5 font-medium transition-colors">PhD Holders</span>
+              </div>
+            </button>
+
+            <div className="hidden sm:block w-px h-6 bg-white/10" />
+
+            <button 
+              onClick={() => navigateTo('about')}
+              className="flex items-center gap-2.5 text-left group transition-all"
+            >
+              <div className="w-8 h-8 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
+                <Car className="w-4 h-4" />
+              </div>
+              <div className="leading-tight">
+                <span className="font-bold text-white text-base md:text-lg">5</span>
+                <span className="text-slate-300 group-hover:text-white text-xs md:text-sm ml-1.5 font-medium transition-colors">Automotive Experts</span>
+              </div>
+            </button>
           </div>
         </div>
       </section>
