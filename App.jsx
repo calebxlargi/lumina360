@@ -532,7 +532,7 @@ const HomePage = ({ navigateTo }) => {
                 <Users className="w-4 h-4" />
               </div>
               <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-lg">5</span>
+                <span className="font-bold text-white text-base md:text-lg">15</span>
                 <span className="text-slate-300 group-hover:text-white text-xs md:text-sm ml-1.5 font-medium transition-colors">Trainers</span>
               </div>
             </button>
