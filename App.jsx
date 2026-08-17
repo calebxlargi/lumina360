@@ -522,7 +522,7 @@ const HomePage = ({ navigateTo }) => {
           </div>
 
           {/* Key Expertise & Faculty Highlights */}
-          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-10 px-5 py-3 md:px-11 md:py-5 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
+          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8 px-5 py-3 md:px-10 md:py-4.5 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
             <button 
               onClick={() => navigateTo('about')}
               className="flex items-center gap-2.5 md:gap-3.5 text-left group transition-all"
@@ -532,7 +532,7 @@ const HomePage = ({ navigateTo }) => {
               </div>
               <div className="leading-tight">
                 <span className="font-bold text-white text-base md:text-2xl">15</span>
-                <span className="text-slate-300 group-hover:text-white text-xs md:text-base ml-1.5 md:ml-2.5 font-medium transition-colors">Trainers</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Trainers</span>
               </div>
             </button>
 
@@ -547,7 +547,7 @@ const HomePage = ({ navigateTo }) => {
               </div>
               <div className="leading-tight">
                 <span className="font-bold text-white text-base md:text-2xl">3</span>
-                <span className="text-slate-300 group-hover:text-white text-xs md:text-base ml-1.5 md:ml-2.5 font-medium transition-colors">PhD Holders</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
               </div>
             </button>
 
@@ -562,7 +562,7 @@ const HomePage = ({ navigateTo }) => {
               </div>
               <div className="leading-tight">
                 <span className="font-bold text-white text-base md:text-2xl">5</span>
-                <span className="text-slate-300 group-hover:text-white text-xs md:text-base ml-1.5 md:ml-2.5 font-medium transition-colors">Automotive Experts</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
               </div>
             </button>
           </div>
