@@ -520,52 +520,6 @@ const HomePage = ({ navigateTo }) => {
               Explore Courses
             </a>
           </div>
-
-          {/* Key Expertise & Faculty Highlights */}
-          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-5 md:gap-6 px-5 py-3 md:px-6 md:py-3 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all">
-                <Users className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">15</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Trainers</span>
-              </div>
-            </button>
-
-            <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
-
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all">
-                <GraduationCap className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">3</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
-              </div>
-            </button>
-
-            <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
-
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
-                <Car className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">5</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
-              </div>
-            </button>
-          </div>
         </div>
       </section>
 
@@ -592,6 +546,54 @@ const HomePage = ({ navigateTo }) => {
       <section id="services" className="py-24 relative bg-gradient-to-b from-black to-zinc-950">
         <div className="container mx-auto px-6 max-w-[1600px]">
           <div className="mb-20 text-center max-w-3xl mx-auto">
+            {/* Key Expertise & Faculty Highlights */}
+            <RevealOnScroll className="mb-10">
+              <div className="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-5 md:gap-6 px-5 py-3 md:px-6 md:py-3 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md shadow-2xl hover:border-white/20 transition-all duration-300">
+                <button 
+                  onClick={() => navigateTo('about')}
+                  className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
+                >
+                  <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all">
+                    <Users className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="leading-tight">
+                    <span className="font-bold text-white text-base md:text-2xl">15</span>
+                    <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Trainers</span>
+                  </div>
+                </button>
+
+                <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
+
+                <button 
+                  onClick={() => navigateTo('about')}
+                  className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
+                >
+                  <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all">
+                    <GraduationCap className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="leading-tight">
+                    <span className="font-bold text-white text-base md:text-2xl">3</span>
+                    <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
+                  </div>
+                </button>
+
+                <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
+
+                <button 
+                  onClick={() => navigateTo('about')}
+                  className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
+                >
+                  <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
+                    <Car className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="leading-tight">
+                    <span className="font-bold text-white text-base md:text-2xl">5</span>
+                    <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
+                  </div>
+                </button>
+              </div>
+            </RevealOnScroll>
+
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training & Consultancy Ecosystem</h2>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
             <p className="text-slate-400 text-lg">
