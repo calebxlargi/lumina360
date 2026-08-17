@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import UnderConstruction from './UnderConstruction';
 import tpHRDC from './src/images/tp_hrdc.png';
 import claimableHRDC from './src/images/claimable_hrdc.png';
+import heroBackground from './src/images/lumina_background.jpg';
 
 // ============================================================
 // 🚧 UNDER CONSTRUCTION TOGGLE
@@ -476,7 +477,7 @@ const HomePage = ({ navigateTo }) => {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-3d-bg"
           style={{
-            backgroundImage: 'url(https://raw.githubusercontent.com/calebxlargi/lumina360/main/src/images/lumina_background.jpg)',
+            backgroundImage: `url(${heroBackground})`,
             transform: `translateY(${scrollY * 0.3}px) translateZ(-100px) scale(1.2)`,
           }}
         ></div>
