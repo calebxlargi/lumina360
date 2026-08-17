@@ -522,47 +522,47 @@ const HomePage = ({ navigateTo }) => {
           </div>
 
           {/* Key Expertise & Faculty Highlights */}
-          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8 px-5 py-3 md:px-10 md:py-4.5 rounded-2xl md:rounded-full bg-white text-black hero-content-animate hero-delay-5 shadow-2xl hover:bg-slate-50 transition-all duration-300">
+          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 md:gap-8 px-5 py-3 md:px-10 md:py-4.5 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
             <button 
               onClick={() => navigateTo('about')}
               className="flex items-center gap-2.5 md:gap-3.5 text-left group transition-all"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-100/80 border border-blue-200 flex items-center justify-center text-blue-700 group-hover:bg-blue-200 group-hover:scale-110 transition-all">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all">
                 <Users className="w-4 h-4 md:w-5 md:h-5" />
               </div>
               <div className="leading-tight">
-                <span className="font-bold text-black text-base md:text-2xl">15</span>
-                <span className="text-slate-800 group-hover:text-black text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Trainers</span>
+                <span className="font-bold text-white text-base md:text-2xl">15</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Trainers</span>
               </div>
             </button>
 
-            <div className="hidden sm:block w-px h-6 md:h-8 bg-black/10" />
+            <div className="hidden sm:block w-px h-6 md:h-8 bg-white/10" />
 
             <button 
               onClick={() => navigateTo('about')}
               className="flex items-center gap-2.5 md:gap-3.5 text-left group transition-all"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-purple-100/80 border border-purple-200 flex items-center justify-center text-purple-700 group-hover:bg-purple-200 group-hover:scale-110 transition-all">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all">
                 <GraduationCap className="w-4 h-4 md:w-5 md:h-5" />
               </div>
               <div className="leading-tight">
-                <span className="font-bold text-black text-base md:text-2xl">3</span>
-                <span className="text-slate-800 group-hover:text-black text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
+                <span className="font-bold text-white text-base md:text-2xl">3</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
               </div>
             </button>
 
-            <div className="hidden sm:block w-px h-6 md:h-8 bg-black/10" />
+            <div className="hidden sm:block w-px h-6 md:h-8 bg-white/10" />
 
             <button 
               onClick={() => navigateTo('about')}
               className="flex items-center gap-2.5 md:gap-3.5 text-left group transition-all"
             >
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-cyan-100/80 border border-cyan-200 flex items-center justify-center text-cyan-800 group-hover:bg-cyan-200 group-hover:scale-110 transition-all">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
                 <Car className="w-4 h-4 md:w-5 md:h-5" />
               </div>
               <div className="leading-tight">
-                <span className="font-bold text-black text-base md:text-2xl">5</span>
-                <span className="text-slate-800 group-hover:text-black text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
+                <span className="font-bold text-white text-base md:text-2xl">5</span>
+                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
               </div>
             </button>
           </div>
