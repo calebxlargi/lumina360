@@ -508,8 +508,7 @@ const HomePage = ({ navigateTo }) => {
           </h1>
 
           <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed hero-content-animate hero-delay-3">
-            Developing leaders, elevating customer experience, mastering automotive excellence, advancing IT skills, and ensuring workplace safety.<br />
-            We provide comprehensive, data-driven training solutions that drive measurable business results.
+            Developing leaders, elevating customer experience, mastering automotive excellence, advancing IT skills, and ensuring workplace safety. We provide comprehensive, data-driven training solutions that drive measurable business results.
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-content-animate hero-delay-4">
