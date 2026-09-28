@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import UnderConstruction from './UnderConstruction';
 import tpHRDC from './src/images/tp_hrdc.png';
 import claimableHRDC from './src/images/claimable_hrdc.png';
-import luminaFavicon from './src/images/lumina_favicon_v2.png';
 
 // ============================================================
 // 🚧 UNDER CONSTRUCTION TOGGLE
@@ -1515,17 +1514,9 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Set website favicon & title
+  // Set website title
   useEffect(() => {
     document.title = 'Lumina 3Sixty';
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link) {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.head.appendChild(link);
-    }
-    link.type = 'image/png';
-    link.href = luminaFavicon;
   }, []);
 
   const navigateTo = (target) => {
