@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import UnderConstruction from './UnderConstruction';
 import tpHRDC from './src/images/tp_hrdc.png';
 import claimableHRDC from './src/images/claimable_hrdc.png';
+import luminaFavicon from './src/images/lumina_favicon_v2.png';
 
 // ============================================================
 // 🚧 UNDER CONSTRUCTION TOGGLE
@@ -50,6 +51,27 @@ const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v1
 const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>;
 const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="3" rx="2" ry="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></Icon>;
 const BookOpen = (props) => <Icon {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></Icon>;
+const ArrowUp = (props) => <Icon {...props}><path d="m18 15-6-6-6 6" /></Icon>;
+const Sparkles = (props) => <Icon {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></Icon>;
+const Linkedin = (props) => (
+  <Icon {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </Icon>
+);
+const Instagram = (props) => (
+  <Icon {...props}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </Icon>
+);
+const Tiktok = ({ size = 20, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.891 2.89 2.896 2.896 0 0 1-2.892-2.89 2.896 2.896 0 0 1 2.892-2.892c.38 0 .741.077 1.07.215V9.45a6.335 6.335 0 0 0-1.07-.091A6.34 6.34 0 0 0 3 15.698 6.34 6.34 0 0 0 9.34 22.04a6.34 6.34 0 0 0 6.34-6.342V8.756a8.214 8.214 0 0 0 4.909 1.602V6.913a4.83 4.83 0 0 1-1-.227z" />
+  </svg>
+);
 
 // --- Custom Hook for Scroll Position ---
 const useScrollPosition = () => {
@@ -1502,7 +1524,8 @@ export default function App() {
       link.rel = 'icon';
       document.head.appendChild(link);
     }
-    link.href = 'https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_favicon_v2.png';
+    link.type = 'image/png';
+    link.href = luminaFavicon;
   }, []);
 
   const navigateTo = (target) => {
@@ -1641,17 +1664,62 @@ export default function App() {
       {view === 'hrd' && <HRDCorpPage />}
       {view === 'privacy' && <PrivacyPolicyPage />}
 
-      {/* Footer */}
-      <footer className="bg-black border-t border-white/10 pt-16 pb-8">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div className="col-span-1 md:col-span-2">
-              <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
-                {/* Footer Logo */}
+      {/* Modern Redesigned Footer */}
+      <footer className="relative bg-gradient-to-b from-black via-zinc-950 to-black border-t border-white/10 pt-20 pb-10 overflow-hidden">
+        {/* Subtle ambient light accents */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/3 right-1/4 w-[400px] h-[300px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          {/* 1. Newsletter Feature Card */}
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 md:p-12 mb-16 shadow-2xl">
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-6 space-y-3">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400">
+                  <Sparkles size={14} /> Weekly Learning Bites
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
+                  Get Actionable Workplace Insights Every Week
+                </h3>
+                <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-lg">
+                  Subscribe to <span className="italic text-slate-200 font-medium">Learning Bites</span> by Lumina 3Sixty. Every issue breaks down daily work challenges into practical takeaways: complete with a visual framework infographic, a real-world case study, and a micro-action you can apply immediately on the job.
+                </p>
+              </div>
+
+              <div className="lg:col-span-6">
+                <div dangerouslySetInnerHTML={{ __html: `
+                  <form action="https://app.kit.com/forms/9459607/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9459607" data-uid="67b041c15e" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'>
+                    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+                    <div data-element="fields" class="seva-fields formkit-fields">
+                      <div class="formkit-field">
+                        <input class="formkit-input" name="email_address" aria-label="Work Email Address" placeholder="Enter your work email..." required="" type="email" />
+                      </div>
+                      <button data-element="submit" class="formkit-submit">
+                        <div class="formkit-spinner"><div></div><div></div><div></div></div>
+                        <span>Subscribe</span>
+                      </button>
+                    </div>
+                  </form>
+                ` }} />
+                <p className="mt-3 text-xs text-slate-500">
+                  ✍️ 1 infographic, 1 case study, and 1 micro-action every week. Unsubscribe anytime.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2. Main Grid: Brand, Solutions, Company, Contact */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+            {/* Col 1: Brand & Accreditations (span 5) */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="cursor-pointer inline-block" onClick={() => navigateTo('home')}>
                 <img
                   src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
                   alt="Lumina 3Sixty"
-                  className="h-[52px] md:h-[84px] w-auto object-contain"
+                  className="h-[52px] md:h-[64px] w-auto object-contain hover:opacity-90 transition-opacity"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                     if (e.currentTarget.nextElementSibling) {
@@ -1659,7 +1727,6 @@ export default function App() {
                     }
                   }}
                 />
-                {/* Fallback Text Logo */}
                 <div className="hidden text-2xl font-bold tracking-tighter items-center gap-2" style={{ display: 'none' }}>
                   <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
                     <span className="text-white font-serif italic text-xs">L</span>
@@ -1667,45 +1734,210 @@ export default function App() {
                   <span>Lumina<span className="text-slate-400 font-light"> 3Sixty</span></span>
                 </div>
               </div>
-              <p className="text-slate-400 max-w-sm mb-6">
-                Lumina 3Sixty PLT.<br />
-                Your premier partner for business transformation / customised training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, and IT Skills.
+
+              <p className="text-slate-400 text-sm leading-relaxed max-w-md">
+                Lumina 3Sixty PLT is your premier partner for business transformation and corporate training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, OSH Compliance, and AI-driven IT Skills.
               </p>
-              <div className="flex items-center gap-4 mb-6">
-                <img
-                  src={tpHRDC}
-                  alt="HRD Corp Registered Training Provider"
-                  className="h-[83px] w-auto object-contain hover:scale-105 transition-transform duration-300"
-                />
-                <img
-                  src={claimableHRDC}
-                  alt="HRD Corp Claimable"
-                  className="h-[83px] w-auto object-contain hover:scale-105 transition-transform duration-300"
-                />
+
+              {/* Social Channels */}
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://www.linkedin.com/company/lumina3sixty/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Lumina 3Sixty on LinkedIn"
+                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/10 flex items-center justify-center text-slate-400 hover:text-blue-400 transition-all duration-300 hover:scale-105 shadow-sm group"
+                >
+                  <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+                <a
+                  href="https://www.instagram.com/lumina3sixty"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Lumina 3Sixty on Instagram"
+                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/10 flex items-center justify-center text-slate-400 hover:text-pink-400 transition-all duration-300 hover:scale-105 shadow-sm group"
+                >
+                  <Instagram size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+                <a
+                  href="https://www.tiktok.com/@lumina3sixty"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Lumina 3Sixty on TikTok"
+                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-all duration-300 hover:scale-105 shadow-sm group"
+                >
+                  <Tiktok size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+              </div>
+
+              {/* Accredited Badge Container */}
+              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 max-w-md hover:border-white/20 transition-all">
+                <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 mb-3 uppercase tracking-wider">
+                  <FileCheck size={15} /> Accredited Training Partner
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="bg-white p-1.5 rounded-xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
+                    <img
+                      src={tpHRDC}
+                      alt="HRD Corp Registered Training Provider"
+                      className="h-11 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="bg-white p-1.5 rounded-xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
+                    <img
+                      src={claimableHRDC}
+                      alt="HRD Corp 100% Claimable"
+                      className="h-11 w-auto object-contain"
+                    />
+                  </div>
+                  <div className="text-xs text-slate-300 leading-snug">
+                    <span className="text-white font-medium block">HRD Corp Registered</span>
+                    100% SBL-Khas Claimable Programmes
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div>
-              <h4 className="font-bold mb-6">Company</h4>
-              <ul className="space-y-4 text-slate-400 text-sm">
-                <li onClick={() => navigateTo('about')} className="hover:text-white cursor-pointer">Consultants/Trainers</li>
-                {ENABLE_HRD_CORP_STATUS && (
-                  <li onClick={() => navigateTo('hrd')} className="hover:text-white cursor-pointer">HRD Corp Status</li>
-                )}
-                <li onClick={() => navigateTo('contact')} className="hover:text-white cursor-pointer">Contact</li>
-                <li onClick={() => navigateTo('privacy')} className="hover:text-white cursor-pointer">Privacy Policy</li>
+            {/* Col 2: Training Programmes (span 3) */}
+            <div className="lg:col-span-3">
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                Programmes
+              </h4>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li>
+                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                    Automotive Excellence
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                    Leadership & Dynamics
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                    Customer Experience (CX)
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                    IT & Generative AI Skills
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                    OSH Safety Compliance
+                  </button>
+                </li>
               </ul>
+            </div>
+
+            {/* Col 3: Company Navigation (span 2) */}
+            <div className="lg:col-span-2">
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                Company
+              </h4>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li>
+                  <button onClick={() => navigateTo('about')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
+                    Consultants & Trainers
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('approach')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
+                    Our Approach
+                  </button>
+                </li>
+                {ENABLE_HRD_CORP_STATUS && (
+                  <li>
+                    <button onClick={() => navigateTo('hrd')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                      <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
+                      HRD Corp Status
+                    </button>
+                  </li>
+                )}
+                <li>
+                  <button onClick={() => navigateTo('contact')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
+                    Contact Us
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => navigateTo('privacy')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
+                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
+                    Privacy Policy
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Col 4: Direct Contact & Office (span 2) */}
+            <div className="lg:col-span-2">
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
+                Get In Touch
+              </h4>
+              <div className="space-y-3.5 text-sm text-slate-400">
+                <a href="mailto:sales@lumina3sixty.com" className="hover:text-white transition-colors flex items-start gap-2.5 group">
+                  <Mail size={16} className="text-cyan-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="break-all text-xs">sales@lumina3sixty.com</span>
+                </a>
+                <a href="tel:+60194419999" className="hover:text-white transition-colors flex items-start gap-2.5 group">
+                  <Phone size={16} className="text-cyan-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <span className="text-xs">+6019-441 9999</span>
+                </a>
+                <div className="flex items-start gap-2.5 text-xs text-slate-400 leading-relaxed">
+                  <MapPin size={16} className="text-cyan-400 mt-0.5 flex-shrink-0" />
+                  <span>Windsor Tower, Sri Hartamas, Kuala Lumpur</span>
+                </div>
+                <button
+                  onClick={() => navigateTo('contact')}
+                  className="mt-3 w-full py-2.5 px-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/40 rounded-xl text-xs font-semibold text-white transition-all text-center flex items-center justify-center gap-1.5 shadow-sm"
+                >
+                  <span>Request Proposal</span>
+                  <ArrowRight size={12} />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* Newsletter Signup */}
-          <div className="mb-4" dangerouslySetInnerHTML={{ __html: `
-            <form action="https://app.kit.com/forms/9459607/subscriptions" style="background-color: rgb(0, 0, 0); border-radius: 0px;" class="seva-form formkit-form" method="post" data-sv-form="9459607" data-uid="67b041c15e" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://kit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}' min-width="400 500 600 700 800"><div data-style="full"><div style="background-color: rgb(0, 0, 0);" data-element="column" class="formkit-column"><div style="opacity: 1;" class="formkit-background"></div><div class="formkit-header" style="color: rgb(147, 159, 179); font-size: 20px; font-weight: 700;" data-element="header"><h2>Join the Newsletter</h2></div><div class="formkit-subheader" style="color: rgb(147, 159, 179); font-size: 15px;" data-element="subheader"><p>Subscribe to get our latest content by email.</p></div></div><div data-element="column" class="formkit-column"><ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul><div data-element="fields" class="seva-fields formkit-fields"><div class="formkit-field"><input class="formkit-input" name="email_address" style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400;" aria-label="Email Address" placeholder="Email Address" required="" type="email"></div><button data-element="submit" class="formkit-submit formkit-submit" style="color: rgb(255, 255, 255); background-color: rgb(68, 122, 247); border-radius: 24px; font-weight: 700;"><div class="formkit-spinner"><div></div><div></div><div></div></div><span class="">Subscribe</span></button></div><div class="formkit-powered-by-convertkit-container"><a href="https://kit.com/features/forms?utm_campaign=poweredby&utm_content=form&utm_medium=referral&utm_source=dynamic" data-element="powered-by" class="formkit-powered-by-convertkit" data-variant="light" target="_blank" rel="nofollow noopener">Built with Kit</a></div></div></div></form>
-          ` }} />
+          {/* 3. Refined Bottom Sub-Footer Bar */}
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <div className="flex items-center gap-2">
+              <span>© {new Date().getFullYear()} Lumina 3Sixty PLT.</span>
+              <span>•</span>
+              <span>All rights reserved.</span>
+            </div>
 
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Lumina 3Sixty PLT. All rights reserved.</p>
-            <p className="text-slate-600 text-xs">Define Drive Deliver</p>
+            <div className="flex items-center gap-3 font-medium text-slate-400 tracking-wider uppercase text-[11px]">
+              <span>Define</span>
+              <span className="w-1 h-1 rounded-full bg-blue-500"></span>
+              <span>Drive</span>
+              <span className="w-1 h-1 rounded-full bg-purple-500"></span>
+              <span>Deliver</span>
+            </div>
+
+            <div className="flex items-center gap-6">
+              <button onClick={() => navigateTo('privacy')} className="hover:text-slate-300 transition-colors">
+                Privacy Policy
+              </button>
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors group cursor-pointer"
+              >
+                <span>Back to top</span>
+                <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
+              </button>
+            </div>
           </div>
         </div>
       </footer>
