@@ -1771,28 +1771,28 @@ export default function App() {
               </div>
 
               {/* Accredited Badge Container */}
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 max-w-md hover:border-white/20 transition-all">
+              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 max-w-lg hover:border-white/20 transition-all">
                 <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 mb-3 uppercase tracking-wider">
-                  <FileCheck size={15} /> Accredited Training Partner
+                  <FileCheck size={15} /> HRD CORP REGISTERED TRAINING PROVIDER
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="bg-white p-1.5 rounded-xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
+                  <div className="bg-white p-2 sm:p-2.5 rounded-2xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
                     <img
                       src={tpHRDC}
                       alt="HRD Corp Registered Training Provider"
-                      className="h-11 w-auto object-contain"
+                      className="h-[99px] w-auto object-contain"
                     />
                   </div>
-                  <div className="bg-white p-1.5 rounded-xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
+                  <div className="bg-white p-2 sm:p-2.5 rounded-2xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
                     <img
                       src={claimableHRDC}
                       alt="HRD Corp 100% Claimable"
-                      className="h-11 w-auto object-contain"
+                      className="h-[99px] w-auto object-contain"
                     />
                   </div>
-                  <div className="text-xs text-slate-300 leading-snug">
-                    <span className="text-white font-medium block">HRD Corp Registered</span>
-                    100% SBL-Khas Claimable Programmes
+                  <div className="text-sm text-slate-300 leading-snug">
+                    <span className="text-white font-medium block text-base mb-1">100% HRD Corp Claimable</span>
+                    SBL-Khas Approved Programmes
                   </div>
                 </div>
               </div>
