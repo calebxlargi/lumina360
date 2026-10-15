@@ -977,8 +977,11 @@ html {
   display: flex;
   justify-content: space-between;
 }
-.process-grid h3 span {
-  font-size: 25px;
+.process-grid h3 svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  align-self: center;
   color: #77727f;
 }
 .process-grid h4 {
@@ -1786,9 +1789,30 @@ footer {
   max-width: 440px;
 }
 .newsletter-privacy {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 16px;
   font-size: 8px;
+}
+.newsletter-privacy svg,
+.footer-links a svg {
+  width: 12px;
+  height: 12px;
+}
+.footer-links a,
+.footer-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footer-bottom a svg {
+  width: 10px;
+  height: 10px;
+}
+.scroll-cue svg {
+  width: 24px;
+  height: 32px;
 }
 .footer-accreditation {
   display: flex;

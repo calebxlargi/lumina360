@@ -6,8 +6,8 @@ import claimableHRDC from './src/images/claimable_hrdc.png';
 import useScrollMotion from './src/useScrollMotion';
 import CountUp from './src/CountUp';
 import SectionScrollCue from './src/SectionScrollCue';
+import Arrow from './src/Arrow';
 
-const Arrow = ({ diagonal = false, ...props }) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" {...props}>{diagonal ? <path d="M5 19 19 5M5 5h14v14" /> : <path d="M4 12h16m-6-6 6 6-6 6" />}</svg>;
 const routeLink = (page = '') => `#/${page}`;
 const programmeSlug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const programmeEntries = programmes.flatMap(category => category.items.map(title => ({ title, category, slug: programmeSlug(title) })));
@@ -239,7 +239,7 @@ function ApproachSummary() {
       ['Define', 'Understand what matters.', 'We diagnose your team’s challenges through consultation, data and observation before designing the right intervention.'],
       ['Drive', 'Build the capability.', 'Industry-specific cases, practical exercises and expert facilitation connect learning with the reality of your workplace.'],
       ['Deliver', 'Make the learning count.', 'We focus on implementation and the measures that matter, from customer relationships to safer working practices.']
-    ].map(([title, subtitle, text], i) => <article key={title}><span className="mono muted">0{i + 1} /</span><h3>{title}<span>↗</span></h3><h4>{subtitle}</h4><p>{text}</p></article>)}</div>
+    ].map(([title, subtitle, text], i) => <article key={title}><span className="mono muted">0{i + 1} /</span><h3>{title}<Arrow diagonal /></h3><h4>{subtitle}</h4><p>{text}</p></article>)}</div>
     <TextLink href={routeLink('approach')}>Discover approach</TextLink>
   </section>;
 }
@@ -440,10 +440,10 @@ function Footer({ contactPage }) {
         <label htmlFor="newsletter-email" className="mono">Your work email</label>
         <div className="newsletter-signup"><input id="newsletter-email" name="email_address" type="email" autoComplete="email" required placeholder="Enter your work email..." /><AnimatedNavItem as="button" label="Subscribe" className="solid-button" type="submit"><Arrow diagonal /></AnimatedNavItem></div>
         <p className="newsletter-note">One infographic, one case study, and one micro-action every week. Unsubscribe anytime.</p>
-        <a className="newsletter-privacy mono muted" href={routeLink('privacy')}>Privacy policy ↗</a>
+        <a className="newsletter-privacy mono muted" href={routeLink('privacy')}>Privacy policy <Arrow diagonal /></a>
       </form>
     </section>
-    <div className="footer-links page-pad"><div><Logo /><p>Define. Drive. Deliver.</p></div><div><span className="mono muted">Explore</span><a href={routeLink('programmes')}>Courses</a><a href={routeLink('approach')}>Approach</a></div><div><span className="mono muted">Company</span><a href={routeLink('about')}>Trainers</a><a href={routeLink('contact')}>Contact</a></div><div><span className="mono muted">Connect</span><a href="https://www.linkedin.com/company/lumina3sixty/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/lumina3sixty" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.tiktok.com/@lumina3sixty" target="_blank" rel="noreferrer">TikTok ↗</a></div></div>
+    <div className="footer-links page-pad"><div><Logo /><p>Define. Drive. Deliver.</p></div><div><span className="mono muted">Explore</span><a href={routeLink('programmes')}>Courses</a><a href={routeLink('approach')}>Approach</a></div><div><span className="mono muted">Company</span><a href={routeLink('about')}>Trainers</a><a href={routeLink('contact')}>Contact</a></div><div><span className="mono muted">Connect</span><a href="https://www.linkedin.com/company/lumina3sixty/" target="_blank" rel="noreferrer">LinkedIn <Arrow diagonal /></a><a href="https://www.instagram.com/lumina3sixty" target="_blank" rel="noreferrer">Instagram <Arrow diagonal /></a><a href="https://www.tiktok.com/@lumina3sixty" target="_blank" rel="noreferrer">TikTok <Arrow diagonal /></a></div></div>
     <section className="footer-accreditation page-pad" aria-label="HRD Corp accreditation">
       <div className="footer-accreditation-copy">
         <p className="mono">HRD Corp Registered Training Provider</p>
@@ -454,7 +454,7 @@ function Footer({ contactPage }) {
         <div className="hrdc-badge"><img src={claimableHRDC} alt="HRD Corp Claimable" loading="lazy" /></div>
       </div>
     </section>
-    <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top ↑</a></div>
+    <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top <Arrow direction="up" /></a></div>
   </footer>;
 }
 

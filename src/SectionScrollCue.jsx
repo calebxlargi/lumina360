@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import Arrow from './Arrow';
 
 export default function SectionScrollCue() {
   const targets = useRef([]);
@@ -49,5 +50,5 @@ export default function SectionScrollCue() {
     window.scrollTo({ top: next, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
   };
 
-  return <button type="button" className="scroll-cue" onClick={advance} aria-label={atEnd ? 'Back to top' : 'Scroll to next section'} title={atEnd ? 'Back to top' : 'Next section'}><span aria-hidden="true">{atEnd ? '↑' : '↓'}</span></button>;
+  return <button type="button" className="scroll-cue" onClick={advance} aria-label={atEnd ? 'Back to top' : 'Scroll to next section'} title={atEnd ? 'Back to top' : 'Next section'}><Arrow direction={atEnd ? 'up' : 'down'} /></button>;
 }
