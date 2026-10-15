@@ -19,7 +19,7 @@ export default function SectionScrollCue() {
       let top = main.getBoundingClientRect().top + window.scrollY;
       const sections = [...main.querySelectorAll(':scope > section')].map(section => {
         const start = top;
-        top += section.getBoundingClientRect().height;
+        top += section.getBoundingClientRect().height + parseFloat(getComputedStyle(section).marginBottom);
         return start;
       });
       const closing = [...footer.children].filter(element => !element.classList.contains('footer-bottom'))

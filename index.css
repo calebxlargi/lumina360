@@ -2635,6 +2635,19 @@ footer {
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 @media(max-width:700px) {
+  /* Extra native scroll distance lets each panel settle before the next arrives. */
+  .scroll-motion .home-sections,
+  .scroll-motion .catalogue-results[data-pin-stack],
+  .scroll-motion .approach-sections,
+  .scroll-motion .contact-sections {
+    padding-bottom: 30svh;
+  }
+  .scroll-motion .home-sections > section:not(:last-child),
+  .scroll-motion .catalogue-results[data-pin-stack] > .catalogue-group:not(:last-child),
+  .scroll-motion .approach-sections > section:not(:last-child),
+  .scroll-motion .contact-sections > section:not(:last-child) {
+    margin-bottom: 30svh;
+  }
   .scroll-motion .home-sections > .hero {
     min-height: max(700px, 100svh);
   }
