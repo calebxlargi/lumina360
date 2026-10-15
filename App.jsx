@@ -474,7 +474,7 @@ function Footer({ contactPage }) {
     <section className="newsletter page-pad" aria-labelledby="newsletter-title">
       <div><span className="newsletter-kicker mono muted">Weekly Learning Bites /</span><h3 id="newsletter-title">Get Actionable Workplace Insights Every Week</h3><p>Subscribe to Learning Bites by Lumina 3Sixty. Every issue breaks down daily work challenges into practical takeaways: complete with a visual framework infographic, a real-world case study, and a micro-action you can apply immediately on the job.</p></div>
       <form action="https://app.kit.com/forms/9459607/subscriptions" method="post">
-        <label htmlFor="newsletter-email" className="mono">Email</label>
+        <label htmlFor="newsletter-email" className="mono">Your Email</label>
         <div className="newsletter-signup"><input id="newsletter-email" name="email_address" type="email" autoComplete="email" required placeholder="Enter your email..." /><AnimatedNavItem as="button" label="Subscribe" className="solid-button" type="submit"><Arrow diagonal /></AnimatedNavItem></div>
         <p className="newsletter-note">One infographic, one case study, and one micro-action every week. Unsubscribe anytime.</p>
         <a className="newsletter-privacy mono muted" href={routeLink('privacy')}>Privacy policy <Arrow diagonal /></a>
