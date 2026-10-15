@@ -428,33 +428,38 @@ const RevealOnScroll = ({ children, className = "", delay = 0, use3D = true }) =
 const HomePage = ({ navigateTo }) => {
   const autoTraining = [
     "Transformational Leadership: Showroom to Boardroom",
-    "Modern Consultative Sales Mastery",
-    "Sales Management 1: Protect your Margin & Increase your Market Share",
-    "Sales Management 2: Financials, Manage your P&L",
-    "After Sales: Creating Customers for Life"
+    "The Modern Dealer Principal Masterclass",
+    "The Automotive Sales Consultants Masterclass",
+    "The Automotive Sales Manager Masterclass",
+    "The Automotive Aftersales Manager Masterclass",
+    "The Digital Sales Consultant Masterclass",
+    "Service Excellence for Premium Automotive Brands"
   ];
 
   const leadershipSkills = [
-    "Team Building",
+    "Change Management: The Key for Staying Ahead",
+    "Speak and Communicate with Impact",
+    "Emotional Intelligence: The Key to Harmony At Work",
+    "Lead Even Without A Title: Building The Foundation Of Leadership",
+    "People, Performance & Execution: Leadership for Modern Executives",
+    "Persuasive Presentation Skills",
     "Executive Coaching 1 on 1",
-    "Change Management and Its Impact on Leadership",
-    "Persuasive Communication: Influence Without Authority",
-    "Collaborative Intelligence in Diverse Teams",
-    "Emotional Intelligence: Building Resilient Teams",
-    "Leading a Diverse Work Force"
+    "Team Building"
   ];
 
   const cxSkills = [
-    "Owning and Championing the Customer Experience",
-    "Managing Customer Expectations and Service Recovery",
+    "The Partnership Engine: Scaling Revenue Through Strategic Collaboration",
+    "Customer Centricity: The Effective Way for Customer Retention",
+    "Beyond the Transaction: Strategic Retention & Relationship Monetisation",
     "The Art of Active Listening",
     "Critical Thinking and Problem Solving",
-    "Time Management: Prioritization and Focus",
     "Conflict Resolution",
     "Crisis Management"
   ];
 
   const itSkills = [
+    "Social Media Marketing For The AI Era",
+    "Your AI Secret Weapon",
     "Generative AI for Business Productivity",
     "AI Data Privacy & Security Awareness",
     "Data Literacy for Non-Technical Professionals",
@@ -651,10 +656,10 @@ const HomePage = ({ navigateTo }) => {
               />
             </RevealOnScroll>
 
-            {/* IT Skills Column */}
+            {/* IT & Marketing Skills Column */}
             <RevealOnScroll delay={400}>
               <TrainingList
-                title="IT Skills"
+                title="IT & Marketing Skills"
                 icon={Monitor}
                 color="emerald"
                 items={itSkills}
@@ -1727,7 +1732,7 @@ export default function App() {
               </div>
 
               <p className="text-slate-400 text-sm leading-relaxed max-w-md">
-                Lumina 3Sixty PLT is your premier partner for business transformation and corporate training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, OSH Compliance, and AI-driven IT Skills.
+                Lumina 3Sixty PLT is your premier partner for business transformation and corporate training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, OSH Compliance, and AI-driven IT & Marketing Skills.
               </p>
 
               {/* Social Channels */}
