@@ -1,1942 +1,472 @@
-import React, { useState, useEffect, useRef } from 'react';
-import UnderConstruction from './UnderConstruction';
-import tpHRDC from './src/images/tp_hrdc.png';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { programmes, trainers, enquiryKey } from './src/siteData';
+import { programmeIntros } from './src/programmeIntros';
+import registeredHRDC from './src/images/tp_hrdc.png';
 import claimableHRDC from './src/images/claimable_hrdc.png';
+import useScrollMotion from './src/useScrollMotion';
+import CountUp from './src/CountUp';
+import SectionScrollCue from './src/SectionScrollCue';
 
-// ============================================================
-// 🚧 UNDER CONSTRUCTION TOGGLE
-// Set to `true`  → visitors see the "Under Construction" page
-// Set to `false` → visitors see the full website
-// ============================================================
-const UNDER_CONSTRUCTION = false;
+const Arrow = ({ diagonal = false, ...props }) => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true" {...props}>{diagonal ? <path d="M5 19 19 5M5 5h14v14" /> : <path d="M4 12h16m-6-6 6 6-6 6" />}</svg>;
+const routeLink = (page = '') => `#/${page}`;
+const programmeSlug = title => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const programmeEntries = programmes.flatMap(category => category.items.map(title => ({ title, category, slug: programmeSlug(title) })));
+const programmeDestination = title => programmeIntros[title]
+  ? routeLink(`programme/${programmeSlug(title)}`)
+  : routeLink(`contact?programme=${encodeURIComponent(title)}`);
+const catalogueReturnKey = 'lumina-course-return';
+const readCatalogueReturn = () => {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(catalogueReturnKey));
+    const validRoute = saved?.route === 'programmes' || programmes.some(p => saved?.route === `programmes/${p.id}`);
+    return validRoute && Number.isFinite(saved.scrollY) && saved.scrollY >= 0
+      && typeof saved.query === 'string' && typeof saved.programme === 'string' ? saved : null;
+  } catch { return null; }
+};
+const rememberCatalogue = (title, query) => {
+  try {
+    sessionStorage.setItem(catalogueReturnKey, JSON.stringify({
+      route: window.location.hash.replace(/^#\/?/, ''),
+      scrollY: window.scrollY, query, programme: programmeSlug(title),
+    }));
+  } catch { /* The popup works even when session storage is unavailable. */ }
+};
+const readCatalogueQuery = () => {
+  const saved = readCatalogueReturn();
+  return saved?.route === window.location.hash.replace(/^#\/?/, '') ? saved.query : '';
+};
+const Label = ({ number, children, light = false }) => <div className={`section-label ${light ? 'label-dark' : ''}`}><span><i />{number}</span><span><i />{children}</span></div>;
+const TextLink = ({ href, children }) => <a className="text-link" href={href}>{children}<Arrow diagonal /></a>;
+const Logo = () => <img className="brand-image" src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png" alt="Lumina 3Sixty" />;
 
-// ============================================================
-// ⚙️ FEATURE FLAGS
-// Set to `true`  → Enable the feature
-// Set to `false` → Disable the feature
-// ============================================================
-const ENABLE_HRD_CORP_STATUS = false;
-
-// --- Icon Components ---
-const Icon = ({ children, size = 24, className = "" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    {children}
-  </svg>
-);
-
-const Menu = (props) => <Icon {...props}><line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" /></Icon>;
-const X = (props) => <Icon {...props}><path d="M18 6 6 18" /><path d="m6 6 12 12" /></Icon>;
-const ChevronRight = (props) => <Icon {...props}><path d="m9 18 6-6-6-6" /></Icon>;
-const BarChart3 = (props) => <Icon {...props}><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></Icon>;
-const Users = (props) => <Icon {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></Icon>;
-const Zap = (props) => <Icon {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></Icon>;
-const CheckCircle2 = (props) => <Icon {...props}><circle cx="12" cy="12" r="10" /><path d="m9 12 2 2 4-4" /></Icon>;
-const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></Icon>;
-const Mail = (props) => <Icon {...props}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></Icon>;
-const Phone = (props) => <Icon {...props}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></Icon>;
-const MapPin = (props) => <Icon {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></Icon>;
-const GraduationCap = (props) => <Icon {...props}><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 0 6-1 6-1v-7" /></Icon>;
-const Briefcase = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="7" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></Icon>;
-const Brain = (props) => <Icon {...props}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" /><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" /></Icon>;
-const Globe = (props) => <Icon {...props}><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></Icon>;
-const TrendingUp = (props) => <Icon {...props}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></Icon>;
-const Search = (props) => <Icon {...props}><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></Icon>;
-const Target = (props) => <Icon {...props}><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></Icon>;
-const MessageSquare = (props) => <Icon {...props}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></Icon>;
-const Car = (props) => <Icon {...props}><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" /><circle cx="7" cy="17" r="2" /><path d="M9 17h6" /><circle cx="17" cy="17" r="2" /></Icon>;
-const Shield = (props) => <Icon {...props}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" /></Icon>;
-const HardHat = (props) => <Icon {...props}><path d="M2 18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v2z" /><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" /><path d="M4 15v-3a6 6 0 0 1 6-6h0" /><path d="M14 6h0a6 6 0 0 1 6 9v3" /></Icon>;
-const FileCheck = (props) => <Icon {...props}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><path d="m9 15 2 2 4-4" /></Icon>;
-const Lock = (props) => <Icon {...props}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></Icon>;
-const Monitor = (props) => <Icon {...props}><rect width="20" height="14" x="2" y="3" rx="2" ry="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></Icon>;
-const BookOpen = (props) => <Icon {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></Icon>;
-const ArrowUp = (props) => <Icon {...props}><path d="m18 15-6-6-6 6" /></Icon>;
-const Sparkles = (props) => <Icon {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></Icon>;
-const Linkedin = (props) => (
-  <Icon {...props}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </Icon>
-);
-const Instagram = (props) => (
-  <Icon {...props}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </Icon>
-);
-const Tiktok = ({ size = 20, className = "" }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className}>
-    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-2.891 2.89 2.896 2.896 0 0 1-2.892-2.89 2.896 2.896 0 0 1 2.892-2.892c.38 0 .741.077 1.07.215V9.45a6.335 6.335 0 0 0-1.07-.091A6.34 6.34 0 0 0 3 15.698 6.34 6.34 0 0 0 9.34 22.04a6.34 6.34 0 0 0 6.34-6.342V8.756a8.214 8.214 0 0 0 4.909 1.602V6.913a4.83 4.83 0 0 1-1-.227z" />
-  </svg>
-);
-
-// --- Custom Hook for Scroll Position ---
-const useScrollPosition = () => {
-  const [scrollY, setScrollY] = useState(0);
-
+function useRoute() {
+  const getRoute = () => window.location.hash.replace(/^#\/?/, '') || 'home';
+  const [route, setRoute] = useState(getRoute);
+  const previousRoute = useRef(route);
+  const pendingScroll = useRef(null);
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return scrollY;
-};
-
-// --- 3D Parallax Section Component ---
-const Parallax3DSection = ({ children, className = "", speed = 0.5, zDepth = 0 }) => {
-  const scrollY = useScrollPosition();
-  const ref = useRef(null);
-  const [offsetTop, setOffsetTop] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      setOffsetTop(ref.current.offsetTop);
-    }
-  }, []);
-
-  const relativeScroll = scrollY - offsetTop + window.innerHeight;
-  const translateY = relativeScroll * speed * 0.1;
-  const translateZ = zDepth;
-
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        transform: `translate3d(0, ${translateY}px, ${translateZ}px)`,
-        willChange: 'transform',
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-
-// --- 3D Tilt Card Component ---
-const Tilt3DCard = ({ children, className = "", intensity = 10 }) => {
-  const [transform, setTransform] = useState('perspective(1000px) rotateX(0deg) rotateY(0deg)');
-  const cardRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = ((y - centerY) / centerY) * -intensity;
-    const rotateY = ((x - centerX) / centerX) * intensity;
-    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
-  };
-
-  const handleMouseLeave = () => {
-    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        transform,
-        transition: 'transform 0.3s ease-out',
-        transformStyle: 'preserve-3d',
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-
-// --- Styles ---
-const CustomStyles = () => (
-  <style>{`
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translate3d(0, 20px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
-    }
-    .animate-fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-    @keyframes fadeInRight {
-      from { opacity: 0; transform: translate3d(-20px, 0, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
-    }
-    .animate-fade-in-right {
-      animation: fadeInRight 0.8s ease-out forwards;
-    }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0px); }
-    }
-    .animate-float {
-      animation: float 6s ease-in-out infinite;
-    }
-    .delay-100 { animation-delay: 100ms; }
-    .delay-200 { animation-delay: 200ms; }
-    .delay-300 { animation-delay: 300ms; }
-    
-    body, html, #root, #__next {
-      background-color: #000000 !important;
-      color: #ffffff !important;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-    
-    /* Custom Scrollbar for modern look */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #000; 
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #333; 
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555; 
-    }
-    .reveal-hidden {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s cubic-bezier(0.5, 0, 0, 1);
-    }
-    .reveal-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-100 { transition-delay: 100ms; }
-    .reveal-delay-200 { transition-delay: 200ms; }
-    .reveal-delay-300 { transition-delay: 300ms; }
-    .reveal-delay-400 { transition-delay: 400ms; }
-    .reveal-delay-500 { transition-delay: 500ms; }
-
-    @keyframes zoomIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    .animate-zoom-in {
-      animation: zoomIn 1s ease-out forwards;
-    }
-
-    /* Hero Porthole Entrance Animation */
-    @keyframes portholeEntrance {
-      0% { opacity: 0; transform: translateY(80px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Hero Circular Reveal Animation */
-    @keyframes circleReveal {
-      0% { clip-path: circle(13% at 50% 50%); }
-      100% { clip-path: circle(150% at 50% 50%); }
-    }
-    .hero-reveal {
-      clip-path: circle(13% at 50% 50%);
-      opacity: 0;
-      animation: 
-        portholeEntrance 0.6s ease-out forwards,
-        circleReveal 1.8s cubic-bezier(0.65, 0, 0.35, 1) 1.4s forwards;
-    }
-
-    /* Hero content entrance - delayed until reveal completes */
-    @keyframes heroContentIn {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    .hero-content-animate {
-      opacity: 0;
-      animation: heroContentIn 0.4s ease-out forwards;
-    }
-    .hero-delay-1 { animation-delay: 3.2s; }
-    .hero-delay-2 { animation-delay: 3.28s; }
-    .hero-delay-3 { animation-delay: 3.36s; }
-    .hero-delay-4 { animation-delay: 3.44s; }
-    .hero-delay-5 { animation-delay: 3.52s; }
-
-    /* Film grain overlay */
-    .film-grain::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Subtle vignette effect */
-    .hero-vignette::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.4) 100%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* 3D Perspective Container */
-    .perspective-container {
-      perspective: 1000px;
-      transform-style: preserve-3d;
-    }
-
-    /* 3D Parallax Layers */
-    .parallax-layer-back {
-      transform: translateZ(-100px) scale(1.1);
-    }
-    .parallax-layer-mid {
-      transform: translateZ(-50px) scale(1.05);
-    }
-    .parallax-layer-front {
-      transform: translateZ(0);
-    }
-
-    /* 3D Float Animation */
-    @keyframes float3D {
-      0%, 100% { transform: translateY(0) translateZ(0) rotateX(0deg); }
-      25% { transform: translateY(-15px) translateZ(20px) rotateX(2deg); }
-      50% { transform: translateY(-10px) translateZ(30px) rotateX(0deg); }
-      75% { transform: translateY(-20px) translateZ(15px) rotateX(-2deg); }
-    }
-    .animate-float-3d {
-      animation: float3D 8s ease-in-out infinite;
-      transform-style: preserve-3d;
-    }
-
-    /* 3D Scroll Reveal */
-    .scroll-reveal-3d {
-      opacity: 0;
-      transform: perspective(1000px) rotateX(10deg) translateY(60px) translateZ(-50px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .scroll-reveal-3d.is-visible {
-      opacity: 1;
-      transform: perspective(1000px) rotateX(0deg) translateY(0) translateZ(0);
-    }
-
-    /* 3D Card Hover Effect */
-    .card-3d {
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
-      transform-style: preserve-3d;
-    }
-    .card-3d:hover {
-      transform: perspective(1000px) translateZ(30px);
-      box-shadow: 0 25px 50px -12px rgba(59, 130, 246, 0.25);
-    }
-
-    /* Staggered 3D entrance for grid items */
-    .stagger-3d > *:nth-child(1) { transition-delay: 0ms; }
-    .stagger-3d > *:nth-child(2) { transition-delay: 100ms; }
-    .stagger-3d > *:nth-child(3) { transition-delay: 200ms; }
-    .stagger-3d > *:nth-child(4) { transition-delay: 300ms; }
-    .stagger-3d > *:nth-child(5) { transition-delay: 400ms; }
-
-    /* Hero 3D Background Parallax */
-    .hero-3d-bg {
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    /* Depth shadow for floating elements */
-    .depth-shadow {
-      box-shadow: 
-        0 10px 30px -10px rgba(0, 0, 0, 0.5),
-        0 20px 50px -20px rgba(59, 130, 246, 0.2);
-    }
-
-    /* Smooth scroll container for 3D effect */
-    .smooth-scroll-3d {
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
-    }
-  `}</style>
-);
-
-// --- Sub-Components ---
-
-const TrainingList = ({ title, icon: IconComp, color, items, delay }) => (
-  <Tilt3DCard className="h-full" intensity={5}>
-    <div className={`bg-white/5 border border-white/10 rounded-3xl p-6 hover:border-${color}-500/50 transition-all duration-300 h-full flex flex-col card-3d depth-shadow`}>
-      <div className={`w-14 h-14 bg-${color}-900/30 rounded-2xl flex items-center justify-center text-${color}-400 mb-6 group-hover:scale-110 transition-transform`}>
-        <IconComp size={32} />
-      </div>
-      <h3 className="text-xl font-bold mb-6">{title}</h3>
-      <ul className="space-y-3 flex-grow">
-        {items.map((item, idx) => (
-          <li key={idx} className="flex items-start gap-3 text-sm text-slate-400 group">
-            <CheckCircle2 className={`text-${color}-500 mt-0.5 flex-shrink-0 group-hover:text-${color}-400 transition-colors`} size={16} />
-            <span className="group-hover:text-slate-200 transition-colors">{item}</span>
-          </li>
-        ))}
-      </ul>
-      <div className={`mt-8 pt-6 border-t border-white/10`}>
-        {/* Buttons removed as requested */}
-      </div>
-    </div>
-  </Tilt3DCard>
-);
-
-const RevealOnScroll = ({ children, className = "", delay = 0, use3D = true }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const domRef = React.useRef();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setIsVisible(entry.isIntersecting));
-    }, { threshold: 0.1 });
-
-    const currentRef = domRef.current;
-    if (currentRef) observer.observe(currentRef);
-
-    return () => {
-      if (currentRef) observer.unobserve(currentRef);
-    };
-  }, []);
-
-  const baseClass = use3D ? 'scroll-reveal-3d' : 'reveal-hidden';
-  const visibleClass = use3D ? 'is-visible' : 'reveal-visible';
-
-  return (
-    <div
-      ref={domRef}
-      className={`${className} ${baseClass} ${isVisible ? visibleClass : ''} ${delay ? `reveal-delay-${delay}` : ''}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-};
-
-const HomePage = ({ navigateTo }) => {
-  const autoTraining = [
-    "Transformational Leadership: Showroom to Boardroom",
-    "The Modern Dealer Principal Masterclass",
-    "The Automotive Sales Consultants Masterclass",
-    "The Automotive Sales Manager Masterclass",
-    "The Automotive Aftersales Manager Masterclass",
-    "The Digital Sales Consultant Masterclass",
-    "Service Excellence for Premium Automotive Brands"
-  ];
-
-  const leadershipSkills = [
-    "Change Management: The Key for Staying Ahead",
-    "Speak and Communicate with Impact",
-    "Emotional Intelligence: The Key to Harmony At Work",
-    "Lead Even Without A Title: Building The Foundation Of Leadership",
-    "People, Performance & Execution: Leadership for Modern Executives",
-    "Persuasive Presentation Skills",
-    "Executive Coaching 1 on 1",
-    "Team Building"
-  ];
-
-  const cxSkills = [
-    "The Partnership Engine: Scaling Revenue Through Strategic Collaboration",
-    "Customer Centricity: The Effective Way for Customer Retention",
-    "Beyond the Transaction: Strategic Retention & Relationship Monetisation",
-    "The Art of Active Listening",
-    "Critical Thinking and Problem Solving",
-    "Conflict Resolution",
-    "Crisis Management"
-  ];
-
-  const itSkills = [
-    "Social Media Marketing For The AI Era",
-    "Your AI Secret Weapon",
-    "Generative AI for Business Productivity",
-    "AI Data Privacy & Security Awareness",
-    "Data Literacy for Non-Technical Professionals",
-    "Prompt Engineering for Corporate Workflows",
-    "Office Automation with No-Code Tools & AI"
-  ];
-
-  const oshSkills = [
-    "HIRARC Made Easy: Identifying Hazards & Controlling Risks",
-    "Safety Leadership: Empowering Supervisors & Managers",
-    "Office Ergonomics & Sedentary Risk Management (Work Smart, Work Safe)",
-    "Workplace Mental Health"
-  ];
-
-  const safetyTraining = [
-    "Hazard Identification and Risk Assessment (HIRA)",
-    "Ergonomics Essentials: Preventing Disorders",
-    "Fire Safety and Emergency Evacuation Protocols",
-    "Slips, Trips, and Falls Prevention",
-    "PPE Compliance & Maintenance",
-    "Chemical Safety: SDS and GHS Labels",
-    "Electrical Safety Basics (LOTO)",
-    "Safe Manual Handling Techniques",
-    "Workshop Safety: Machine Guarding",
-    "Workplace Violence and Harassment Prevention",
-    "First Aid and CPR: Basic Life Support",
-    "Noise Conservation & Hearing Protection",
-    "Defensive Driving for Company Vehicles",
-    "Confined Space Awareness",
-    "Building a Safety Culture: Leadership’s Role"
-  ];
-
-  const scrollY = useScrollPosition();
-
-  return (
-    <>
-      {/* Hero Section with 3D Parallax */}
-      <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-28 pb-20 md:pt-20 md:pb-0 hero-reveal film-grain hero-vignette perspective-container">
-        {/* Background Image with parallax */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat hero-3d-bg"
-          style={{
-            backgroundImage: 'url(https://raw.githubusercontent.com/calebxlargi/lumina360/main/src/images/lumina_background.jpg)',
-            transform: `translateY(${scrollY * 0.3}px) translateZ(-100px) scale(1.2)`,
-          }}
-        ></div>
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/60"></div>
-
-        {/* 3D Parallax Background gradients - floating at different depths */}
-        <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-60 pointer-events-none animate-float-3d"
-          style={{ transform: `translate(-50%, ${scrollY * -0.15}px) translateZ(50px)` }}
-        ></div>
-        <div
-          className="absolute bottom-0 right-0 w-[800px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] opacity-50 pointer-events-none"
-          style={{ transform: `translateY(${scrollY * -0.25}px) translateZ(30px)` }}
-        ></div>
-        <div
-          className="absolute top-1/4 left-1/4 w-[600px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px] opacity-40 pointer-events-none"
-          style={{ transform: `translateY(${scrollY * -0.1}px) translateZ(20px)` }}
-        ></div>
-        {/* Additional 3D floating orbs */}
-        <div
-          className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-emerald-500/10 rounded-full blur-[80px] opacity-30 pointer-events-none"
-          style={{ transform: `translateY(${scrollY * -0.2}px) translateZ(40px)` }}
-        ></div>
-
-        <div className="container mx-auto px-6 relative z-10 text-center" style={{ transform: `translateY(${scrollY * 0.1}px)` }}>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-slate-400 max-w-6xl mx-auto pb-4 hero-content-animate hero-delay-2">
-            Define Drive Deliver
-          </h1>
-
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto leading-relaxed hero-content-animate hero-delay-3">
-            Developing leaders, elevating customer experience, mastering automotive excellence, advancing IT skills, and ensuring workplace safety. We provide comprehensive, data-driven training solutions that drive measurable business results.
-          </p>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 hero-content-animate hero-delay-4">
-            <button onClick={() => navigateTo('contact')} className="group px-8 py-4 bg-white text-black rounded-full font-semibold transition-all hover:bg-blue-50 flex items-center gap-2 transform hover:scale-105 depth-shadow">
-              Start Transformation
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <a href="#services" className="px-8 py-4 bg-transparent border border-white/20 text-white rounded-full font-semibold hover:bg-white/5 transition-all hover:border-white/40">
-              Explore Courses
-            </a>
-          </div>
-
-          {/* Key Expertise & Faculty Highlights */}
-          <div className="mt-10 md:mt-14 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-5 md:gap-6 px-5 py-3 md:px-6 md:py-3 rounded-2xl md:rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md hero-content-animate hero-delay-5 shadow-2xl hover:border-white/20 transition-all duration-300">
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 group-hover:scale-110 transition-all">
-                <Users className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">15</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Trainers</span>
-              </div>
-            </button>
-
-            <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
-
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-110 transition-all">
-                <GraduationCap className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">3</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">PhD Holders</span>
-              </div>
-            </button>
-
-            <div className="hidden sm:block w-px h-6 md:h-7 bg-white/10" />
-
-            <button 
-              onClick={() => navigateTo('about')}
-              className="flex items-center gap-2 md:gap-2.5 text-left group transition-all"
-            >
-              <div className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/20 group-hover:scale-110 transition-all">
-                <Car className="w-4 h-4 md:w-5 md:h-5" />
-              </div>
-              <div className="leading-tight">
-                <span className="font-bold text-white text-base md:text-2xl">5</span>
-                <span className="text-slate-300 group-hover:text-white text-base md:text-2xl ml-1.5 md:ml-2 font-normal md:font-medium transition-colors">Automotive Experts</span>
-              </div>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats/Trust Bar */}
-      <section className="border-y border-white/5 bg-white/[0.02] backdrop-blur-sm">
-        <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { label: "Registered Training Provider", value: "HRD Corp" },
-              { label: "Claimable", value: "100% HRD Corp" },
-              { label: "Focus", value: "Multi-Industry" },
-              { label: "Approach", value: "Data-Driven" }
-            ].map((stat, index) => (
-              <div key={index} className="flex flex-col items-center group cursor-default">
-                <span className="text-2xl md:text-3xl font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">{stat.value}</span>
-                <span className="text-xs text-slate-500 uppercase tracking-widest">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comprehensive Training Solutions Section */}
-      <section id="services" className="py-24 relative bg-gradient-to-b from-black to-zinc-950">
-        <div className="container mx-auto px-6 max-w-[1600px]">
-          <div className="mb-20 text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">Our Training & Consultancy Ecosystem</h2>
-            <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-8"></div>
-            <p className="text-slate-400 text-lg">
-              We don't just train; we transform. We provide holistic solutions. Our programmes span five critical pillars of organizational success, ensuring your team is skilled, safe, motivated, and future-ready.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-            {/* Leadership Column */}
-            <RevealOnScroll delay={100}>
-              <TrainingList
-                title="Leadership & Team Dynamics"
-                icon={Users}
-                color="purple"
-                items={leadershipSkills}
-              />
-            </RevealOnScroll>
-
-            {/* CX Column */}
-            <RevealOnScroll delay={200}>
-              <TrainingList
-                title="Customer Experience & Personal Mastery"
-                icon={Target}
-                color="orange"
-                items={cxSkills}
-              />
-            </RevealOnScroll>
-
-            {/* Automotive Column */}
-            <RevealOnScroll delay={300}>
-              <TrainingList
-                title="Automotive Excellence"
-                icon={Car}
-                color="blue"
-                items={autoTraining}
-              />
-            </RevealOnScroll>
-
-            {/* IT & Marketing Skills Column */}
-            <RevealOnScroll delay={400}>
-              <TrainingList
-                title="IT & Marketing Skills"
-                icon={Monitor}
-                color="emerald"
-                items={itSkills}
-              />
-            </RevealOnScroll>
-
-            {/* OSH Skills Column */}
-            <RevealOnScroll delay={500}>
-              <TrainingList
-                title="OSH Compliance"
-                icon={HardHat}
-                color="red"
-                items={oshSkills}
-              />
-            </RevealOnScroll>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Split Section - Rebranded for General HR */}
-      <section id="approach" className="py-24 bg-gradient-to-r from-zinc-900 to-black relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-[15.6px] font-medium text-blue-400 mb-6">
-              Why Choose Lumina 3Sixty
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
-              Beyond Theory.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400"> Measurable Impact.</span>
-            </h2>
-            <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-              Most consultancy or training providers focus on "participation." We focus on "implementation." Our methodologies are designed to stick long after the session ends.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <RevealOnScroll className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-purple-500/50 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-purple-900/20 flex items-center justify-center mb-6 border border-purple-500/10">
-                <Search className="text-purple-400" size={28} />
-              </div>
-              <h4 className="text-xl font-bold mb-3">Pre-Training Consultation</h4>
-              <p className="text-slate-400 text-sm">We diagnose your team's specific weaknesses using data & observation before we prescribe the training.</p>
-            </RevealOnScroll>
-
-            <RevealOnScroll delay={100} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-blue-500/50 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-blue-900/20 flex items-center justify-center mb-6 border border-blue-500/10">
-                <Target className="text-blue-400" size={28} />
-              </div>
-              <h4 className="text-xl font-bold mb-3">Customised Programme</h4>
-              <p className="text-slate-400 text-sm">We don't use generic modules. We adapt every case study and role-play to your specific industry reality.</p>
-            </RevealOnScroll>
-
-            <RevealOnScroll delay={200} className="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-emerald-500/50 transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-900/20 flex items-center justify-center mb-6 border border-emerald-500/10">
-                <TrendingUp className="text-emerald-400" size={28} />
-              </div>
-              <h4 className="text-xl font-bold mb-3">ROI Focused</h4>
-              <p className="text-slate-400 text-sm">Whether it's reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.</p>
-            </RevealOnScroll>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold mb-8">Ready to Elevate Your Workforce?</h2>
-          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-            Schedule your complimentary needs analysis consultation and let us build a custom business transformation / training roadmap for your organization.
-          </p>
-          <button onClick={() => navigateTo('contact')} className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:bg-slate-200 transition-colors shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)] transform hover:scale-105">
-            Get Your Proposal
-          </button>
-        </div>
-      </section>
-    </>
-  );
-};
-
-const HRDCorpPage = () => (
-  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-10 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-[18.2px] font-medium text-blue-400 mb-6">
-          <FileCheck size={16} /> Accredited Training Provider
-        </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">HRD Corp Status</h1>
-        <p className="text-lg text-slate-400">
-          Lumina 3Sixty PLT is a registered training provider with the Human Resource Development Corporation (HRD Corp) Malaysia.
-        </p>
-      </div>
-
-      <div className="bg-white/5 border border-white/10 rounded-3xl p-8 mb-12">
-        <h2 className="text-2xl font-bold mb-4">What This Means For You</h2>
-        <div className="space-y-6 text-slate-300">
-          <p>
-            As an HRD Corp registered provider, all training programs offered by Lumina 3Sixty are 100% claimable under the SBL-Khas scheme. This allows employers to utilize their HRD levy to upskill their workforce without upfront payment, as the cost is deducted directly from the levy fund.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6 mt-6">
-            <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
-              <h3 className="text-lg font-bold text-white mb-2">SBL-Khas Scheme</h3>
-              <p className="text-sm">
-                Under this scheme, employers do not need to pay the training fees upfront. HRD Corp pays the training provider directly, easing cash flow for your organization.
-              </p>
-            </div>
-            <div className="bg-black/30 p-6 rounded-2xl border border-white/5">
-              <h3 className="text-lg font-bold text-white mb-2">Quality Assurance</h3>
-              <p className="text-sm">
-                Our accreditation ensures that all our trainers and modules meet the rigorous quality standards set by HRD Corp, guaranteeing valuable and effective learning outcomes.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const PrivacyPolicyPage = () => (
-  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
-      <div className="space-y-6 text-slate-300">
-        <p>
-          At Lumina 3Sixty PLT, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and safeguard your personal information when you visit our website or engage with our services.
-        </p>
-
-        <h2 className="text-2xl font-bold text-white mt-8 mb-4">1. Information We Collect</h2>
-        <p>
-          We may collect personal information such as your name, email address, phone number, and company details when you fill out our contact forms or request information about our training programs.
-        </p>
-
-        <h2 className="text-2xl font-bold text-white mt-8 mb-4">2. How We Use Your Information</h2>
-        <p>
-          The information we collect is used to:
-          <ul className="list-disc pl-5 mt-2 space-y-1">
-            <li>Respond to your inquiries and provide customer support.</li>
-            <li>Send you information about our training courses and services.</li>
-            <li>Improve our website and service offerings based on your feedback.</li>
-          </ul>
-        </p>
-
-        <h2 className="text-2xl font-bold text-white mt-8 mb-4">3. Data Protection</h2>
-        <p>
-          We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. We do not sell or share your personal information with third parties for marketing purposes.
-        </p>
-
-        <h2 className="text-2xl font-bold text-white mt-8 mb-4">4. Contact Us</h2>
-        <p>
-          If you have any questions about this Privacy Policy or our data practices, please contact us at sales@lumina3sixty.com.
-        </p>
-      </div>
-    </div>
-  </div>
-);
-
-const AboutPage = () => (
-  <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-    {/* Header */}
-    <div className="text-center max-w-4xl mx-auto mb-20 animate-fade-in-up">
-
-      <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Our Consultant Trainers</span>
-      </h1>
-      <p className="text-xl text-slate-400">
-        A diverse team of industry experts with deep experience, trusted insights who are solutions and results driven with the aim of transforming business units or companies. The Lumina 3Sixty team hunt for blind spots, break down challenges, and build lasting capabilities.
-      </p>
-    </div>
-
-    {/* Thirumurugan's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Thirumurugan's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thirus_profile_pic_new.png"
-              alt="Thirumurugan - Lead Consultant / Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Briefcase size={48} className="text-purple-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Thirumurugan</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Consultant / Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Thirumurugan</h3>
-              <p className="text-purple-400 text-sm uppercase tracking-widest font-bold">Lead Consultant / Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Thirumurugan</h2>
-          <p className="text-slate-300 leading-relaxed">
-            From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thirumurugan specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce Motor Cars, BMW, Audi, VW, JEEP, and Mitsubishi.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Thirumurugan is a transformational leader who bridges the gap between boardroom strategy and front-line execution. He focuses on the core drivers of business success: Profitability, Operational Excellence, and Shareholder Value. Beyond offering theory, he delivers battle-tested blueprints with his philosophy:
-          </p>
-
-          <p className="text-slate-300 leading-relaxed italic font-bold">
-            “I don’t teach what I’ve read; I teach what I have lived, built, and scaled.”
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Strategic Leadership</div>
-              <div className="text-xs text-slate-500">COO EON, GM Rolls-Royce Motor Cars</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Zap size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Ops Excellence</div>
-              <div className="text-xs text-slate-500">Profitability & Process</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Globe size={20} className="text-emerald-400 mb-2" />
-              <div className="font-bold text-sm">ASEAN Consultant</div>
-              <div className="text-xs text-slate-500">Network Development</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Caleb's Profile - REARRANGED SECOND */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Caleb's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/caleby_profile_pic%20.png"
-              alt="Caleb Yong - Lead Consultant / Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <GraduationCap size={48} className="text-blue-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Lead Consultant / Trainer</p>
-            </div>
-            {/* Overlay for text readability if needed */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Caleb Yong</h3>
-              <p className="text-blue-400 text-sm uppercase tracking-widest font-bold">Lead Consultant / Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Caleb Yong</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models and Computer Vision with soft skills coaching.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            His professional impact spans from global tech giants to key local conglomerates. He has successfully delivered high level consultancy and training for major organizations including Saudi Aramco, Apple, Monash University, and TNB, proving that the future of work requires a seamless integration of technical expertise and human leadership.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Globe size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Global Experience</div>
-              <div className="text-xs text-slate-500">Saudi Aramco, Apple</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Companies worked with</div>
-              <div className="text-xs text-slate-500">TNB, Monash University, Apple</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Brain size={20} className="text-emerald-400 mb-2" />
-              <div className="font-bold text-sm">AI Expert</div>
-              <div className="text-xs text-slate-500">LLMs & Comp. Vision</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Datin Hamidah Hamzah's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Datin Hamidah's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/datin_hamidah_profile_pic.png"
-              alt="Datin Hamidah Hamzah - Associate Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users size={48} className="text-emerald-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Datin Hamidah Hamzah</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Datin Hamidah Hamzah</h3>
-              <p className="text-emerald-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Datin Hamidah Hamzah</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Datin Hamidah is a unique leader, role model and coach. She bridges corporate professionalism and spiritual mastery, while motivating aspiring executives to project the best image of themselves. Datin’s accomplished career spans the financial sector, national broadcasting, and religious Islamic education.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Datin Hamidah may be best known as the face of RTM with her roles as a prominent news anchor and presenter for "Berita Perdana”, “Berita Dunia” and “Selamat Pagi Malaysia”. A dedicated student of Islam, Datin Hamidah is a certified Al-Quran Teacher holding the prestigious "Riwayat Hafs 'An 'Asim" Sanad. She also has a degree in Business Administration.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-emerald-400 mb-2" />
-              <div className="font-bold text-sm">Background</div>
-              <div className="text-xs text-slate-500">28 years of experience in Broadcasting & Finance. RTM, CapitalCorp Securities</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <BookOpen size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Expertise</div>
-              <div className="text-xs text-slate-500">Al-Quran Specialist & High Sanad Recipient & Author</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Users size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Holistic Coaching</div>
-              <div className="text-xs text-slate-500">Professional Development, Image & Self-Confidence, Self projection and Presentation</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Umar Zaman Mydeen's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Umar's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/profile_pic_umar.png"
-              alt="Umar Zaman Mydeen - Associate Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users size={48} className="text-cyan-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Umar Zaman Mydeen</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Umar Zaman Mydeen</h3>
-              <p className="text-cyan-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Umar Zaman Mydeen</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Umar is a highly qualified professional coach and facilitator with over 26 years of experience across the Malaysian industry. He brings a strong and diverse background in both management and technical disciplines, with a proven track record in leading high-performing teams to achieve demanding revenue targets while consistently delivering exceptional customer service.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            As an effective change agent, Umar supports organisations in unlocking their people's potential and driving sustainable performance. He delivers a broad range of learning interventions covering personal development, supervisory and leadership excellence, personality and communication effectiveness, values and organisational behaviour, team alignment, and the habits of highly effective professionals.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-cyan-400 mb-2" />
-              <div className="font-bold text-sm">Experience & Leadership</div>
-              <div className="text-xs text-slate-500">26+ Years, Management & Technical</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Change Agent</div>
-              <div className="text-xs text-slate-500">Unlocking Potential, Sustainable Performance</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Users size={20} className="text-emerald-400 mb-2" />
-              <div className="font-bold text-sm">Core Expertise</div>
-              <div className="text-xs text-slate-500">Leadership Excellence, Effective Communication</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Dr Dev Sankey's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Dev's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/dev_profile_pic.png"
-              alt="Dr Dev Sankey - Associate Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users size={48} className="text-indigo-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Dr Dev Sankey</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Dr Dev Sankey</h3>
-              <p className="text-indigo-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Dr Dev Sankey</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology—specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP)—with core corporate leadership strategies.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            His professional impact spans over two decades across major industries and educational sectors. He has successfully delivered high-level consultancy and training for major organizations, including well-diversified public-listed manufacturing and service companies, MNCs, and GLCs in Malaysia, proving that organizational excellence thrives when individuals are empowered to lead with psychological and strategic precision.
-          </p>
-          <p className="text-slate-300 leading-relaxed italic">
-            "Excellence is achieved at the intersection of strategic management and empowered human potential."
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-indigo-400 mb-2" />
-              <div className="font-bold text-sm">Expertise</div>
-              <div className="text-xs text-slate-500">Leadership & Negotiations, NLP, Org. Development</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Background</div>
-              <div className="text-xs text-slate-500">DBA, Former Head of Training, 20+ Years</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Users size={20} className="text-emerald-400 mb-2" />
-              <div className="font-bold text-sm">Impact</div>
-              <div className="text-xs text-slate-500">Empowering Teams & Organisations to Peak Excellence</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Sofia Catha's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-red-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Sofia's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png"
-              alt="Sophia Catha - Associate Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users size={48} className="text-red-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Sophia Catha</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Sophia Catha</h3>
-              <p className="text-red-400 text-sm uppercase tracking-widest font-bold">Associate Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Sophia Catha</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Sophia Catha is a business owner and a corporate seer whose business speciality is anticipating future trends while working with people in Senior and Middle Management to bring their people up to speed with current changes in the global business ecosystem. With international exposure spanning a 33-year career, Sophia’s approach has been transparent and straightforward towards maximizing people potential.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            An in-demand Speaker, Senior Facilitator and Business Coach in local and multinational organizations that expect excellence in people, performance and profits, Sophia’s passion for people development has led her to work in 20 countries going past 140,000 people as of 2024.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Her incisive and dynamic training presentations have captivated audiences in various business forums. She continues to speak, steer, lead, train, coach and mentor organizations to actualize their corporate vision, guided by her mission to serve and inspire teams to their highest potential.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Users size={20} className="text-red-400 mb-2" />
-              <div className="font-bold text-sm">Global Impact</div>
-              <div className="text-xs text-slate-500">140,000+ Trainees</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Globe size={20} className="text-white mb-2" />
-              <div className="font-bold text-sm">International</div>
-              <div className="text-xs text-slate-500">20+ Countries</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">MNC Clients</div>
-              <div className="text-xs text-slate-500">JP Morgan, Petronas</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Hal Serudin's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-12 relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-pink-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Hal's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png"
-              alt="Hal Serudin - Associate Consultant / Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0 transform hover:scale-105 transition-transform duration-500"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageSquare size={48} className="text-pink-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Hal Serudin</h3>
-              <p className="text-pink-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Hal Serudin</h2>
-          <p className="text-slate-300 leading-relaxed">
-            Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape and Sime Darby, he has worked closely with automotive dealerships across the Asia Pacific region, and consulted for BMW, MINI, and Motorrad brands.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Most notably, Hal served as a highly experienced member of Rolls-Royce Motor Cars’ global PR team for nearly two decades. He is a specialist in crisis communications and a dedicated mentor, training numerous professionals throughout the region in strategic communications. He has led Royal Brunei Airlines' PR, Customer Relations and Publishing unit; consulted for Singapore's IDA (Infocomms Development Authority); AIA Singapore, Bayer Healthcare, Cerebos Pacific Limited, Lockheed Martin, Life Glow Asia Private Limited, United Airlines.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <MessageSquare size={20} className="text-pink-400 mb-2" />
-              <div className="font-bold text-sm">Crisis Comms</div>
-              <div className="text-xs text-slate-500">Expert Management</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-purple-400 mb-2" />
-              <div className="font-bold text-sm">Luxury Auto</div>
-              <div className="text-xs text-slate-500">Rolls-Royce Global PR</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Users size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Mentorship</div>
-              <div className="text-xs text-slate-500">Regional Trainer</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-
-    {/* Jack Zaal's Profile */}
-    <RevealOnScroll className="bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 mb-24 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-      <div className="flex flex-col lg:flex-row-reverse gap-12 items-center relative z-10">
-        <div className="w-full lg:w-1/3 max-w-sm mx-auto lg:max-w-none">
-          <div className="w-full aspect-[4/5] bg-gradient-to-br from-slate-800 to-black rounded-2xl flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-            {/* Jack's Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png"
-              alt="Jack Zaal - Associate Consultant / Trainer"
-              className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                e.currentTarget.nextSibling.style.display = 'block';
-              }}
-            />
-            {/* Fallback Placeholder */}
-            <div className="text-center p-8 hidden relative z-10">
-              <div className="w-24 h-24 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Globe size={48} className="text-orange-400" />
-              </div>
-              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-slate-400 text-sm uppercase tracking-widest">Associate Consultant / Trainer</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]"></div>
-            <div className="absolute bottom-6 left-6 z-[2]">
-              <h3 className="text-2xl font-bold mb-1">Jack Zaal</h3>
-              <p className="text-orange-400 text-sm uppercase tracking-widest font-bold">Associate Consultant / Trainer</p>
-            </div>
-          </div>
-        </div>
-        <div className="lg:w-2/3 space-y-6">
-          <h2 className="text-3xl font-bold mb-2">Jack Zaal</h2>
-          <p className="text-slate-300 leading-relaxed">
-            A strategic retail automotive executive with a strong focus on growing Sales and securing profitability through efficient After-Sales operations. Jack has led retail automotive companies in Malaysia for the past 15 years, overseeing Sales, After Sales, Marketing, HR, Facilities, and Finance.
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            Jack's extensive career includes 19 years at Volvo Car Corporation, with key roles in Product Planning and Area Management across the Netherlands, Sweden, Belgium, and Italy. He has successfully acquired new franchises, built new facilities, and driven business strategy for premium brands including Volvo, Volkswagen, Audi, BMW, Rolls-Royce, and Lotus.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <TrendingUp size={20} className="text-orange-400 mb-2" />
-              <div className="font-bold text-sm">Profitability Focus</div>
-              <div className="text-xs text-slate-500">Sales & After-Sales</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Briefcase size={20} className="text-blue-400 mb-2" />
-              <div className="font-bold text-sm">Brand Portfolio</div>
-              <div className="text-xs text-slate-500">Volvo, BMW, Rolls-Royce</div>
-            </div>
-            <div className="bg-black/40 p-4 rounded-xl border border-white/5">
-              <Globe size={20} className="text-white mb-2" />
-              <div className="font-bold text-sm">International</div>
-              <div className="text-xs text-slate-500">Fluent in 4 Languages</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RevealOnScroll>
-  </div >
-);
-
-const ContactPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    const formData = new FormData(e.target);
-    formData.append('access_key', 'd9e9b36a-e67c-4029-a0e5-5791a7f12bcd');
-    formData.append('subject', `Lumina 3Sixty Inquiry: ${formData.get('firstName')} ${formData.get('lastName')}`);
-    formData.append('from_name', 'Lumina 3Sixty Website');
-
-    try {
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setSubmitStatus('success');
-        e.target.reset();
-      } else {
-        setSubmitStatus('error');
+    const change = () => {
+      const nextRoute = getRoute();
+      const previousProgramme = previousRoute.current.startsWith('programme/')
+        ? previousRoute.current.split('/')[1] : null;
+      const saved = readCatalogueReturn();
+      const returningToCatalogue = previousProgramme && nextRoute.split('/')[0] === 'programmes';
+      if (returningToCatalogue && !(saved?.programme === previousProgramme && saved.route === nextRoute)) {
+        try { sessionStorage.removeItem(catalogueReturnKey); } catch { /* Use the course row as the return target. */ }
       }
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
+      const switchingCategory = previousRoute.current.split('/')[0] === 'programmes'
+        && nextRoute.split('/')[0] === 'programmes';
+      const catalogueTools = switchingCategory && document.querySelector('.catalogue-tools');
+      pendingScroll.current = returningToCatalogue
+        ? { restore: saved?.programme === previousProgramme && saved.route === nextRoute ? saved : { programme: previousProgramme } }
+        : catalogueTools
+        ? { anchorTop: catalogueTools.getBoundingClientRect().top }
+        : { top: 0 };
+      previousRoute.current = nextRoute;
+      setRoute(nextRoute);
+    };
+    window.addEventListener('hashchange', change);
+    return () => window.removeEventListener('hashchange', change);
+  }, []);
+  useLayoutEffect(() => {
+    const adjustment = pendingScroll.current;
+    if (!adjustment) return;
+    pendingScroll.current = null;
+    if (adjustment.restore) {
+      const restore = () => {
+        const saved = adjustment.restore;
+        const row = document.querySelector(`[data-programme="${saved.programme}"]`);
+        if (Number.isFinite(saved.scrollY)) window.scrollTo({ top: saved.scrollY, behavior: 'instant' });
+        else row?.scrollIntoView({ block: 'center', behavior: 'instant' });
+        row?.focus({ preventScroll: true });
+      };
+      restore();
+      const frame = requestAnimationFrame(restore);
+      return () => cancelAnimationFrame(frame);
+    } else if ('anchorTop' in adjustment) {
+      // Keep the category controls in place even when the new heading wraps differently.
+      const catalogueTools = document.querySelector('.catalogue-tools');
+      if (catalogueTools) {
+        const delta = catalogueTools.getBoundingClientRect().top - adjustment.anchorTop;
+        if (Math.abs(delta) > 0.5) window.scrollBy({ top: delta, behavior: 'instant' });
+      }
+    } else {
+      window.scrollTo({ top: adjustment.top, behavior: 'instant' });
     }
+  }, [route]);
+  return route;
+}
+
+function AnimatedNavItem({ label, as: Tag = 'a', children, leadingIcon, controlRef, ...props }) {
+  const text = label.toUpperCase();
+  const [display, setDisplay] = useState(text);
+  const frameRef = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
+  useEffect(() => { cancelAnimationFrame(frameRef.current); setDisplay(text); }, [text, props.disabled]);
+  const reset = () => { cancelAnimationFrame(frameRef.current); setDisplay(text); };
+  const animate = () => {
+    cancelAnimationFrame(frameRef.current);
+    if (props.disabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let started;
+    let lastUpdate = -50;
+    const duration = 450 + text.length * 12;
+    const tick = now => {
+      started ??= now;
+      const elapsed = now - started;
+      if (elapsed >= duration) { setDisplay(text); frameRef.current = 0; return; }
+      if (elapsed - lastUpdate >= 45) {
+        const resolved = Math.floor(elapsed / duration * text.length);
+        setDisplay([...text].map((character, index) => character === ' ' || index < resolved
+          ? character : glyphs[Math.floor(Math.random() * glyphs.length)]).join(''));
+        lastUpdate = elapsed;
+      }
+      frameRef.current = requestAnimationFrame(tick);
+    };
+    frameRef.current = requestAnimationFrame(tick);
   };
+  return <Tag {...props} ref={controlRef} aria-label={label} onPointerEnter={animate} onPointerLeave={reset} onFocus={animate} onBlur={reset}>
+    {leadingIcon}<span className="nav-letters" aria-hidden="true">{[...display].map((character, index) => <span className={character !== text[index] ? 'scrambling' : undefined} key={index}>{character}</span>)}</span>{children}
+  </Tag>;
+}
 
-  return (
-    <div className="pt-32 pb-24 container mx-auto px-6 min-h-screen">
-      <div className="flex flex-col lg:flex-row gap-16 max-w-6xl mx-auto">
-        <div className="lg:w-1/2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[15.6px] font-medium text-slate-300 mb-6">
-            Get in Touch
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Your <br />Business Transformation / Training Roadmap.</h1>
-          <p className="text-lg text-slate-400 mb-12">
-            Ready to transform your business? Fill out the form or reach out directly. We usually reply within 24 hours.
-          </p>
-
-          <div className="space-y-8">
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-                <Mail className="text-white" size={20} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">Email Us</h3>
-                <p className="text-slate-400">sales@lumina3sixty.com</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-                <Phone className="text-white" size={20} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">Call / WhatsApp</h3>
-                <p className="text-slate-400">+6019-441 9999 / +6018-346 6889</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center flex-shrink-0">
-                <MapPin className="text-white" size={20} />
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">HQ Location</h3>
-                <p className="text-slate-400">Windsor Tower, 2, Jalan Sri Hartamas 17,<br />Taman Sri Hartamas, 50480 Kuala Lumpur,<br />Malaysia</p>
-              </div>
-            </div>
+function Navigation({ route }) {
+  const [open, setOpen] = useState(false);
+  const [coursesOpen, setCoursesOpen] = useState(false);
+  const toggleRef = useRef(null);
+  const menuRef = useRef(null);
+  const coursesRef = useRef(null);
+  const coursesToggleRef = useRef(null);
+  const page = route.split('/')[0];
+  useEffect(() => { setOpen(false); setCoursesOpen(false); }, [route]);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 901px)');
+    const closeMenus = () => { setOpen(false); setCoursesOpen(false); };
+    desktop.addEventListener('change', closeMenus);
+    return () => desktop.removeEventListener('change', closeMenus);
+  }, []);
+  useEffect(() => {
+    if (!open) return;
+    const oldOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const links = menuRef.current.querySelectorAll('a');
+    links[0]?.focus();
+    const keydown = (e) => {
+      if (e.key === 'Escape') { setOpen(false); toggleRef.current?.focus(); }
+      if (e.key === 'Tab') {
+        const controls = [toggleRef.current, ...links];
+        const at = controls.indexOf(document.activeElement);
+        const next = (at + (e.shiftKey ? -1 : 1) + controls.length) % controls.length;
+        e.preventDefault(); controls[next]?.focus();
+      }
+    };
+    document.addEventListener('keydown', keydown);
+    return () => { document.body.style.overflow = oldOverflow; document.removeEventListener('keydown', keydown); };
+  }, [open]);
+  return <>
+    <header className={`site-nav ${open ? 'nav-open' : ''}`}>
+      <div className="nav-brand"><button ref={toggleRef} className={`menu-toggle ${open ? 'active' : ''}`} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} aria-controls="main-menu" onClick={() => setOpen(!open)}><span /><span /></button><a href={routeLink()} aria-label="Lumina 3Sixty home" onClick={() => { setOpen(false); window.scrollTo({top:0,behavior:'smooth'}); }}><Logo /></a></div>
+      <nav className="desktop-nav" aria-label="Main navigation">
+        <AnimatedNavItem label="Home" href={routeLink()} aria-current={page === 'home' ? 'page' : undefined} />
+        <div className="nav-courses" onPointerEnter={() => setCoursesOpen(true)} onPointerLeave={() => setCoursesOpen(false)} onFocusCapture={() => setCoursesOpen(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setCoursesOpen(false); }} onKeyDown={event => {
+          if (event.key === 'Escape') { event.preventDefault(); coursesToggleRef.current?.focus(); setCoursesOpen(false); }
+          if (event.key === 'ArrowDown' && event.target === coursesToggleRef.current) { event.preventDefault(); setCoursesOpen(true); requestAnimationFrame(() => coursesRef.current?.querySelector('a')?.focus()); }
+        }}>
+          <AnimatedNavItem as="button" type="button" label="Courses" controlRef={coursesToggleRef} aria-expanded={coursesOpen} aria-controls="desktop-course-areas" aria-current={page === 'programmes' || page === 'programme' ? 'page' : undefined} onClick={() => setCoursesOpen(true)}><svg className="nav-chevron" viewBox="0 0 12 8" aria-hidden="true"><path d="m1 1 5 5 5-5" /></svg></AnimatedNavItem>
+          <div id="desktop-course-areas" ref={coursesRef} className="nav-course-menu" hidden={!coursesOpen}>
+            <a className="nav-all-courses" href={routeLink('programmes')}>All courses <Arrow diagonal /></a>
+            {programmes.map((category, index) => <a href={routeLink(`programmes/${category.id}`)} key={category.id}><span className="mono muted">0{index + 1}</span><span>{category.title}</span><Arrow diagonal /></a>)}
           </div>
         </div>
+        <AnimatedNavItem label="Approach" href={routeLink('approach')} aria-current={page === 'approach' ? 'page' : undefined} />
+        <AnimatedNavItem label="Trainers" href={routeLink('about')} aria-current={page === 'about' ? 'page' : undefined} />
+      </nav>
+      <AnimatedNavItem label="Get in touch" className="nav-contact" href={routeLink('contact')} onClick={() => setOpen(false)}><Arrow diagonal /></AnimatedNavItem>
+    </header>
+    {open && <nav id="main-menu" className="menu-panel" ref={menuRef} aria-label="Main navigation">
+      <div className="menu-kicker mono">Your next move starts here</div>
+      {[{ title: 'Home', page: '' }, { title: 'Courses', page: 'programmes' }, { title: 'Approach', page: 'approach' }, { title: 'Trainers', page: 'about' }, { title: 'Contact', page: 'contact' }].map(({ title, page }, i) => <a key={page} href={routeLink(page)} onClick={() => setOpen(false)}><span className="mono">0{i + 1}</span>{title}<Arrow diagonal /></a>)}
+      <div className="menu-bottom mono"><span>Kuala Lumpur, Malaysia</span><a href="mailto:sales@lumina3sixty.com">sales@lumina3sixty.com</a></div>
+    </nav>}
+  </>;
+}
 
-        <div className="lg:w-1/2">
-          {submitStatus === 'success' ? (
-            <div className="bg-emerald-900/20 border border-emerald-500/30 p-8 rounded-3xl text-center">
-              <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 className="text-emerald-400" size={32} />
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-emerald-400">Message Sent!</h3>
-              <p className="text-slate-400 mb-6">Thank you for reaching out. We'll get back to you within 2 hours.</p>
-              <button
-                onClick={() => setSubmitStatus(null)}
-                className="px-6 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors"
-              >
-                Send Another Message
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="bg-white/5 border border-white/10 p-8 rounded-3xl space-y-6">
-              {/* Honeypot spam protection */}
-              <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
+function OrbitalScene({ compact = false }) {
+  return <div className={`orbital-scene ${compact ? 'compact' : ''}`} aria-hidden="true">
+    <img className="orbital-image" src="/images/orbital-horizon.jpg" alt="" fetchpriority="high" />
+    <div className="orbital-shade" />
+    <svg className="flight-path" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><path d="M-200 1080 Q650 425 1780 128" /><g><circle className="orbit-halo" r="15" /><circle className="orbit-point" r="5.5" /><animateMotion dur="24s" begin="-8s" repeatCount="indefinite" path="M-200 1080 Q650 425 1780 128" /></g></svg>
+    <span className="orbital-caption mono">A wider perspective / 360°</span>
+  </div>;
+}
 
-              {submitStatus === 'error' && (
-                <div className="bg-red-900/20 border border-red-500/30 p-4 rounded-lg text-red-400 text-sm">
-                  Something went wrong. Please try again or email us directly.
-                </div>
-              )}
+function Hero() {
+  return <section className="hero">
+    <OrbitalScene />
+    <div className="hero-copy"><p className="hero-pretitle">Define Drive Deliver</p><h1>Accelerating your<br />people’s potential.</h1><a href={routeLink('programmes')} className="hero-link">Explore courses <Arrow diagonal /></a></div>
+    <dl className="hero-foot" aria-label="Why Lumina 3Sixty">{[
+      ['HRD Corp', 'Registered Training Provider'],
+      ['100% HRD Corp', 'Claimable'],
+      ['Multi-Industry', 'Focus'],
+      ['Data-Driven', 'Approach'],
+    ].map(([title, description]) => <div key={title}><dt>{title}</dt><dd>{description}</dd></div>)}</dl>
+  </section>;
+}
 
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-300">First Name</label>
-                  <input name="firstName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-300">Last Name</label>
-                  <input name="lastName" type="text" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-                </div>
-              </div>
+function CapabilityMap() {
+  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_small.png" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
+}
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Email Address</label>
-                <input name="email" type="email" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Company</label>
-                <input name="company" type="text" className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500 transition-colors" />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-300">Message</label>
-                <textarea name="message" required className="w-full bg-black/50 border border-white/10 rounded-lg p-3 text-white h-32 focus:outline-none focus:border-blue-500 transition-colors" />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-4 bg-white text-black font-bold rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  'Send Message'
-                )}
-              </button>
-            </form>
-          )}
-        </div>
-      </div>
+function ProgrammeSpotlight() {
+  const [active, setActive] = useState(0);
+  const category = programmes[active];
+  return <section className="programmes-section page-pad" id="mission-areas">
+    <Label number="003">Our focus areas</Label>
+    <div className="section-heading"><h2>Built for today.<br /><span>Ready for tomorrow.</span></h2><p>Five areas of expertise. One connected approach to stronger people and better business performance.</p></div>
+    <div className="programme-tabs" role="tablist" aria-label="Programme focus areas">{programmes.map((p, i) => <button key={p.id} id={`tab-${p.id}`} role="tab" aria-selected={i === active} aria-controls="programme-panel" tabIndex={i === active ? 0 : -1} onClick={() => setActive(i)} onKeyDown={e => { const keys = ['ArrowRight','ArrowLeft','Home','End']; if (!keys.includes(e.key)) return; e.preventDefault(); const next = e.key === 'Home' ? 0 : e.key === 'End' ? 4 : (active + (e.key === 'ArrowRight' ? 1 : -1) + 5) % 5; setActive(next); document.getElementById(`tab-${programmes[next].id}`)?.focus(); }}><span className="mono">0{i + 1}</span>{p.title}</button>)}</div>
+    <div id="programme-panel" role="tabpanel" aria-labelledby={`tab-${category.id}`} className="programme-spotlight" key={category.id}>
+      <div className={`programme-art art-${category.id}`} aria-hidden="true"><div className="art-grid" /><div className="art-ring" /><div className="art-ring ring-two" /><span className="art-index">0{active + 1}</span><span className="art-coordinate mono">LUMINA / CAPABILITY SYSTEMS</span></div>
+      <div className="spotlight-copy"><span className="mono muted">[ 0{active + 1} / 05 ]</span><h3>{category.title}</h3><p>{category.description}</p><ul className="programme-preview">{category.items.slice(0, 3).map(item => <li key={item}>{item}</li>)}</ul><TextLink href={routeLink(`programmes/${category.id}`)}>Explore {category.items.length} programmes</TextLink></div>
     </div>
-  );
-};
+  </section>;
+}
 
-// --- Main App Component ---
+function ApproachSummary() {
+  return <section className="approach-section page-pad">
+    <Label number="005">From insight to impact</Label>
+    <div className="section-heading"><h2>Beyond the session.<br /><span>Into the real world.</span></h2><p>Training is the starting point. Lasting change happens when people put what they learn into practice.</p></div>
+    <div className="process-grid">{[
+      ['Define', 'Understand what matters.', 'We diagnose your team’s challenges through consultation, data and observation before designing the right intervention.'],
+      ['Drive', 'Build the capability.', 'Industry-specific cases, practical exercises and expert facilitation connect learning with the reality of your workplace.'],
+      ['Deliver', 'Make the learning count.', 'We focus on implementation and the measures that matter, from customer relationships to safer working practices.']
+    ].map(([title, subtitle, text], i) => <article key={title}><span className="mono muted">0{i + 1} /</span><h3>{title}<span>↗</span></h3><h4>{subtitle}</h4><p>{text}</p></article>)}</div>
+    <TextLink href={routeLink('approach')}>Discover approach</TextLink>
+  </section>;
+}
+
+function FeaturedTrainers() {
+  return <div className="featured-people">
+    {trainers.map(trainer => <a className="featured-trainer" href={routeLink('about')} key={trainer.name}>
+      <div className="portrait"><img src={trainer.image} alt="" loading="lazy" /></div>
+      <div className="person-name"><h3>{trainer.name}</h3><Arrow diagonal /></div>
+      <p className="mono muted">{trainer.role}</p>
+    </a>)}
+  </div>;
+}
+
+function Home() {
+  return <>
+    <Hero />
+    <section className="intro-section page-pad" id="home-intro"><Label number="002">A people transformation company</Label><div className="intro-layout"><div><h2>Your people.<br />Your potential.<br /><span>Your next chapter.</span></h2><p>Progress begins with a different perspective. Lumina 3Sixty brings industry experience and practical learning together to help organisations turn ambition into capability.</p></div><CapabilityMap /></div></section>
+    <ProgrammeSpotlight />
+    <section className="proof-section page-pad"><Label number="004">Experience that moves you</Label><div className="proof-heading"><p className="mono">Real people. Real industry experience.</p><h2>Grounded in experience.<br />Focused on your future.</h2></div><div className="proof-grid">{[['15','Experienced trainers'],['3','PhD holders'],['5','Automotive experts']].map(([n,label]) => <div key={n}><CountUp value={Number(n)} /><span className="mono">{label}</span></div>)}<div className="proof-link"><p>Meet the people who have lived, built and led the change.</p><TextLink href={routeLink('about')}>Our consultants & trainers</TextLink></div></div></section>
+    <ApproachSummary />
+    <section className="people-section page-pad"><Label number="006">The people behind the perspective</Label><div className="section-heading"><h2>Experience, shared.<br /><span>Potential, unlocked.</span></h2><TextLink href={routeLink('about')}>Meet the team</TextLink></div><FeaturedTrainers /></section>
+  </>;
+}
+
+function PageIntro({ number = '001', label, title, description, as: Tag = 'div' }) {
+  return <Tag className="page-intro page-pad"><Label number={number}>{label}</Label><h1>{title}</h1>{description && <p>{description}</p>}</Tag>;
+}
+
+function ProgrammeIntroDialog({ programme, onClose, triggerRef }) {
+  const dialogRef = useRef(null);
+  useLayoutEffect(() => {
+    const dialog = dialogRef.current;
+    const scrollY = window.scrollY;
+    const route = window.location.hash;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialog.showModal();
+    return () => {
+      dialog.close();
+      document.body.style.overflow = overflow;
+      if (window.location.hash === route) {
+        window.scrollTo({ top: scrollY, behavior: 'instant' });
+        if (triggerRef.current?.isConnected) triggerRef.current.focus({ preventScroll: true });
+      }
+    };
+  }, [triggerRef]);
+
+  return <dialog ref={dialogRef} className="programme-dialog" aria-labelledby="programme-dialog-title" onCancel={event => { event.preventDefault(); onClose(); }} onClick={event => {
+    if (event.target !== event.currentTarget) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) onClose();
+  }}>
+    <div className="programme-dialog-shell">
+      <header className="programme-dialog-header"><p className="mono">{programme.category.title}</p><h2 id="programme-dialog-title">{programme.title}</h2><button type="button" className="programme-dialog-close" aria-label="Close programme introduction" onClick={onClose} autoFocus><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></header>
+      <div className="programme-dialog-copy">{programmeIntros[programme.title].split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
+      <footer className="programme-dialog-actions"><AnimatedNavItem as="button" type="button" label="Back to courses" className="solid-button programme-dialog-back" onClick={onClose} leadingIcon={<Arrow className="programme-back-arrow" />} /><AnimatedNavItem label="Enquire about this programme" className="solid-button" href={routeLink(`contact?programme=${encodeURIComponent(programme.title)}`)}><Arrow diagonal /></AnimatedNavItem></footer>
+    </div>
+  </dialog>;
+}
+
+function Programmes({ categoryId }) {
+  const selected = programmes.find(p => p.id === categoryId);
+  const [query, setQuery] = useState(readCatalogueQuery);
+  const [introProgramme, setIntroProgramme] = useState(null);
+  const introTriggerRef = useRef(null);
+  const visible = (selected ? [selected] : programmes).map(p => ({...p, items:p.items.filter(item => item.toLowerCase().includes(query.toLowerCase()))})).filter(p => p.items.length);
+  useEffect(() => { setQuery(readCatalogueQuery()); setIntroProgramme(null); }, [categoryId]);
+  return <>
+    <PageIntro label="Courses" title={selected ? selected.title : <>Capability for<br />what comes next.</>} description={selected ? selected.description : 'Practical programmes across five disciplines, designed around the people and challenges in your organisation.'} />
+    <section className="catalogue page-pad"><div className="catalogue-tools"><nav className="category-nav" aria-label="Programme categories"><a className={!selected ? 'selected' : ''} href={routeLink('programmes')}>All areas</a>{programmes.map(p => <a className={selected?.id === p.id ? 'selected' : ''} key={p.id} href={routeLink(`programmes/${p.id}`)}>{p.title}</a>)}</nav><label className="search-label"><span className="mono">Find a programme</span><input type="search" placeholder="Search by topic…" value={query} onChange={e => setQuery(e.target.value)} /></label></div>
+      <div className="catalogue-results" data-pin-stack={!selected && !query.trim() ? '' : undefined} aria-live="polite">{visible.length ? visible.map(p => <div className="catalogue-group" key={p.id}><div className="catalogue-heading"><span className="mono muted">0{programmes.findIndex(x => x.id === p.id) + 1} /</span><h2>{p.title}</h2><p>{p.description}</p></div><div>{p.items.map((item, i) => <a className="course-row" href={programmeDestination(item)} data-programme={programmeSlug(item)} key={item} aria-haspopup={programmeIntros[item] ? 'dialog' : undefined} onClick={event => {
+        if (!programmeIntros[item]) return;
+        rememberCatalogue(item, query);
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        introTriggerRef.current = event.currentTarget;
+        setIntroProgramme({ title: item, category: p });
+      }}><span className="mono muted">{String(i + 1).padStart(2,'0')}</span><h3>{item}</h3><span className="course-enquire mono">{programmeIntros[item] ? 'Read intro' : 'Enquire'} <Arrow diagonal /></span></a>)}</div></div>) : <p className="empty-state">No programmes match “{query}”. Try a different topic.</p>}</div>
+    </section>
+    {introProgramme && <ProgrammeIntroDialog programme={introProgramme} triggerRef={introTriggerRef} onClose={() => setIntroProgramme(null)} />}
+  </>;
+}
+
+function ProgrammeDetail({ programmeId }) {
+  const programme = programmeEntries.find(entry => entry.slug === programmeId);
+  const intro = programme && programmeIntros[programme.title];
+  const savedReturn = readCatalogueReturn();
+  const backRoute = savedReturn?.programme === programmeId ? savedReturn.route : `programmes/${programme?.category.id}`;
+  if (!intro) return <>
+    <PageIntro label="Courses" title="Explore our programmes." />
+    <div className="page-pad not-found"><TextLink href={routeLink('programmes')}>Back to all programmes</TextLink></div>
+  </>;
+  return <>
+    <PageIntro label={programme.category.title} title={programme.title} />
+    <section className="programme-introduction page-pad">
+      <TextLink href={routeLink(backRoute)}>Back to {programme.category.title}</TextLink>
+      <div className="programme-introduction-body">
+        <span className="mono muted">Programme introduction /</span>
+        <div className="programme-introduction-copy">{intro.split(/\n\s*\n/).map((paragraph, index) => <p key={index}>{paragraph}</p>)}</div>
+        <AnimatedNavItem label="Enquire about this programme" className="solid-button" href={routeLink(`contact?programme=${encodeURIComponent(programme.title)}`)}><Arrow diagonal /></AnimatedNavItem>
+      </div>
+    </section>
+  </>;
+}
+
+function TrainerCard({ trainer, index, expanded, onToggle }) {
+  const profileId = `trainer-profile-${index}`;
+  const highlightsId = `trainer-highlights-${index}`;
+  return <article className="team-card">
+    <div className="portrait"><img src={trainer.image} alt={trainer.name} loading="lazy" /><span className="portrait-index mono">{String(index + 1).padStart(2, '0')}</span></div>
+    <h2>{trainer.name}</h2>
+    <p className="mono muted team-role">{trainer.role}</p>
+    <p className="team-summary">{trainer.paragraphs[0]}</p>
+    <button className="team-profile-toggle" aria-expanded={expanded} aria-controls={`${profileId} ${highlightsId}`} aria-label={`Full profile: ${trainer.name}`} onClick={onToggle}>Full profile <span aria-hidden="true">+</span></button>
+    <div id={profileId} className="profile-details" hidden={!expanded}>{trainer.paragraphs.slice(1).map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div>
+    <ul id={highlightsId} className="profile-highlights" hidden={!expanded}>{trainer.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+  </article>;
+}
+
+function About() {
+  const [expandedTrainers, setExpandedTrainers] = useState({});
+  const toggleTrainer = name => setExpandedTrainers(current => ({ ...current, [name]: !current[name] }));
+  return <>
+    <PageIntro label="Trainers" title={<>A wider perspective.<br />A lasting impact.</>} description="We are a team of industry experts, consultants and facilitators who turn real-world experience into practical capability." />
+    <section className="about-statement page-pad"><span className="mono muted">Our purpose /</span><h2>Hunt for blind spots.<br />Break down challenges.<br /><span>Build lasting capabilities.</span></h2><p>Our team brings a diverse range of expertise across leadership, customer experience, automotive operations, digital skills and workplace safety. We connect the bigger picture with the everyday decisions that move your organisation forward.</p></section>
+    <section className="team-section page-pad"><Label number="002">Our consultants & trainers</Label><div className="team-grid">{trainers.map((trainer, index) => <TrainerCard key={trainer.name} trainer={trainer} index={index} expanded={Boolean(expandedTrainers[trainer.name])} onToggle={() => toggleTrainer(trainer.name)} />)}</div></section>
+  </>;
+}
+
+function ApproachBenefits() {
+  return <section className="approach-benefits page-pad" aria-labelledby="approach-benefits-title">
+    <div className="benefits-heading">
+      <div><span className="mono muted">Why Choose Lumina 3Sixty /</span><h2 id="approach-benefits-title">Beyond Theory.<br /><span>Measurable Impact.</span></h2></div>
+      <p>Most consultancy or training providers focus on “participation.” We focus on “implementation.” Our methodologies are designed to stick long after the session ends.</p>
+    </div>
+    <div className="benefits-grid">{[
+      ['Define', 'Pre-Training Consultation', 'We diagnose your team’s specific weaknesses using data & observation before we prescribe the training.'],
+      ['Drive', 'Customised Programme', 'We don’t use generic modules. We adapt every case study and role-play to your specific industry reality.'],
+      ['Deliver', 'ROI Focused', 'Whether it’s reducing accidents (OSHA) or increasing closing rates, we track the metrics that matter.'],
+    ].map(([stage, title, description]) => <article className="benefit-card" key={stage}>
+      <span className="benefit-stage mono">{stage} /</span>
+      <h3>{title}</h3><p>{description}</p>
+    </article>)}</div>
+  </section>;
+}
+
+function Approach() {
+  return <>
+    <PageIntro as="section" label="Approach" title={<>Designed around you.<br /><span>Built to make a difference.</span></>} description="Your organisation has its own context, people and priorities. Your training should reflect them." />
+    <ApproachBenefits />
+    {[
+      ['01', 'Define the challenge.', 'Pre-training consultation', 'We begin by understanding your team’s needs. Consultation, observation and relevant data help identify the capability gaps that stand between your people and your goals.', ['Understand business priorities','Identify team capability gaps','Agree the learning objectives']],
+      ['02', 'Drive the change.', 'Customised programmes', 'We adapt case studies, exercises and role-play to your industry. Our consultants connect their experience with the situations your team faces every day.', ['Industry-specific examples','Practical learning and discussion','Facilitation by experienced practitioners']],
+      ['03', 'Deliver the impact.', 'Implementation and outcomes', 'Learning should continue beyond the training room. We focus on practical application and the measures that matter to your organisation.', ['Apply learning in the workplace','Connect actions with business goals','Review progress against agreed objectives']]
+    ].map(([n,title,sub,body,bullets]) => <section className="approach-detail page-pad" key={n}><article className="approach-step"><span className="step-number">{n}</span><div><span className="mono muted">{sub}</span><h2>{title}</h2><p>{body}</p><ul>{bullets.map(b => <li key={b}>{b}</li>)}</ul></div></article></section>)}
+  </>;
+}
+
+function Contact({ selectedProgramme = '' }) {
+  const [status, setStatus] = useState('idle');
+  const [programme, setProgramme] = useState(selectedProgramme);
+  const formRef = useRef(null);
+  useEffect(() => setProgramme(selectedProgramme), [selectedProgramme]);
+  async function submit(e) {
+    e.preventDefault(); if (status === 'sending') return;
+    const form = e.currentTarget;
+    setStatus('sending');
+    const data = new FormData(form);
+    data.append('access_key', enquiryKey);
+    data.append('subject', `Lumina 3Sixty Inquiry: ${data.get('firstName')} ${data.get('lastName')}`);
+    data.append('from_name', 'Lumina 3Sixty Website');
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {method:'POST',body:data});
+      const result = await response.json();
+      if (!response.ok || !result.success) throw new Error('Submission failed');
+      setStatus('success'); form.reset(); setProgramme('');
+    } catch { setStatus('error'); }
+  }
+  return <>
+    <PageIntro as="section" label="Get in touch" title={<>Your next chapter<br />starts with a conversation.</>} description="Tell us what you want to achieve. Together, we’ll explore the right path for your people and your business." />
+    <section className="contact-layout page-pad"><div className="contact-info"><Label number="002">Let’s connect</Label><a className="contact-email" href="mailto:sales@lumina3sixty.com">sales@lumina3sixty.com <Arrow diagonal /></a><div className="contact-block"><span className="mono muted">Call / WhatsApp</span><a href="tel:+60194419999">+60 19-441 9999</a><a href="tel:+60183466889">+60 18-346 6889</a></div><div className="contact-block"><span className="mono muted">Find us</span><p>Windsor Tower, 2, Jalan Sri Hartamas 17,<br />Taman Sri Hartamas, 50480 Kuala Lumpur,<br />Malaysia</p></div></div>
+      <div className="contact-form-wrap">{status === 'success' ? <div className="form-success" role="status"><span className="mono">Message received /</span><h2>Thank you for<br />reaching out.</h2><p>Our team will be in touch to discuss your enquiry.</p><AnimatedNavItem as="button" type="button" label="Send another message" className="solid-button" onClick={() => setStatus('idle')}><Arrow /></AnimatedNavItem></div> : <form ref={formRef} onSubmit={submit} className="contact-form"><div className="form-heading mono">Tell us about your goals <span>* Required</span></div><input name="botcheck" type="checkbox" className="honeypot" tabIndex="-1" aria-hidden="true" /><div className="form-pair"><label>First name *<input name="firstName" autoComplete="given-name" required /></label><label>Last name *<input name="lastName" autoComplete="family-name" required /></label></div><label>Email address *<input name="email" type="email" autoComplete="email" required /></label><label>Company<input name="company" autoComplete="organization" /></label><label>Programme of interest<input name="programme" value={programme} onChange={e => setProgramme(e.target.value)} placeholder="Optional" /></label><label>Your message *<textarea name="message" rows="4" required placeholder="What would you like to achieve?" /></label><p className="form-privacy">Your information will be used to respond to your enquiry. Read our <a href={routeLink('privacy')}>privacy policy</a>.</p>{status === 'error' && <p role="alert" className="form-error">We couldn’t send your message. Please try again or email us directly.</p>}<AnimatedNavItem as="button" label={status === 'sending' ? 'Sending…' : 'Send enquiry'} className="solid-button" type="submit" disabled={status === 'sending'}><Arrow diagonal /></AnimatedNavItem></form>}</div>
+    </section>
+  </>;
+}
+
+function Privacy() {
+  return <><PageIntro label="Legal" title="Privacy policy" /><article className="legal-content page-pad"><p>At Lumina 3Sixty PLT, we are committed to protecting your privacy. This Privacy Policy outlines how we collect, use, and safeguard your personal information when you visit our website or engage with our services.</p><h2>01 / Information we collect</h2><p>We may collect personal information such as your name, email address, phone number, and company details when you fill out our contact forms or request information about our training programmes.</p><h2>02 / How we use your information</h2><ul><li>Respond to your enquiries and provide customer support.</li><li>Send you information about our training courses and services.</li><li>Improve our website and service offerings based on your feedback.</li></ul><h2>03 / Data protection</h2><p>We implement appropriate technical and organisational measures to protect your personal data against unauthorised access, alteration, disclosure, or destruction. We do not sell or share your personal information with third parties for marketing purposes.</p><h2>04 / Contact us</h2><p>For questions about this policy or our data practices, contact <a href="mailto:sales@lumina3sixty.com">sales@lumina3sixty.com</a>.</p></article></>;
+}
+
+function Footer({ contactPage }) {
+  return <footer>
+    {!contactPage && <section className="footer-cta page-pad"><div><p className="mono">Talk to us /</p><h2>Ready for your<br />next chapter?</h2></div><AnimatedNavItem label="Let’s talk" href={routeLink('contact')} className="solid-button"><Arrow diagonal /></AnimatedNavItem></section>}
+    <section className="newsletter page-pad" aria-labelledby="newsletter-title">
+      <div><span className="newsletter-kicker mono muted">Weekly Learning Bites /</span><h3 id="newsletter-title">Get Actionable Workplace Insights Every Week</h3><p>Subscribe to Learning Bites by Lumina 3Sixty. Every issue breaks down daily work challenges into practical takeaways: complete with a visual framework infographic, a real-world case study, and a micro-action you can apply immediately on the job.</p></div>
+      <form action="https://app.kit.com/forms/9459607/subscriptions" method="post">
+        <label htmlFor="newsletter-email" className="mono">Your work email</label>
+        <div className="newsletter-signup"><input id="newsletter-email" name="email_address" type="email" autoComplete="email" required placeholder="Enter your work email..." /><AnimatedNavItem as="button" label="Subscribe" className="solid-button" type="submit"><Arrow diagonal /></AnimatedNavItem></div>
+        <p className="newsletter-note">One infographic, one case study, and one micro-action every week. Unsubscribe anytime.</p>
+        <a className="newsletter-privacy mono muted" href={routeLink('privacy')}>Privacy policy ↗</a>
+      </form>
+    </section>
+    <div className="footer-links page-pad"><div><Logo /><p>Define. Drive. Deliver.</p></div><div><span className="mono muted">Explore</span><a href={routeLink('programmes')}>Courses</a><a href={routeLink('approach')}>Approach</a></div><div><span className="mono muted">Company</span><a href={routeLink('about')}>Trainers</a><a href={routeLink('contact')}>Contact</a></div><div><span className="mono muted">Connect</span><a href="https://www.linkedin.com/company/lumina3sixty/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://www.instagram.com/lumina3sixty" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.tiktok.com/@lumina3sixty" target="_blank" rel="noreferrer">TikTok ↗</a></div></div>
+    <section className="footer-accreditation page-pad" aria-label="HRD Corp accreditation">
+      <div className="footer-accreditation-copy">
+        <p className="mono">HRD Corp Registered Training Provider</p>
+        <div className="accreditation-statement"><strong>100<span>%</span></strong><div><h3>HRD Corp Claimable</h3><p className="muted">SBL-Khas Approved Programmes</p></div></div>
+      </div>
+      <div className="hrdc-badges">
+        <div className="hrdc-badge"><img src={registeredHRDC} alt="HRD Corp Registered Training Provider" loading="lazy" /></div>
+        <div className="hrdc-badge"><img src={claimableHRDC} alt="HRD Corp Claimable" loading="lazy" /></div>
+      </div>
+    </section>
+    <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top ↑</a></div>
+  </footer>;
+}
 
 export default function App() {
-  // If under construction, render the splash page and skip everything else
-  if (UNDER_CONSTRUCTION) return <UnderConstruction />;
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [view, setView] = useState('home'); // 'home', 'contact', 'about', 'hrd', 'privacy'
-
-  // Handle scroll effect for navbar
+  const route = useRoute();
+  useScrollMotion(route);
+  const [path, query = ''] = route.split('?');
+  const [page, categoryId] = path.split('/');
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Set website title
-  useEffect(() => {
-    document.title = 'Lumina 3Sixty';
-  }, []);
-
-  const navigateTo = (target) => {
-    setIsMenuOpen(false);
-
-    if (target === 'contact') {
-      setView('contact');
-      window.scrollTo(0, 0);
-    } else if (target === 'about') {
-      setView('about');
-      window.scrollTo(0, 0);
-    } else if (target === 'hrd') {
-      setView('hrd');
-      window.scrollTo(0, 0);
-    } else if (target === 'privacy') {
-      setView('privacy');
-      window.scrollTo(0, 0);
-    } else {
-      setView('home');
-      // Small delay to ensure the Home view renders before scrolling
-      setTimeout(() => {
-        if (target === 'services') {
-          document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-        } else if (target === 'approach') {
-          document.getElementById('approach')?.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          window.scrollTo(0, 0);
-        }
-      }, 50);
-    }
-  };
-
-  return (
-    <div
-      style={{ backgroundColor: 'black', color: 'white', minHeight: '100vh' }}
-      className="min-h-screen bg-black text-white font-sans selection:bg-blue-500 selection:text-white overflow-x-hidden"
-    >
-      <CustomStyles />
-
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10 py-3 md:py-4' : 'bg-transparent py-4 md:py-6'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="cursor-pointer" onClick={() => navigateTo('home')}>
-            {/* Logo Image */}
-            <img
-              src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
-              alt="Lumina 3Sixty"
-              className="h-[52px] md:h-[84px] w-auto object-contain transition-all"
-              onError={(e) => {
-                // Fallback if image is missing
-                console.warn("Logo not found. Switching to text fallback.");
-                e.currentTarget.style.display = 'none';
-                if (e.currentTarget.nextElementSibling) {
-                  e.currentTarget.nextElementSibling.style.display = 'flex';
-                }
-              }}
-            />
-            {/* Fallback Text Logo */}
-            <div className="hidden text-2xl font-bold tracking-tighter items-center gap-2" style={{ display: 'none' }}>
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-serif italic">L</span>
-              </div>
-              <span>Lumina<span className="text-slate-400 font-light"> 3Sixty</span></span>
-            </div>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button onClick={() => navigateTo('services')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Services</button>
-            <button onClick={() => navigateTo('approach')} className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Approach</button>
-            <button onClick={() => navigateTo('about')} className={`text-sm font-medium transition-colors ${view === 'about' ? 'text-white' : 'text-slate-300 hover:text-white'}`}>Consultants/Trainers</button>
-            <button onClick={() => navigateTo('contact')} className={`px-5 py-2 text-sm font-medium rounded-full transition-all transform hover:scale-105 ${view === 'contact' ? 'bg-blue-50 text-black' : 'bg-white text-black hover:bg-blue-50'}`}>
-              Contact Us
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 shadow-2xl overflow-hidden">
-            {/* Decorative gradient blur */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-blue-600/20 rounded-full blur-[100px] pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-[200px] h-[200px] bg-purple-600/20 rounded-full blur-[80px] pointer-events-none"></div>
-
-            <div className="relative z-10 p-6 flex flex-col space-y-2">
-              {/* Navigation Links */}
-              <button
-                onClick={() => navigateTo('services')}
-                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
-              >
-                <span className="font-medium">Services</span>
-                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-              </button>
-
-              <button
-                onClick={() => navigateTo('approach')}
-                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
-              >
-                <span className="font-medium">Approach</span>
-                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-              </button>
-
-              <button
-                onClick={() => navigateTo('about')}
-                className="group flex items-center justify-between text-left text-lg text-slate-300 hover:text-white py-4 px-4 rounded-xl hover:bg-white/5 transition-all duration-300"
-              >
-                <span className="font-medium">Consultants/Trainers</span>
-                <ChevronRight size={18} className="text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
-              </button>
-
-              {/* Divider */}
-              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-2"></div>
-
-              {/* CTA Button */}
-              <button
-                onClick={() => navigateTo('contact')}
-                className="group w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-blue-500/20"
-              >
-                Contact Us
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Main Content Area */}
-      {view === 'home' && <HomePage navigateTo={navigateTo} />}
-      {view === 'about' && <AboutPage />}
-      {view === 'contact' && <ContactPage />}
-      {view === 'hrd' && <HRDCorpPage />}
-      {view === 'privacy' && <PrivacyPolicyPage />}
-
-      {/* Modern Redesigned Footer */}
-      <footer className="relative bg-gradient-to-b from-black via-zinc-950 to-black border-t border-white/10 pt-20 pb-10 overflow-hidden">
-        {/* Subtle ambient light accents */}
-        <div className="absolute top-0 left-1/4 w-[500px] h-[300px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-1/3 right-1/4 w-[400px] h-[300px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          {/* 1. Newsletter Feature Card */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 md:p-12 mb-16 shadow-2xl">
-            <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-6 space-y-3">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400">
-                  <Sparkles size={14} /> Weekly Learning Bites
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white">
-                  Get Actionable Workplace Insights Every Week
-                </h3>
-                <p className="text-sm md:text-base text-slate-400 leading-relaxed max-w-lg">
-                  Subscribe to <span className="italic text-slate-200 font-medium">Learning Bites</span> by Lumina 3Sixty. Every issue breaks down daily work challenges into practical takeaways: complete with a visual framework infographic, a real-world case study, and a micro-action you can apply immediately on the job.
-                </p>
-              </div>
-
-              <div className="lg:col-span-6">
-                <div dangerouslySetInnerHTML={{ __html: `
-                  <form action="https://app.kit.com/forms/9459607/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9459607" data-uid="67b041c15e" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'>
-                    <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-                    <div data-element="fields" class="seva-fields formkit-fields">
-                      <div class="formkit-field">
-                        <input class="formkit-input" name="email_address" aria-label="Work Email Address" placeholder="Enter your work email..." required="" type="email" />
-                      </div>
-                      <button data-element="submit" class="formkit-submit">
-                        <div class="formkit-spinner"><div></div><div></div><div></div></div>
-                        <span>Subscribe</span>
-                      </button>
-                    </div>
-                  </form>
-                ` }} />
-                <p className="mt-3 text-xs text-slate-500">
-                  ✍️ 1 infographic, 1 case study, and 1 micro-action every week. Unsubscribe anytime.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* 2. Main Grid: Brand, Solutions, Company, Contact */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
-            {/* Col 1: Brand & Accreditations (span 5) */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="cursor-pointer inline-block" onClick={() => navigateTo('home')}>
-                <img
-                  src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png"
-                  alt="Lumina 3Sixty"
-                  className="h-[52px] md:h-[64px] w-auto object-contain hover:opacity-90 transition-opacity"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    if (e.currentTarget.nextElementSibling) {
-                      e.currentTarget.nextElementSibling.style.display = 'flex';
-                    }
-                  }}
-                />
-                <div className="hidden text-2xl font-bold tracking-tighter items-center gap-2" style={{ display: 'none' }}>
-                  <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
-                    <span className="text-white font-serif italic text-xs">L</span>
-                  </div>
-                  <span>Lumina<span className="text-slate-400 font-light"> 3Sixty</span></span>
-                </div>
-              </div>
-
-              <p className="text-slate-400 text-sm leading-relaxed max-w-md">
-                Lumina 3Sixty PLT is your premier partner for business transformation and corporate training. We empower organizations through comprehensive solutions in Automotive Excellence, Soft Skills, OSH Compliance, and AI-driven IT & Marketing Skills.
-              </p>
-
-              {/* Social Channels */}
-              <div className="flex items-center gap-3">
-                <a
-                  href="https://www.linkedin.com/company/lumina3sixty/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Lumina 3Sixty on LinkedIn"
-                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/10 flex items-center justify-center text-slate-400 hover:text-blue-400 transition-all duration-300 hover:scale-105 shadow-sm group"
-                >
-                  <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://www.instagram.com/lumina3sixty"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Lumina 3Sixty on Instagram"
-                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-pink-500/50 hover:bg-pink-500/10 flex items-center justify-center text-slate-400 hover:text-pink-400 transition-all duration-300 hover:scale-105 shadow-sm group"
-                >
-                  <Instagram size={18} className="group-hover:scale-110 transition-transform" />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@lumina3sixty"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Lumina 3Sixty on TikTok"
-                  className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 transition-all duration-300 hover:scale-105 shadow-sm group"
-                >
-                  <Tiktok size={18} className="group-hover:scale-110 transition-transform" />
-                </a>
-              </div>
-
-              {/* Accredited Badge Container */}
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-4 sm:p-5 max-w-lg hover:border-white/20 transition-all">
-                <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 mb-3 uppercase tracking-wider">
-                  <FileCheck size={15} /> HRD CORP REGISTERED TRAINING PROVIDER
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="bg-white p-2 sm:p-2.5 rounded-2xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
-                    <img
-                      src={tpHRDC}
-                      alt="HRD Corp Registered Training Provider"
-                      className="h-[99px] w-auto object-contain"
-                    />
-                  </div>
-                  <div className="bg-white p-2 sm:p-2.5 rounded-2xl shadow-md hover:scale-105 transition-transform flex-shrink-0">
-                    <img
-                      src={claimableHRDC}
-                      alt="HRD Corp 100% Claimable"
-                      className="h-[99px] w-auto object-contain"
-                    />
-                  </div>
-                  <div className="text-sm text-slate-300 leading-snug">
-                    <span className="text-white font-medium block text-base mb-1">100% HRD Corp Claimable</span>
-                    SBL-Khas Approved Programmes
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Col 2: Training Programmes (span 3) */}
-            <div className="lg:col-span-3">
-              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                Programmes
-              </h4>
-              <ul className="space-y-3 text-sm text-slate-400">
-                <li>
-                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
-                    Automotive Excellence
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
-                    Leadership & Dynamics
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
-                    Customer Experience (CX)
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
-                    IT & Generative AI Skills
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('services')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
-                    OSH Safety Compliance
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Col 3: Company Navigation (span 2) */}
-            <div className="lg:col-span-2">
-              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                Company
-              </h4>
-              <ul className="space-y-3 text-sm text-slate-400">
-                <li>
-                  <button onClick={() => navigateTo('about')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
-                    Consultants & Trainers
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('approach')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
-                    Our Approach
-                  </button>
-                </li>
-                {ENABLE_HRD_CORP_STATUS && (
-                  <li>
-                    <button onClick={() => navigateTo('hrd')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                      <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
-                      HRD Corp Status
-                    </button>
-                  </li>
-                )}
-                <li>
-                  <button onClick={() => navigateTo('contact')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
-                    Contact Us
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigateTo('privacy')} className="hover:text-white transition-colors text-left flex items-center gap-2 group">
-                    <ChevronRight size={14} className="text-slate-600 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all" />
-                    Privacy Policy
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Col 4: Direct Contact & Office (span 2) */}
-            <div className="lg:col-span-2">
-              <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-5 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
-                Get In Touch
-              </h4>
-              <div className="space-y-3.5 text-sm text-slate-400">
-                <a href="mailto:sales@lumina3sixty.com" className="hover:text-white transition-colors flex items-start gap-2.5 group">
-                  <Mail size={16} className="text-cyan-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="break-all text-xs">sales@lumina3sixty.com</span>
-                </a>
-                <a href="tel:+60194419999" className="hover:text-white transition-colors flex items-start gap-2.5 group">
-                  <Phone size={16} className="text-cyan-400 mt-0.5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="text-xs">+6019-441 9999</span>
-                </a>
-                <div className="flex items-start gap-2.5 text-xs text-slate-400 leading-relaxed">
-                  <MapPin size={16} className="text-cyan-400 mt-0.5 flex-shrink-0" />
-                  <span>Windsor Tower, Sri Hartamas, Kuala Lumpur</span>
-                </div>
-                <button
-                  onClick={() => navigateTo('contact')}
-                  className="mt-3 w-full py-2.5 px-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/40 rounded-xl text-xs font-semibold text-white transition-all text-center flex items-center justify-center gap-1.5 shadow-sm"
-                >
-                  <span>Request Proposal</span>
-                  <ArrowRight size={12} />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* 3. Refined Bottom Sub-Footer Bar */}
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <div className="flex items-center gap-2">
-              <span>© {new Date().getFullYear()} Lumina 3Sixty PLT.</span>
-              <span>•</span>
-              <span>All rights reserved.</span>
-            </div>
-
-            <div className="flex items-center gap-3 font-medium text-slate-400 tracking-wider uppercase text-[11px]">
-              <span>Define</span>
-              <span className="w-1 h-1 rounded-full bg-blue-500"></span>
-              <span>Drive</span>
-              <span className="w-1 h-1 rounded-full bg-purple-500"></span>
-              <span>Deliver</span>
-            </div>
-
-            <div className="flex items-center gap-6">
-              <button onClick={() => navigateTo('privacy')} className="hover:text-slate-300 transition-colors">
-                Privacy Policy
-              </button>
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors group cursor-pointer"
-              >
-                <span>Back to top</span>
-                <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
+    const names = {home:'Training & Consultancy',programmes:'Courses',programme:'Programme Introduction',about:'Trainers',approach:'Approach',contact:'Contact',privacy:'Privacy Policy'};
+    const programme = page === 'programme' && programmeEntries.find(entry => entry.slug === categoryId);
+    document.title = `${programme?.title || names[page] || 'Training & Consultancy'} — Lumina 3Sixty`;
+  }, [page, categoryId]);
+  return <div className="lumina-site"><a href="#main-content" onClick={e => {e.preventDefault(); document.getElementById('main-content')?.focus();}} className="skip-link">Skip to content</a><Navigation route={route} /><main id="main-content" className={page === 'home' ? 'home-sections' : page === 'approach' ? 'approach-sections' : page === 'contact' ? 'contact-sections' : undefined} tabIndex="-1">{page === 'home' ? <Home /> : page === 'programmes' ? <Programmes categoryId={categoryId} /> : page === 'programme' ? <ProgrammeDetail programmeId={categoryId} /> : page === 'about' ? <About /> : page === 'approach' ? <Approach /> : page === 'contact' ? <Contact selectedProgramme={new URLSearchParams(query).get('programme') || ''} /> : page === 'privacy' ? <Privacy /> : <><PageIntro label="404" title="A different direction." description="This page doesn’t exist. Let’s get you back on track." /><div className="page-pad not-found"><TextLink href={routeLink()}>Back to home</TextLink></div></>}</main><Footer contactPage={page === 'contact'} />{page === 'home' && <SectionScrollCue />}</div>;
 }
