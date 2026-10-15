@@ -162,11 +162,18 @@ html {
   display: none;
 }
 .nav-letters {
-  display: inline-flex;
+  position: relative;
+  display: inline-block;
   white-space: pre;
 }
-.nav-letters > span {
-  display: inline-block;
+.nav-letters-measure {
+  visibility: hidden;
+}
+.nav-letters-display {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
 }
 .nav-letters .scrambling {
   color: var(--accent);
@@ -373,7 +380,7 @@ html {
   line-height: 1.3;
   letter-spacing: -.05em;
 }
-.menu-panel>a>span {
+.menu-panel>a>.menu-index {
   color: var(--muted);
   letter-spacing: 0;
   width: 20px;
@@ -595,6 +602,11 @@ html {
   font-size: 11px;
   text-transform: uppercase;
   font-family: var(--font-mono);
+  max-width: 100%;
+}
+.text-link .nav-letters {
+  min-width: 0;
+  white-space: normal;
 }
 .text-link svg {
   width: 15px;
@@ -1278,16 +1290,22 @@ html {
   justify-content: space-between;
   align-self: start;
   width: 100%;
-  border-top: 1px solid var(--line);
-  background: none;
-  color: inherit;
+  border: 0;
+  background: #f0f0ed;
+  color: #111;
   cursor: pointer;
-  padding: 15px 0;
+  padding: 15px 20px;
+  min-height: 48px;
   font-family: var(--font-mono);
   text-transform: uppercase;
   font-size: 10px;
 }
-.team-profile-toggle[aria-expanded="true"] > span {
+.team-profile-toggle-icon {
+  font-size: 20px;
+  line-height: 1;
+  transition: transform .25s;
+}
+.team-profile-toggle[aria-expanded="true"] > .team-profile-toggle-icon {
   transform: rotate(45deg);
 }
 .profile-details {

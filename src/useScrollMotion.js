@@ -134,7 +134,10 @@ export default function useScrollMotion(route) {
       root.classList.add('scroll-motion');
       collect();
       const onResize = () => { measurePanels(); schedule(); };
-      const mutations = new MutationObserver(collect);
+      const mutations = new MutationObserver(records => {
+        // Scrambled letters keep their label's size; they do not need a layout scan.
+        if (records.some(record => !record.target.closest?.('.nav-letters'))) collect();
+      });
       mutations.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-pin-stack'] });
       window.addEventListener('scroll', schedule, { passive: true });
       window.addEventListener('resize', onResize);

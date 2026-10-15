@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { programmes, trainers, enquiryKey } from './src/siteData';
 import { programmeIntros } from './src/programmeIntros';
 import registeredHRDC from './src/images/tp_hrdc.png';
@@ -36,7 +36,7 @@ const readCatalogueQuery = () => {
   return saved?.route === window.location.hash.replace(/^#\/?/, '') ? saved.query : '';
 };
 const Label = ({ number, children, light = false }) => <div className={`section-label ${light ? 'label-dark' : ''}`}><span><i />{number}</span><span><i />{children}</span></div>;
-const TextLink = ({ href, children }) => <a className="text-link" href={href}>{children}<Arrow diagonal /></a>;
+const TextLink = ({ href, children }) => <AnimatedNavItem className="text-link" href={href} label={React.Children.toArray(children).join('')}><Arrow diagonal /></AnimatedNavItem>;
 const Logo = () => <img className="brand-image" src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png" alt="Lumina 3Sixty" />;
 
 function useRoute() {
@@ -97,14 +97,21 @@ function useRoute() {
   return route;
 }
 
-function AnimatedNavItem({ label, as: Tag = 'a', children, leadingIcon, controlRef, ...props }) {
-  const text = label.toUpperCase();
+function AnimatedNavItem({ label, as: Tag = 'a', children, leadingIcon, controlRef, uppercase = true, ...props }) {
+  const text = uppercase ? label.toUpperCase() : label;
   const [display, setDisplay] = useState(text);
   const frameRef = useRef(0);
+  const elementRef = useRef(null);
+  const pointerRef = useRef('mouse');
+  const setElement = useCallback(element => {
+    elementRef.current = element;
+    if (typeof controlRef === 'function') controlRef(element);
+    else if (controlRef) controlRef.current = element;
+  }, [controlRef]);
   useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
   useEffect(() => { cancelAnimationFrame(frameRef.current); setDisplay(text); }, [text, props.disabled]);
-  const reset = () => { cancelAnimationFrame(frameRef.current); setDisplay(text); };
-  const animate = () => {
+  const reset = useCallback(() => { cancelAnimationFrame(frameRef.current); setDisplay(text); }, [text]);
+  const animate = useCallback(() => {
     cancelAnimationFrame(frameRef.current);
     if (props.disabled || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -124,9 +131,39 @@ function AnimatedNavItem({ label, as: Tag = 'a', children, leadingIcon, controlR
       frameRef.current = requestAnimationFrame(tick);
     };
     frameRef.current = requestAnimationFrame(tick);
-  };
-  return <Tag {...props} ref={controlRef} aria-label={label} onPointerEnter={animate} onPointerLeave={reset} onFocus={animate} onBlur={reset}>
-    {leadingIcon}<span className="nav-letters" aria-hidden="true">{[...display].map((character, index) => <span className={character !== text[index] ? 'scrambling' : undefined} key={index}>{character}</span>)}</span>{children}
+  }, [text, props.disabled]);
+  useEffect(() => {
+    // Touch screens have no hover: reveal each control once as it comes into view.
+    const mobile = window.matchMedia('(max-width: 900px), (hover: none)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let observer;
+    const watch = () => {
+      observer?.disconnect();
+      if (reducedMotion.matches) reset();
+      if (!mobile.matches || reducedMotion.matches || props.disabled || !('IntersectionObserver' in window)) return;
+      observer = new IntersectionObserver(entries => {
+        for (const entry of entries) if (entry.isIntersecting) {
+          animate();
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: .5 });
+      if (elementRef.current) observer.observe(elementRef.current);
+    };
+    watch();
+    mobile.addEventListener('change', watch);
+    reducedMotion.addEventListener('change', watch);
+    return () => {
+      observer?.disconnect();
+      mobile.removeEventListener('change', watch);
+      reducedMotion.removeEventListener('change', watch);
+    };
+  }, [animate, reset, props.disabled]);
+  return <Tag {...props} ref={setElement} aria-label={props['aria-label'] || label}
+    onPointerEnter={event => { if (event.pointerType === 'mouse') animate(); }}
+    onPointerDown={event => { pointerRef.current = event.pointerType; if (event.pointerType !== 'mouse') animate(); }}
+    onPointerLeave={event => { if (event.pointerType === 'mouse') reset(); }}
+    onPointerCancel={reset} onFocus={animate} onBlur={() => { if (pointerRef.current === 'mouse') reset(); }}>
+    {leadingIcon}<span className="nav-letters" aria-hidden="true"><span className="nav-letters-measure">{text}</span><span className="nav-letters-display">{[...display].map((character, index) => <span className={character !== text[index] ? 'scrambling' : undefined} key={index}>{character}</span>)}</span></span>{children}
   </Tag>;
 }
 
@@ -185,7 +222,7 @@ function Navigation({ route }) {
     </header>
     {open && <nav id="main-menu" className="menu-panel" ref={menuRef} aria-label="Main navigation">
       <div className="menu-kicker mono">Your next move starts here</div>
-      {[{ title: 'Home', page: '' }, { title: 'Courses', page: 'programmes' }, { title: 'Approach', page: 'approach' }, { title: 'Trainers', page: 'about' }, { title: 'Contact', page: 'contact' }].map(({ title, page }, i) => <a key={page} href={routeLink(page)} onClick={() => setOpen(false)}><span className="mono">0{i + 1}</span>{title}<Arrow diagonal /></a>)}
+      {[{ title: 'Home', page: '' }, { title: 'Courses', page: 'programmes' }, { title: 'Approach', page: 'approach' }, { title: 'Trainers', page: 'about' }, { title: 'Contact', page: 'contact' }].map(({ title, page }, i) => <AnimatedNavItem key={page} label={title} uppercase={false} href={routeLink(page)} onClick={() => setOpen(false)} leadingIcon={<span className="menu-index mono">0{i + 1}</span>}><Arrow diagonal /></AnimatedNavItem>)}
       <div className="menu-bottom mono"><span>Kuala Lumpur, Malaysia</span><a href="mailto:sales@lumina3sixty.com">sales@lumina3sixty.com</a></div>
     </nav>}
   </>;
@@ -203,7 +240,7 @@ function OrbitalScene({ compact = false }) {
 function Hero() {
   return <section className="hero">
     <OrbitalScene />
-    <div className="hero-copy"><p className="hero-pretitle">Define Drive Deliver</p><h1>Accelerating your<br />people’s potential.</h1><a href={routeLink('programmes')} className="hero-link">Explore courses <Arrow diagonal /></a></div>
+    <div className="hero-copy"><p className="hero-pretitle">Define Drive Deliver</p><h1>Accelerating your<br />people’s potential.</h1><AnimatedNavItem href={routeLink('programmes')} className="hero-link" label="Explore courses"><Arrow diagonal /></AnimatedNavItem></div>
     <dl className="hero-foot" aria-label="Why Lumina 3Sixty">{[
       ['HRD Corp', 'Registered Training Provider'],
       ['100% HRD Corp', 'Claimable'],
@@ -354,7 +391,7 @@ function TrainerCard({ trainer, index, expanded, onToggle }) {
     <h2>{trainer.name}</h2>
     <p className="mono muted team-role">{trainer.role}</p>
     <p className="team-summary">{trainer.paragraphs[0]}</p>
-    <button className="team-profile-toggle" aria-expanded={expanded} aria-controls={`${profileId} ${highlightsId}`} aria-label={`Full profile: ${trainer.name}`} onClick={onToggle}>Full profile <span aria-hidden="true">+</span></button>
+    <AnimatedNavItem as="button" type="button" className="solid-button team-profile-toggle" label="Full profile" aria-expanded={expanded} aria-controls={`${profileId} ${highlightsId}`} aria-label={`Full profile: ${trainer.name}`} onClick={onToggle}> <span className="team-profile-toggle-icon" aria-hidden="true">+</span></AnimatedNavItem>
     <div id={profileId} className="profile-details" hidden={!expanded}>{trainer.paragraphs.slice(1).map((paragraph, i) => <p key={i}>{paragraph}</p>)}</div>
     <ul id={highlightsId} className="profile-highlights" hidden={!expanded}>{trainer.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
   </article>;
