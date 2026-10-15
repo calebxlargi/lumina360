@@ -163,7 +163,7 @@ function AnimatedNavItem({ label, as: Tag = 'a', children, leadingIcon, controlR
     onPointerDown={event => { pointerRef.current = event.pointerType; if (event.pointerType !== 'mouse') animate(); }}
     onPointerLeave={event => { if (event.pointerType === 'mouse') reset(); }}
     onPointerCancel={reset} onFocus={animate} onBlur={() => { if (pointerRef.current === 'mouse') reset(); }}>
-    {leadingIcon}<span className="nav-letters" aria-hidden="true"><span className="nav-letters-measure">{text}</span><span className="nav-letters-display">{[...display].map((character, index) => <span className={character !== text[index] ? 'scrambling' : undefined} key={index}>{character}</span>)}</span></span>{children}
+    {leadingIcon}<span className="nav-letters" aria-hidden="true"><span className="nav-letters-measure">{text}</span><span className={`nav-letters-display${display !== text ? ' scrambling' : ''}`}>{display}</span></span>{children}
   </Tag>;
 }
 

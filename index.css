@@ -385,6 +385,10 @@ html {
   letter-spacing: 0;
   width: 20px;
 }
+.menu-panel .nav-letters-display {
+  /* Let Safari paint the full glyph edges beyond the label's layout box. */
+  overflow: visible;
+}
 .menu-panel>a>svg {
   margin-left: auto;
   width: 30px;
