@@ -840,13 +840,6 @@ html {
   color: rgb(var(--accent-rgb) / .12);
   -webkit-text-stroke: 1px rgb(var(--accent-rgb) / .6);
 }
-.art-coordinate {
-  position: absolute;
-  bottom: 25px;
-  left: 25px;
-  font-size: 9px;
-  color: rgb(var(--accent-rgb) / .9);
-}
 .art-digital .art-ring {
   border-radius: 0;
   transform: rotate(35deg);

@@ -63,7 +63,7 @@ export const programmes = [
     "items": [
       "HIRARC Made Easy: Identifying Hazards & Controlling Risks",
       "Safety Leadership: Empowering Supervisors & Managers",
-      "Office Ergonomics & Sedentary Risk Management (Work Smart, Work Safe)",
+      "Office Ergonomics & Sedentary Risk Management",
       "Workplace Mental Health"
     ]
   }
