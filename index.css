@@ -2700,26 +2700,40 @@ footer {
   }
 }
 .brand-image {
-  width: 190px;
+  width: 247px;
   height: auto;
   object-fit: contain;
 }
 .footer-links .brand-image {
-  width: 190px;
+  width: 247px;
   margin-bottom: 8px;
 }
 @media(max-width:700px) {
   .brand-image {
-    width: 145px;
+    width: 188.5px;
+  }
+  .site-nav {
+    padding-inline: 12px;
+    gap: 8px;
   }
   .nav-brand {
-    gap: 13px;
+    gap: 8px;
   }
   .nav-contact {
-    gap: 12px;
-    padding: 11px;
+    gap: 8px;
+    padding: 10px;
   }
   .footer-links .brand-image {
-    width: 180px;
+    width: 234px;
+  }
+}
+@media(max-width:360px) {
+  .nav-contact .nav-letters {
+    display: none;
+  }
+  .nav-contact {
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
   }
 }
