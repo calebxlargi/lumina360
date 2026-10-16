@@ -251,7 +251,7 @@ function Hero() {
 }
 
 function CapabilityMap() {
-  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_small.png" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
+  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_small.png" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE EXCELLENCE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
 }
 
 function ProgrammeSpotlight() {

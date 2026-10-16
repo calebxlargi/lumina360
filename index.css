@@ -704,7 +704,9 @@ html {
 }
 .map-node {
   position: absolute;
-  font-size: 9px;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 48%;
   letter-spacing: .03em;
   font-family: var(--font-mono);
   color: #ffffff;
@@ -713,6 +715,7 @@ html {
   align-items: center;
 }
 .map-node i {
+  flex-shrink: 0;
   width: 5px;
   height: 5px;
   background: var(--accent);
@@ -949,6 +952,7 @@ html {
   line-height: 1.2;
 }
 .proof-grid>div>span {
+  font-size: 16.5px;
   margin-top: 20px;
   color: #66636b;
 }
@@ -1073,7 +1077,7 @@ html {
   margin-left: 8px;
 }
 .featured-people> a >p {
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.6;
 }
 /* Interior pages */
@@ -2015,7 +2019,7 @@ footer {
     aspect-ratio: .9;
   }
   .map-node {
-    font-size: 7px;
+    font-size: 10.5px;
   }
   .programme-tabs button {
     font-size: 11px;
@@ -2170,7 +2174,11 @@ footer {
     aspect-ratio: 1.1;
   }
   .map-node {
-    font-size: 8px;
+    font-size: 12px;
+  }
+  .map-node.node-2 {
+    bottom: 8%;
+    right: 0;
   }
   .programmes-section {
     padding-top: 35px;
@@ -2256,7 +2264,7 @@ footer {
     font-size: 65px;
   }
   .proof-grid>div>span {
-    font-size: 8px;
+    font-size: 12px;
     max-width: 95px;
     margin-top: 8px;
   }
@@ -2304,7 +2312,7 @@ footer {
     font-size: 14px;
   }
   .featured-people> a >p {
-    font-size: 7px;
+    font-size: 11px;
   }
   .person-name {
     margin: 16px 0 7px;
