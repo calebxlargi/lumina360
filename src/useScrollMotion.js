@@ -89,7 +89,7 @@ export default function useScrollMotion(route) {
       };
       const panelResize = new ResizeObserver(() => { measurePanels(); schedule(); });
       const syncPanels = () => {
-        const nextPanels = [...root.querySelectorAll('.home-sections > section, .catalogue-results[data-pin-stack] > .catalogue-group, .approach-sections > section, .contact-sections > section')];
+        const nextPanels = [...root.querySelectorAll('.home-sections > section:not(.course-content), .catalogue-results[data-pin-stack] > .catalogue-group, .approach-sections > section:not(.page-intro)')];
         panels.forEach(element => {
           if (nextPanels.includes(element)) return;
           panelResize.unobserve(element);

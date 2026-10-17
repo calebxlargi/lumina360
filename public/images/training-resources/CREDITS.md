@@ -1,0 +1,44 @@
+# Training resource photographs
+
+All 40 photographs are from Pexels and used under the [Pexels license](https://www.pexels.com/license/). These are stock illustrations, not photographs of Lumina clients or workshops. Source credits also appear on the articles.
+
+- **corporate-training-malaysia**: Edmond Dantès. [Source](https://www.pexels.com/photo/a-group-of-people-sitting-at-the-table-at-a-business-meeting-4342497/). Files: corporate-training.webp and corporate-training-800.webp.
+- **hrd-corp-training-malaysia**: PNW Production. [Source](https://www.pexels.com/photo/business-people-sitting-on-the-office-table-while-working-8276132/). Files: hrd-corp-training.webp and hrd-corp-training-800.webp.
+- **how-to-choose-corporate-training**: fauxels. [Source](https://www.pexels.com/photo/photo-of-people-sitting-beside-table-3182755/). Files: choose-training.webp and choose-training-800.webp.
+- **in-house-training-vs-public-workshops**: cottonbro studio. [Source](https://www.pexels.com/photo/people-sitting-in-front-of-a-table-7439761/). Files: training-formats.webp and training-formats-800.webp.
+- **training-needs-analysis-hr-managers**: ANTONI SHKRABA production. [Source](https://www.pexels.com/photo/people-brainstorming-in-a-meeting-8278898/). Files: pexels-8278898.webp and pexels-8278898-800.webp.
+- **choosing-leadership-training-kuala-lumpur**: Centre for Ageing Better. [Source](https://www.pexels.com/photo/woman-standing-next-to-a-whiteboard-and-giving-a-presentation-13804492/). Files: pexels-13804492.webp and pexels-13804492-800.webp.
+- **communication-presentation-training-team-needs**: Pavel Danilyuk. [Source](https://www.pexels.com/photo/man-presenting-on-whiteboard-at-office-7869067/). Files: pexels-7869067.webp and pexels-7869067-800.webp.
+- **helping-employees-through-workplace-change**: Jakub Zerdzicki. [Source](https://www.pexels.com/photo/creative-brainstorming-session-with-sticky-notes-29521529/). Files: pexels-29521529.webp and pexels-29521529-800.webp.
+- **clear-communication-difficult-workplace-conversations**: Yan Krukau. [Source](https://www.pexels.com/photo/women-having-a-conversation-at-the-office-8837237/). Files: pexels-8837237.webp and pexels-8837237-800.webp.
+- **emotional-intelligence-workplace-triggers-feedback**: RDNE Stock project. [Source](https://www.pexels.com/photo/women-talking-in-the-office-7580820/). Files: pexels-7580820.webp and pexels-7580820-800.webp.
+- **leading-without-management-title**: Los Muertos Crew. [Source](https://www.pexels.com/photo/businesswoman-delivering-presentation-at-office-10041253/). Files: pexels-10041253.webp and pexels-10041253-800.webp.
+- **middle-managers-leading-performance**: RDNE Stock project. [Source](https://www.pexels.com/photo/people-looking-at-documents-in-a-business-meeting-7888809/). Files: pexels-7888809.webp and pexels-7888809-800.webp.
+- **persuasive-business-presentation-skills**: Viridiana Rivera. [Source](https://www.pexels.com/photo/business-presentation-in-modern-office-setting-28683723/). Files: pexels-28683723.webp and pexels-28683723-800.webp.
+- **executive-coaching-or-leadership-training**: Vitaly Gariev. [Source](https://www.pexels.com/photo/business-meeting-in-modern-office-setting-36766669/). Files: pexels-36766669.webp and pexels-36766669-800.webp.
+- **team-building-workplace-application**: Karl Solano. [Source](https://www.pexels.com/photo/people-having-business-meeting-11045738/). Files: pexels-11045738.webp and pexels-11045738-800.webp.
+- **customer-experience-training-relationships**: Yan Krukau. [Source](https://www.pexels.com/photo/a-person-holding-a-headset-8867202/). Files: pexels-8867202.webp and pexels-8867202-800.webp.
+- **retaining-high-value-customers**: Edmond Dantès. [Source](https://www.pexels.com/photo/people-on-a-business-meeting-4343452/). Files: pexels-4343452.webp and pexels-4343452-800.webp.
+- **active-listening-customer-service**: Antoni Shkraba. [Source](https://www.pexels.com/photo/man-wearing-a-headset-8191999/). Files: pexels-8191999.webp and pexels-8191999-800.webp.
+- **strategic-partnerships-shared-value**: Edmond Dantès. [Source](https://www.pexels.com/photo/people-at-the-business-meeting-4342126/). Files: pexels-4342126.webp and pexels-4342126-800.webp.
+- **critical-thinking-root-causes-workplace**: Kampus Production. [Source](https://www.pexels.com/photo/close-up-of-holding-papers-with-graphs-8171183/). Files: pexels-8171183.webp and pexels-8171183-800.webp.
+- **resolving-recurring-workplace-conflict**: Mikhail Nilov. [Source](https://www.pexels.com/photo/women-in-the-office-talking-to-each-other-8101526/). Files: pexels-8101526.webp and pexels-8101526-800.webp.
+- **crisis-readiness-team-decisions-communication**: Mikhail Nilov. [Source](https://www.pexels.com/photo/business-people-in-a-business-meeting-9301312/). Files: pexels-9301312.webp and pexels-9301312-800.webp.
+- **automotive-excellence-training-dealership-performance**: Gustavo Fring. [Source](https://www.pexels.com/photo/dealership-employee-selling-car-to-client-4895421/). Files: pexels-4895421.webp and pexels-4895421-800.webp.
+- **dealer-principal-business-dashboard-ten-pillars**: RDNE Stock project. [Source](https://www.pexels.com/photo/various-graphs-on-a-tv-screen-7947954/). Files: pexels-7947954.webp and pexels-7947954-800.webp.
+- **automotive-sales-training-consultative-selling**: Antoni Shkraba. [Source](https://www.pexels.com/photo/photo-of-a-salesman-talking-to-a-customer-7144226/). Files: pexels-7144226.webp and pexels-7144226-800.webp.
+- **automotive-sales-manager-coaching-performance**: Gustavo Fring. [Source](https://www.pexels.com/photo/woman-selling-car-to-client-in-salon-4895420/). Files: pexels-4895420.webp and pexels-4895420-800.webp.
+- **aftersales-workshop-parts-financial-performance**: Gustavo Fring. [Source](https://www.pexels.com/photo/mechanic-holding-a-car-tire-6870311/). Files: pexels-6870311.webp and pexels-6870311-800.webp.
+- **car-dealership-digital-content-sales-consultants**: iam hogir. [Source](https://www.pexels.com/photo/man-working-on-laptop-17744137/). Files: pexels-17744137.webp and pexels-17744137-800.webp.
+- **premium-automotive-service-customer-retention**: Vitaly Gariev. [Source](https://www.pexels.com/photo/car-salesman-shaking-hands-with-customers-in-showroom-36730226/). Files: pexels-36730226.webp and pexels-36730226-800.webp.
+- **ai-workplace-practical-starting-points**: Matheus Bertelli. [Source](https://www.pexels.com/photo/laptop-with-chatgpt-ai-system-16094056/). Files: pexels-16094056.webp and pexels-16094056-800.webp.
+- **business-documents-ai-assisted-answers**: SHVETS production. [Source](https://www.pexels.com/photo/man-working-on-laptop-in-an-office-9052865/). Files: pexels-9052865.webp and pexels-9052865-800.webp.
+- **workplace-ai-sensitive-information**: Sora Shimazaki. [Source](https://www.pexels.com/photo/man-using-laptop-in-office-at-workplace-5668862/). Files: pexels-5668862.webp and pexels-5668862-800.webp.
+- **better-prompts-corporate-workflows**: Viralyft. [Source](https://www.pexels.com/photo/man-typing-on-laptop-16544949/). Files: pexels-16544949.webp and pexels-16544949-800.webp.
+- **first-office-automation-no-code-ai**: iam hogir. [Source](https://www.pexels.com/photo/man-working-on-a-laptop-at-an-office-desk-17781869/). Files: pexels-17781869.webp and pexels-17781869-800.webp.
+- **data-literacy-managers-dashboard-questions**: Kampus Production. [Source](https://www.pexels.com/photo/man-using-computer-at-the-office-8353805/). Files: pexels-8353805.webp and pexels-8353805-800.webp.
+- **social-media-marketing-ai-repeatable-system**: Mikael Blomkvist. [Source](https://www.pexels.com/photo/a-person-using-a-laptop-6476270/). Files: pexels-6476270.webp and pexels-6476270-800.webp.
+- **osh-training-malaysia-practical-hirarc**: ThisIsEngineering. [Source](https://www.pexels.com/photo/factory-worker-in-a-safety-helmet-19895881/). Files: pexels-19895881.webp and pexels-19895881-800.webp.
+- **safety-leadership-supervisors-managers**: EqualStock IN. [Source](https://www.pexels.com/photo/indian-textile-factory-workers-in-action-31091537/). Files: pexels-31091537.webp and pexels-31091537-800.webp.
+- **office-ergonomics-workstations-working-habits**: Suits Coworking Spaces. [Source](https://www.pexels.com/photo/modern-office-interior-with-ergonomic-chairs-33935830/). Files: pexels-33935830.webp and pexels-33935830-800.webp.
+- **workplace-mental-health-supportive-manager-conversations**: Mikhail Nilov. [Source](https://www.pexels.com/photo/smiling-women-talking-at-break-at-office-8102169/). Files: pexels-8102169.webp and pexels-8102169-800.webp.

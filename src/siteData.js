@@ -132,7 +132,7 @@ export const trainers = [
     "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/dev_profile_pic.png",
     "role": "Associate Trainer",
     "paragraphs": [
-      "Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology—specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP)—with core corporate leadership strategies.",
+      "Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology, specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP), with core corporate leadership strategies.",
       "His professional impact spans over two decades across major industries and educational sectors. He has successfully delivered high-level consultancy and training for major organizations, including well-diversified public-listed manufacturing and service companies, MNCs, and GLCs in Malaysia, proving that organizational excellence thrives when individuals are empowered to lead with psychological and strategic precision.",
       "\"Excellence is achieved at the intersection of strategic management and empowered human potential.\""
     ],
@@ -187,4 +187,4 @@ export const trainers = [
   }
 ];
 
-export const enquiryKey = "d9e9b36a-e67c-4029-a0e5-5791a7f12bcd";
+export const enquiryEndpoint = "https://formspree.io/f/mqpenjwa";
