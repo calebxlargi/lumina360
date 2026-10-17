@@ -68,7 +68,7 @@ export function breadcrumbsFor(page) {
 }
 export const organisation = {
   '@type':'EducationalOrganization', '@id':`${siteOrigin}/#organization`, name:'Lumina 3Sixty', legalName:'Lumina 3Sixty PLT', url:`${siteOrigin}/`,
-  logo:'https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png',
+  logo:'https://www.lumina3sixty.com/images/lumina-brand.webp',
   description:'Corporate training and consultancy based in Kuala Lumpur, Malaysia, across leadership, communication, customer experience, automotive, digital skills and workplace safety.',
   email:'sales@lumina3sixty.com', telephone:'+60 18-346 6889',
   address:{'@type':'PostalAddress',streetAddress:'Windsor Tower, 2, Jalan Sri Hartamas 17, Taman Sri Hartamas',postalCode:'50480',addressLocality:'Kuala Lumpur',addressCountry:'MY'},

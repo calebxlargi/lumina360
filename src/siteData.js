@@ -72,7 +72,7 @@ export const programmes = [
 export const trainers = [
   {
     "name": "Thirumurugan",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/thirus_profile_pic_new.png",
+    "image": "/images/trainers/thirus_profile_pic_new.webp",
     "role": "Lead Consultant / Trainer",
     "paragraphs": [
       "From Showroom Floor to RM1 Billion Portfolio. With 30 years of deep-domain expertise in the automotive industry, Thirumurugan specializes in turning operational complexity into sustainable profit. His journey from Sales Consultant to Group COO has given him a 360-degree view of the business, having led teams across iconic brands like Rolls-Royce Motor Cars, BMW, Audi, VW, JEEP, and Mitsubishi.",
@@ -87,7 +87,7 @@ export const trainers = [
   },
   {
     "name": "Caleb Yong",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/caleby_profile_pic%20.png",
+    "image": "/images/trainers/caleby_profile_pic.webp",
     "role": "Lead Consultant / Trainer",
     "paragraphs": [
       "Caleb is a strategic consultant and technologist who bridges the critical gap between Artificial Intelligence and Emotional Intelligence. Utilizing a multidisciplinary approach, he combines advanced technical implementation specifically in Large Language Models and Computer Vision with soft skills coaching.",
@@ -101,7 +101,7 @@ export const trainers = [
   },
   {
     "name": "Datin Hamidah Hamzah",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/datin_hamidah_profile_pic.png",
+    "image": "/images/trainers/datin_hamidah_profile_pic.webp",
     "role": "Associate Trainer",
     "paragraphs": [
       "Datin Hamidah is a unique leader, role model and coach. She bridges corporate professionalism and spiritual mastery, while motivating aspiring executives to project the best image of themselves. Datin’s accomplished career spans the financial sector, national broadcasting, and religious Islamic education.",
@@ -115,7 +115,7 @@ export const trainers = [
   },
   {
     "name": "Umar Zaman Mydeen",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/profile_pic_umar.png",
+    "image": "/images/trainers/profile_pic_umar.webp",
     "role": "Associate Trainer",
     "paragraphs": [
       "Umar is a highly qualified professional coach and facilitator with over 26 years of experience across the Malaysian industry. He brings a strong and diverse background in both management and technical disciplines, with a proven track record in leading high-performing teams to achieve demanding revenue targets while consistently delivering exceptional customer service.",
@@ -129,7 +129,7 @@ export const trainers = [
   },
   {
     "name": "Dr Dev Sankey",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/dev_profile_pic.png",
+    "image": "/images/trainers/dev_profile_pic.webp",
     "role": "Associate Trainer",
     "paragraphs": [
       "Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology, specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP), with core corporate leadership strategies.",
@@ -144,7 +144,7 @@ export const trainers = [
   },
   {
     "name": "Sophia Catha",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/sofia_catha_profile_pic.png",
+    "image": "/images/trainers/sofia_catha_profile_pic.webp",
     "role": "Associate Trainer",
     "paragraphs": [
       "Sophia Catha is a business owner and a corporate seer whose business speciality is anticipating future trends while working with people in Senior and Middle Management to bring their people up to speed with current changes in the global business ecosystem. With international exposure spanning a 33-year career, Sophia’s approach has been transparent and straightforward towards maximizing people potential.",
@@ -159,7 +159,7 @@ export const trainers = [
   },
   {
     "name": "Hal Serudin",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/hal_profile_pic.png",
+    "image": "/images/trainers/hal_profile_pic.webp",
     "role": "Associate Consultant / Trainer",
     "paragraphs": [
       "Hal brings over 35 years of experience in communications across the automotive, luxury, airline, tourism, and defense sectors. A former consultant for Inchcape and Sime Darby, he has worked closely with automotive dealerships across the Asia Pacific region, and consulted for BMW, MINI, and Motorrad brands.",
@@ -173,7 +173,7 @@ export const trainers = [
   },
   {
     "name": "Jack Zaal",
-    "image": "https://a6eosivygk6zayzg.public.blob.vercel-storage.com/jack_profile_pic.png",
+    "image": "/images/trainers/jack_profile_pic.webp",
     "role": "Associate Consultant / Trainer",
     "paragraphs": [
       "A strategic retail automotive executive with a strong focus on growing Sales and securing profitability through efficient After-Sales operations. Jack has led retail automotive companies in Malaysia for the past 15 years, overseeing Sales, After Sales, Marketing, HR, Facilities, and Finance.",

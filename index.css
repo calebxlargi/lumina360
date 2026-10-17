@@ -2965,3 +2965,8 @@ footer {
 .resource-article > .solid-button:last-child { margin-top: 36px; }
 
 .programme-tabs .programme-tab-title { display: block; white-space: normal; overflow-wrap: break-word; font: inherit; margin: 0; }
+
+.orbital-caption { display: flex; gap: 12px; writing-mode: horizontal-tb; pointer-events: none; }
+.orbital-caption > span { writing-mode: vertical-rl; }
+.orbital-caption .hero-location { font-size: 10px; color: #c4c9d3; }
+@media (max-width: 900px) { .orbital-caption { right: 12px; gap: 7px; } .orbital-caption .hero-location { font-size: 9px; } }

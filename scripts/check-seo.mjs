@@ -84,3 +84,6 @@ for (const resource of resourceCollection) {
 assert.equal(new Set(photoHashes).size,40,'Each of the 40 articles must have a different photograph');
 for(const [path,html] of htmlByPath) assert(!html.includes('—'),'No em dashes in website text: '+path);
 console.log('Photography and copy checks passed: 40 distinct images with credits and responsive files; no em dashes in rendered website text.');
+
+for(const [path,html] of htmlByPath) assert(!html.includes("blob.vercel-storage.com"),"No Vercel Blob dependency: "+path);
+console.log("Image hosting checks passed: all generated pages are independent of Vercel Blob.");

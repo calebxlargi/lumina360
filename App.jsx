@@ -6,8 +6,8 @@ import { caseStudies } from './src/caseStudies';
 import { WorkbookSection, ResourcePages, CaseStudies, PreviewOverview } from './src/Editorial';
 import { trackConversion } from './src/analytics';
 import { programmeIntros } from './src/programmeIntros';
-import registeredHRDC from './src/images/tp_hrdc.png';
-import claimableHRDC from './src/images/claimable_hrdc.png';
+const registeredHRDC = '/images/tp_hrdc.webp';
+const claimableHRDC = '/images/claimable_hrdc.webp';
 import useScrollMotion from './src/useScrollMotion';
 import CountUp from './src/CountUp';
 import SectionScrollCue from './src/SectionScrollCue';
@@ -48,7 +48,7 @@ const readCatalogueQuery = () => {
 };
 const Label = ({ number, children, light = false }) => <div className={`section-label ${light ? 'label-dark' : ''}`}><span><i />{number}</span><span><i />{children}</span></div>;
 const TextLink = ({ href, children }) => <AnimatedNavItem className="text-link" href={href} label={React.Children.toArray(children).join('')}><Arrow diagonal /></AnimatedNavItem>;
-const Logo = () => <img className="brand-image" src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_v3.2.png" alt="Lumina 3Sixty" />;
+const Logo = () => <img className="brand-image" src="/images/lumina-brand.webp" alt="Lumina 3Sixty" width="820" height="205" decoding="async" />;
 
 function useRoute(initialRoute) {
   const getRoute = () => initialRoute ?? (window.location.hash.startsWith('#/') ? window.location.hash.slice(2) : `${window.location.pathname.replace(/^\/|\/$/g, '') || 'home'}${window.location.search}`);
@@ -191,17 +191,17 @@ function Navigation({ route }) {
 
 function OrbitalScene({ compact = false }) {
   return <div className={`orbital-scene ${compact ? 'compact' : ''}`} aria-hidden="true">
-    <img className="orbital-image" src="/images/orbital-horizon.jpg" alt="" fetchpriority="high" />
+    <img className="orbital-image" src="/images/orbital-horizon.webp" srcSet="/images/orbital-horizon-800.webp 800w, /images/orbital-horizon.webp 1600w" sizes="100vw" width="1600" height="900" alt="" fetchpriority="high" decoding="async" />
     <div className="orbital-shade" />
     <svg className="flight-path" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><path d="M-200 1080 Q650 425 1780 128" /><g><circle className="orbit-halo" r="15" /><circle className="orbit-point" r="5.5" /><animateMotion dur="24s" begin="-8s" repeatCount="indefinite" path="M-200 1080 Q650 425 1780 128" /></g></svg>
-    <span className="orbital-caption mono">A wider perspective / 360°</span>
   </div>;
 }
 
 function Hero() {
   return <section className="hero">
     <OrbitalScene />
-    <div className="hero-copy"><Label number="001">Training & consultancy</Label><p className="hero-pretitle">Corporate training · Kuala Lumpur · Klang Valley</p><h1>Accelerating your<br />people’s potential.</h1><AnimatedNavItem href={routeLink('programmes')} className="hero-link" label="Explore courses"><Arrow diagonal /></AnimatedNavItem></div>
+    <aside className="orbital-caption mono"><span>A wider perspective / 360°</span><span className="hero-location">Corporate training · Kuala Lumpur · Klang Valley</span></aside>
+    <div className="hero-copy"><Label number="001">Training & consultancy</Label><p className="hero-pretitle">Define. Drive. Deliver.</p><h1>Accelerating your<br />people’s potential.</h1><AnimatedNavItem href={routeLink('programmes')} className="hero-link" label="Explore courses"><Arrow diagonal /></AnimatedNavItem></div>
     <dl className="hero-foot" aria-label="Why Lumina 3Sixty">{[
       ['HRD Corp', 'Registered Training Provider'],
       ['HRD Corp', 'Claimable programmes'],
@@ -212,7 +212,7 @@ function Hero() {
 }
 
 function CapabilityMap() {
-  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="https://a6eosivygk6zayzg.public.blob.vercel-storage.com/lumina_logo_small.png" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE EXCELLENCE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
+  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="/images/lumina-mark.webp" width="250" height="250" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE EXCELLENCE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
 }
 
 function ProgrammeSpotlight() {
@@ -245,7 +245,7 @@ function ApproachSummary() {
 function FeaturedTrainers() {
   return <div className="featured-people">
     {trainers.map(trainer => <a className="featured-trainer" href={routeLink('about')} key={trainer.name}>
-      <div className="portrait"><img src={trainer.image} alt="" loading="lazy" /></div>
+      <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 600w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt="" loading="lazy" /></div>
       <div className="person-name"><h3>{trainer.name}</h3><Arrow diagonal /></div>
       <p className="mono muted">{trainer.role}</p>
     </a>)}
@@ -360,7 +360,7 @@ function TrainerCard({ trainer, index, expanded, onToggle }) {
   const profileId = `trainer-profile-${index}`;
   const highlightsId = `trainer-highlights-${index}`;
   return <article className="team-card">
-    <div className="portrait"><img src={trainer.image} alt={trainer.name} loading="lazy" /><span className="portrait-index mono">{String(index + 1).padStart(2, '0')}</span></div>
+    <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 600w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt={trainer.name} loading="lazy" /><span className="portrait-index mono">{String(index + 1).padStart(2, '0')}</span></div>
     <h2>{trainer.name}</h2>
     <p className="mono muted team-role">{trainer.role}</p>
     <p className="team-summary">{trainer.paragraphs[0]}</p>
@@ -465,8 +465,8 @@ function Footer({ contactPage }) {
         <div className="accreditation-statement"><div><h3>HRD Corp Claimable Training</h3><p className="muted">Ask about programme eligibility and SBL-Khas requirements. Grant approval is subject to HRD Corp conditions.</p></div></div>
       </div>
       <div className="hrdc-badges">
-        <div className="hrdc-badge"><img src={registeredHRDC} alt="HRD Corp Registered Training Provider" loading="lazy" /></div>
-        <div className="hrdc-badge"><img src={claimableHRDC} alt="HRD Corp Claimable" loading="lazy" /></div>
+        <div className="hrdc-badge"><img src={registeredHRDC} width="300" height="300" alt="HRD Corp Registered Training Provider" loading="lazy" /></div>
+        <div className="hrdc-badge"><img src={claimableHRDC} width="300" height="300" alt="HRD Corp Claimable" loading="lazy" /></div>
       </div>
     </section>
     <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top <Arrow direction="up" /></a></div>

@@ -20,3 +20,7 @@ The homepage targets Kuala Lumpur and the Klang Valley. `/corporate-training-mal
 The preview route and case study pages remain excluded from indexing; the case studies include editorially drafted approaches and should not be treated as independently verified outcome evidence. The custom 404 page is also excluded. Vercel configuration publishes `dist/` with consistent trailing-slash URLs and no blanket SPA rewrite, allowing missing URLs to return a proper 404 after deployment.
 
 Publishing is still required for Google to see these changes. After deployment, inspect the homepage, both service pages, a category and a course in Google Search Console; submit the sitemap and check indexing, canonical selection and search queries. Confirm the live host serves the new HTML, crawler rules and 404 status. Do not infer rankings or indexing from a successful local build.
+
+## Image hosting and performance
+
+Brand logos and trainer portraits are stored as WebP files in `public/images/` and `public/images/trainers/`. They are versioned in GitHub and served from the website origin with the deployment; live pages no longer request images from Vercel Blob. Trainer portraits include 300px variants, and the hero has 800px/1600px variants with a responsive preload. HRD Corp badges are resized WebP files with explicit dimensions. The ten migrated Blob images decreased from 2,186,654 bytes to 209,650 bytes for the primary WebP files. A fresh PageSpeed test after deployment is needed to measure the resulting score.
