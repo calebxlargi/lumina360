@@ -776,7 +776,7 @@ html {
   line-height: 1.4;
   transition: color .2s;
 }
-.programme-tabs button span {
+.programme-tabs button > .mono {
   display: block;
   margin-bottom: 12px;
   font-size: 10px;
@@ -2212,7 +2212,7 @@ footer {
   .programme-tabs button[aria-selected=true]:before {
     display: none;
   }
-  .programme-tabs button span {
+  .programme-tabs button > .mono {
     margin-bottom: 8px;
   }
   .programme-spotlight {
@@ -2963,3 +2963,5 @@ footer {
 
 /* Separate article closing actions from programme links and body copy. */
 .resource-article > .solid-button:last-child { margin-top: 36px; }
+
+.programme-tabs .programme-tab-title { display: block; white-space: normal; overflow-wrap: break-word; font: inherit; margin: 0; }
