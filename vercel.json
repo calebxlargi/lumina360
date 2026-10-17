@@ -2,5 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/case-studies/phd-grant-interviews/",
+      "destination": "/case-studies/phd-career-development/",
+      "permanent": true
+    }
+  ]
 }

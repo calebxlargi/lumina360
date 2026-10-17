@@ -1,7 +1,7 @@
 # lumina360
 ## Search-ready production build
 
-Run `npm run build` and publish the complete `dist/` folder. The build generates 116 HTML pages, including every programme with an introduction, a custom 404 page and a sitemap with 104 indexable URLs. Serve directory URLs using their `index.html` files. Keep `robots.txt` public. The canonical production origin is `https://www.lumina3sixty.com` (matching the current public redirect).
+Run `npm run build` and publish the complete `dist/` folder. The build generates 115 HTML pages, including every programme with an introduction, a custom 404 page and a sitemap with 104 indexable URLs. Serve directory URLs using their `index.html` files. Keep `robots.txt` public. The canonical production origin is `https://www.lumina3sixty.com` (matching the current public redirect).
 
 Course, category and trainer information comes from `src/siteData.js` and `src/programmeIntros.js`; `scripts/prerender.mjs` adds per-page metadata and structured data. Existing `/#/...` bookmarks redirect to the corresponding directory URL. Courses without introductions continue to link to the enquiry form.
 

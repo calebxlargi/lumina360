@@ -48,7 +48,7 @@ const readCatalogueQuery = () => {
 };
 const Label = ({ number, children, light = false }) => <div className={`section-label ${light ? 'label-dark' : ''}`}><span><i />{number}</span><span><i />{children}</span></div>;
 const TextLink = ({ href, children }) => <AnimatedNavItem className="text-link" href={href} label={React.Children.toArray(children).join('')}><Arrow diagonal /></AnimatedNavItem>;
-const Logo = () => <img className="brand-image" src="/images/lumina-brand.webp" alt="Lumina 3Sixty" width="820" height="205" decoding="async" />;
+const Logo = () => <img className="brand-image" src="/images/lumina-brand.webp" srcSet="/images/lumina-brand-410.webp 410w, /images/lumina-brand.webp 820w" sizes="(max-width: 700px) 189px, 247px" alt="Lumina 3Sixty" width="820" height="205" decoding="async" />;
 
 function useRoute(initialRoute) {
   const getRoute = () => initialRoute ?? (window.location.hash.startsWith('#/') ? window.location.hash.slice(2) : `${window.location.pathname.replace(/^\/|\/$/g, '') || 'home'}${window.location.search}`);
@@ -191,7 +191,7 @@ function Navigation({ route }) {
 
 function OrbitalScene({ compact = false }) {
   return <div className={`orbital-scene ${compact ? 'compact' : ''}`} aria-hidden="true">
-    <img className="orbital-image" src="/images/orbital-horizon.webp" srcSet="/images/orbital-horizon-800.webp 800w, /images/orbital-horizon.webp 1600w" sizes="100vw" width="1600" height="900" alt="" fetchpriority="high" decoding="async" />
+    <img className="orbital-image" src="/images/orbital-horizon.webp" srcSet="/images/orbital-horizon-800.webp 800w, /images/orbital-horizon.webp 1599w" sizes="100vw" width="1599" height="900" alt="" fetchpriority="high" decoding="async" />
     <div className="orbital-shade" />
     <svg className="flight-path" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice"><path d="M-200 1080 Q650 425 1780 128" /><g><circle className="orbit-halo" r="15" /><circle className="orbit-point" r="5.5" /><animateMotion dur="24s" begin="-8s" repeatCount="indefinite" path="M-200 1080 Q650 425 1780 128" /></g></svg>
   </div>;
@@ -212,7 +212,7 @@ function Hero() {
 }
 
 function CapabilityMap() {
-  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="/images/lumina-mark.webp" width="250" height="250" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE EXCELLENCE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
+  return <div className="capability-map" aria-hidden="true"><div className="map-orbit orbit-a" /><div className="map-orbit orbit-b" /><div className="map-orbit orbit-c" /><div className="map-core"><img src="/images/lumina-mark.webp" srcSet="/images/lumina-mark-125.webp 125w, /images/lumina-mark.webp 250w" sizes="123px" width="250" height="250" alt="" loading="lazy" /></div>{['LEADERSHIP', 'CUSTOMER EXPERIENCE', 'AUTOMOTIVE EXCELLENCE', 'IT & MARKETING', 'WORKPLACE SAFETY'].map((text, i) => <span className={`map-node node-${i}`} key={text}><i />{text}</span>)}</div>;
 }
 
 function ProgrammeSpotlight() {
@@ -245,7 +245,7 @@ function ApproachSummary() {
 function FeaturedTrainers() {
   return <div className="featured-people">
     {trainers.map(trainer => <a className="featured-trainer" href={routeLink('about')} key={trainer.name}>
-      <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 600w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt="" loading="lazy" /></div>
+      <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 400w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt="" loading="lazy" /></div>
       <div className="person-name"><h3>{trainer.name}</h3><Arrow diagonal /></div>
       <p className="mono muted">{trainer.role}</p>
     </a>)}
@@ -360,7 +360,7 @@ function TrainerCard({ trainer, index, expanded, onToggle }) {
   const profileId = `trainer-profile-${index}`;
   const highlightsId = `trainer-highlights-${index}`;
   return <article className="team-card">
-    <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 600w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt={trainer.name} loading="lazy" /><span className="portrait-index mono">{String(index + 1).padStart(2, '0')}</span></div>
+    <div className="portrait"><img src={trainer.image} srcSet={`${trainer.image.replace('.webp','-300.webp')} 300w, ${trainer.image} 400w`} sizes="(max-width: 600px) 45vw, (max-width: 1100px) 30vw, 400px" width="400" height="400" decoding="async" alt={trainer.name} loading="lazy" /><span className="portrait-index mono">{String(index + 1).padStart(2, '0')}</span></div>
     <h2>{trainer.name}</h2>
     <p className="mono muted team-role">{trainer.role}</p>
     <p className="team-summary">{trainer.paragraphs[0]}</p>
@@ -465,8 +465,8 @@ function Footer({ contactPage }) {
         <div className="accreditation-statement"><div><h3>HRD Corp Claimable Training</h3><p className="muted">Ask about programme eligibility and SBL-Khas requirements. Grant approval is subject to HRD Corp conditions.</p></div></div>
       </div>
       <div className="hrdc-badges">
-        <div className="hrdc-badge"><img src={registeredHRDC} width="300" height="300" alt="HRD Corp Registered Training Provider" loading="lazy" /></div>
-        <div className="hrdc-badge"><img src={claimableHRDC} width="300" height="300" alt="HRD Corp Claimable" loading="lazy" /></div>
+        <div className="hrdc-badge"><img src={registeredHRDC} srcSet="/images/tp_hrdc-120.webp 120w, /images/tp_hrdc-240.webp 240w, /images/tp_hrdc.webp 300w" sizes="120px" width="300" height="300" alt="HRD Corp Registered Training Provider" loading="lazy" /></div>
+        <div className="hrdc-badge"><img src={claimableHRDC} srcSet="/images/claimable_hrdc-120.webp 120w, /images/claimable_hrdc-240.webp 240w, /images/claimable_hrdc.webp 300w" sizes="120px" width="300" height="300" alt="HRD Corp Claimable" loading="lazy" /></div>
       </div>
     </section>
     <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top <Arrow direction="up" /></a></div>

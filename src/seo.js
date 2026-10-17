@@ -47,7 +47,7 @@ export const seoPages = [
   ...caseStudies.map(c => ({route:`case-studies/${c.slug}`,title:c.title,description:description(c.challenge)}))
 ].map(p => ({...p, image:articleImages[p.route.split('/').pop()]?.src, noindex:p.route === 'preview' || p.route === '404' || p.route.startsWith('case-studies'), url:pageUrl(p.route), fullTitle:`${p.title} | Lumina 3Sixty`}));
 export function getPageSeo(route) {
-  const key = route.split('?')[0].replace(/^\/+|\/+$/g, '') || 'home';
+  const key = route.replace('case-studies/phd-grant-interviews','case-studies/phd-career-development').split('?')[0].replace(/^\/+|\/+$/g, '') || 'home';
   return seoPages.find(p => p.route === key) || seoPages.find(p => p.route === '404');
 }
 export function breadcrumbsFor(page) {
