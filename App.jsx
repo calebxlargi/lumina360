@@ -200,7 +200,7 @@ function OrbitalScene({ compact = false }) {
 function Hero() {
   return <section className="hero">
     <OrbitalScene />
-    <aside className="orbital-caption mono"><span>A wider perspective / 360°</span><span className="hero-location">Corporate training · Kuala Lumpur · Klang Valley</span></aside>
+    <aside className="orbital-caption mono"><span>A wider perspective / 360°</span></aside>
     <div className="hero-copy"><Label number="001">Training & consultancy</Label><p className="hero-pretitle">Define. Drive. Deliver.</p><h1>Accelerating your<br />people’s potential.</h1><AnimatedNavItem href={routeLink('programmes')} className="hero-link" label="Explore courses"><Arrow diagonal /></AnimatedNavItem></div>
     <dl className="hero-foot" aria-label="Why Lumina 3Sixty">{[
       ['HRD Corp', 'Registered Training Provider'],
@@ -469,7 +469,7 @@ function Footer({ contactPage }) {
         <div className="hrdc-badge"><img src={claimableHRDC} srcSet="/images/claimable_hrdc-120.webp 120w, /images/claimable_hrdc-240.webp 240w, /images/claimable_hrdc.webp 300w" sizes="120px" width="300" height="300" alt="HRD Corp Claimable" loading="lazy" /></div>
       </div>
     </section>
-    <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Kuala Lumpur, Malaysia</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top <Arrow direction="up" /></a></div>
+    <div className="footer-bottom page-pad mono"><span>© {new Date().getFullYear()} Lumina 3Sixty PLT</span><span>Corporate training · Kuala Lumpur · Klang Valley</span><a href={routeLink('privacy')}>Privacy policy</a><a href="#" onClick={e => {e.preventDefault();window.scrollTo({top:0,behavior:'smooth'});}}>Back to top <Arrow direction="up" /></a></div>
   </footer>;
 }
 
