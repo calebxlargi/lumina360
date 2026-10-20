@@ -1,7 +1,7 @@
 # lumina360
 ## Search-ready production build
 
-Run `npm run build` and publish the complete `dist/` folder. The build generates 115 HTML pages, including every programme with an introduction, a custom 404 page and a sitemap with 104 indexable URLs. Serve directory URLs using their `index.html` files. Keep `robots.txt` public. The canonical production origin is `https://www.lumina3sixty.com` (matching the current public redirect).
+Run `npm run build` and publish the complete `dist/` folder. The build generates 116 HTML pages, including every programme with an introduction, a custom 404 page and a sitemap with 105 indexable URLs. Serve directory URLs using their `index.html` files. Keep `robots.txt` public. The canonical production origin is `https://www.lumina3sixty.com` (matching the current public redirect).
 
 Course, category and trainer information comes from `src/siteData.js` and `src/programmeIntros.js`; `scripts/prerender.mjs` adds per-page metadata and structured data. Existing `/#/...` bookmarks redirect to the corresponding directory URL. Courses without introductions continue to link to the enquiry form.
 
@@ -24,3 +24,7 @@ Publishing is still required for Google to see these changes. After deployment, 
 ## Image hosting and performance
 
 Brand logos and trainer portraits are stored as WebP files in `public/images/` and `public/images/trainers/`. They are versioned in GitHub and served from the website origin with the deployment; live pages no longer request images from Vercel Blob. Trainer portraits include 300px variants, and the hero has 800px/1600px variants with a responsive preload. HRD Corp badges are resized WebP files with explicit dimensions. The ten migrated Blob images decreased from 2,186,654 bytes to 209,650 bytes for the primary WebP files. A fresh PageSpeed test after deployment is needed to measure the resulting score.
+
+## Learning Bites PDF hosting
+
+All nine original PDFs are shared using their individual Google Drive viewer links in `src/learningBites.js`. Website articles and WebP infographics remain local. Original PDFs are excluded from `public/learning-bites/` and the deployment. Existing local PDF URLs redirect to the corresponding Drive file after deployment. Historical Git commits can still contain earlier PDF versions; this change does not rewrite repository history.

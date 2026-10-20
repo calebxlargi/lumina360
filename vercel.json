@@ -8,6 +8,51 @@
       "source": "/case-studies/phd-grant-interviews/",
       "destination": "/case-studies/phd-career-development/",
       "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-01.pdf",
+      "destination": "https://drive.google.com/file/d/1azgRa7iJkXOpjGhvvMkMcdl0RGLVlcSv/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-02.pdf",
+      "destination": "https://drive.google.com/file/d/1Ll1QAGqKaOmp-JrfSbbE_HRf_-rakNxd/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-03.pdf",
+      "destination": "https://drive.google.com/file/d/1nALfuZbRmfleO0vKDw24toIHTzpncfqt/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-04.pdf",
+      "destination": "https://drive.google.com/file/d/106d88m6FrtU-_lNyrJhr00jJtORfSdYA/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-05.pdf",
+      "destination": "https://drive.google.com/file/d/1VCiDQ0dn3p6A__TQZPSYutBrXsH1K7y7/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-06.pdf",
+      "destination": "https://drive.google.com/file/d/1c-HRXQTlZk2kEqilDAEwlzU6onGFIfbp/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-07.pdf",
+      "destination": "https://drive.google.com/file/d/1vnV0P6jDu9or-0spUOFZjNk2mCZ354kG/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-08.pdf",
+      "destination": "https://drive.google.com/file/d/1S7hth1rWwN_dhi_XyQuEdJTvvhYG_XxP/view?usp=sharing",
+      "permanent": true
+    },
+    {
+      "source": "/learning-bites/issue-09.pdf",
+      "destination": "https://drive.google.com/file/d/1shGBWvN1khAxfvValYQKjRNUoJoAHk5m/view?usp=sharing",
+      "permanent": true
     }
   ]
 }

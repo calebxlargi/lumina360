@@ -87,3 +87,11 @@ console.log('Photography and copy checks passed: 40 distinct images with credits
 
 for(const [path,html] of htmlByPath) assert(!html.includes("blob.vercel-storage.com"),"No Vercel Blob dependency: "+path);
 console.log("Image hosting checks passed: all generated pages are independent of Vercel Blob.");
+const {learningBites}=await import('../src/learningBites.js');
+assert.equal(new Set(learningBites.map(b=>b.pdf)).size,learningBites.length);
+for(const bite of learningBites) {
+ assert(/^https:\/\/drive\.google\.com\/file\/d\/[^/]+\/view\?usp=sharing$/.test(bite.pdf),'Original PDF must link to Google Drive: '+bite.slug);
+ const html=htmlByPath.get(`/resources/${bite.slug}/`);
+ assert(html.includes(bite.pdf.replaceAll('&','&amp;')),'Google Drive PDF link rendered: '+bite.slug);
+}
+console.log(`Learning Bites PDF checks passed: ${learningBites.length} unique Google Drive links.`);

@@ -71,7 +71,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-01.pdf",
+    "pdf": "https://drive.google.com/file/d/1azgRa7iJkXOpjGhvvMkMcdl0RGLVlcSv/view?usp=sharing",
     "infographic": "/learning-bites/issue-01-infographic.webp"
   },
   {
@@ -143,7 +143,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-02.pdf",
+    "pdf": "https://drive.google.com/file/d/1Ll1QAGqKaOmp-JrfSbbE_HRf_-rakNxd/view?usp=sharing",
     "infographic": "/learning-bites/issue-02-infographic.webp"
   },
   {
@@ -216,7 +216,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-03.pdf",
+    "pdf": "https://drive.google.com/file/d/1nALfuZbRmfleO0vKDw24toIHTzpncfqt/view?usp=sharing",
     "infographic": "/learning-bites/issue-03-infographic.webp"
   },
   {
@@ -290,7 +290,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-04.pdf",
+    "pdf": "https://drive.google.com/file/d/106d88m6FrtU-_lNyrJhr00jJtORfSdYA/view?usp=sharing",
     "infographic": "/learning-bites/issue-04-infographic.webp"
   },
   {
@@ -364,7 +364,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-05.pdf",
+    "pdf": "https://drive.google.com/file/d/1VCiDQ0dn3p6A__TQZPSYutBrXsH1K7y7/view?usp=sharing",
     "infographic": "/learning-bites/issue-05-infographic.webp"
   },
   {
@@ -438,7 +438,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-06.pdf",
+    "pdf": "https://drive.google.com/file/d/1c-HRXQTlZk2kEqilDAEwlzU6onGFIfbp/view?usp=sharing",
     "infographic": "/learning-bites/issue-06-infographic.webp"
   },
   {
@@ -512,7 +512,7 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-07.pdf",
+    "pdf": "https://drive.google.com/file/d/1vnV0P6jDu9or-0spUOFZjNk2mCZ354kG/view?usp=sharing",
     "infographic": "/learning-bites/issue-07-infographic.webp"
   },
   {
@@ -586,7 +586,88 @@ export const learningBites = [
         ]
       }
     ],
-    "pdf": "/learning-bites/issue-08.pdf",
+    "pdf": "https://drive.google.com/file/d/1S7hth1rWwN_dhi_XyQuEdJTvvhYG_XxP/view?usp=sharing",
     "infographic": "/learning-bites/issue-08-infographic.webp"
+  },
+  {
+    "slug": "root-cause-thinking",
+    "title": "Root Cause Thinking",
+    "category": "Learning Bites",
+    "issue": 9,
+    "date": "14 October 2026",
+    "summary": "Something goes wrong, you fix what you can see, and three months later it happens again. That is not bad luck, it is a sign the problem was solved at the level it was noticed rather than the level it was caused. The 5 Whys is the cheapest tool for telling those two levels apart, and it needs nothing except a pen and the people who were actually there.",
+    "sections": [
+      {
+        "heading": "The Core Model",
+        "paragraphs": [
+          "Sakichi Toyoda developed the 5 Whys on the Toyota production line. The method is exactly what it sounds like: ask why the problem happened, then ask it again of each answer, until you reach something you could actually change. Five is a rule of thumb, not a law. Here is one chain, run on a late delivery.",
+          "Why 1: the delivery was late. Why? The order reached the floor two days behind schedule.",
+          "Why 2: why was it released late? The specification was still being amended.",
+          "Why 3: why was it still being amended? The customer's change request arrived after sign-off.",
+          "Why 4: why did it arrive after sign-off? Sign-off is scheduled before the customer's own review cycle closes.",
+          "Why 5: why is it sequenced that way? Nobody has revisited the order of those two steps since the customer moved their review calendar. The root cause is a scheduling assumption, not a person."
+        ]
+      },
+      {
+        "heading": "Watch For",
+        "paragraphs": [
+          "A chain that ends at somebody's name. “Because he forgot” is a symptom, not a cause."
+        ]
+      },
+      {
+        "heading": "Reinforce",
+        "paragraphs": [
+          "Testing each link backwards. If you fixed the last answer, would the one above it actually go away?"
+        ]
+      },
+      {
+        "heading": "Try This Week",
+        "paragraphs": [
+          "Run the chain on one recurring problem, in writing, with the people who saw it happen."
+        ]
+      },
+      {
+        "heading": "Why It Matters",
+        "paragraphs": [
+          "Most problems get closed at the point they were spotted, which is exactly why the same ones keep returning. A late delivery gets escalated, expedited and signed off, and the next one arrives from the same source a quarter later. The 5 Whys takes about twenty minutes and needs no data you do not already have. Its real value is not the fifth answer. It is that the jump from symptom to cause becomes visible to everyone in the room, so the fix can be argued about properly instead of assumed."
+        ]
+      },
+      {
+        "heading": "On The Floor",
+        "paragraphs": [
+          "A report goes out to a client carrying last month's figures. The quick fix is obvious: correct it and apologise. The analyst asks why instead. The wrong file was used. Why? Two versions sit in the same folder under nearly identical names. Why? The monthly file is copied rather than replaced, so the old one never leaves. Nobody was careless. The folder was built in a way that made the mistake likely, and fixing the naming convention took ten minutes."
+        ]
+      },
+      {
+        "heading": "Reflect",
+        "paragraphs": [
+          "Think of a problem that has come back more than twice. At what level did you stop asking why?",
+          "When something goes wrong on your team, how quickly does the conversation arrive at a person's name rather than a step in the process?"
+        ]
+      },
+      {
+        "heading": "This Week’s Micro-Action",
+        "paragraphs": [
+          "Pick one recurring irritation and write the chain out, one line per why, before proposing anything.",
+          "Look at the last answer you reached. If you could not change it even if you wanted to, you stopped one why too early."
+        ]
+      },
+      {
+        "heading": "Case Study",
+        "paragraphs": [
+          "A composite example drawn from common workplace situations in HRDC-sponsored problem-solving workshops. A finance team was rekeying supplier invoices that had already been rejected once. The volume was small but constant, and the working assumption was that suppliers were careless with their paperwork. Running the chain took a single meeting. Invoices were rejected because purchase order numbers did not match. They did not match because suppliers were quoting the reference from the original quotation. They quoted that because the quotation template and the purchase order used different reference formats. Nobody had put the two documents side by side since the templates were written. Changing one field on the quotation template removed most of the rework. What actually made the difference was not the fix, it was that the team stopped treating the rejections as a supplier behaviour problem and started treating them as a document design problem."
+        ]
+      },
+      {
+        "heading": "Takeaways",
+        "paragraphs": [
+          "The cause sat in a template, two steps away from where the problem was being noticed.",
+          "Reframing it from supplier behaviour to document design made a cheap fix visible.",
+          "One meeting of structured questioning replaced months of quietly tolerated rework."
+        ]
+      }
+    ],
+    "pdf": "https://drive.google.com/file/d/1shGBWvN1khAxfvValYQKjRNUoJoAHk5m/view?usp=sharing",
+    "infographic": "/learning-bites/issue-09-infographic.webp"
   }
 ];

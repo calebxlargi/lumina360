@@ -119,3 +119,6 @@ dist
 
 # Vite
 dist
+
+# Original Learning Bites PDFs are shared through Google Drive.
+public/learning-bites/*.pdf
