@@ -132,11 +132,12 @@ export const trainers = [
     "image": "/images/trainers/dev_profile_pic.webp",
     "role": "Associate Trainer",
     "paragraphs": [
-      "Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology, specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP), with core corporate leadership strategies.",
+      "Dev is a dynamic human capital strategist and development consultant who bridges the critical gap between organizational excellence and human potential. Utilizing a multidisciplinary approach, he combines advanced behavioral methodology, specifically Neuro-Linguistic Programming (NLP) and Accelerated Learning Principles (ALP), with core corporate leadership strategies. He is a Master Trainer for Certified Professional Trainer (MT-CPT).",
       "His professional impact spans over two decades across major industries and educational sectors. He has successfully delivered high-level consultancy and training for major organizations, including well-diversified public-listed manufacturing and service companies, MNCs, and GLCs in Malaysia, proving that organizational excellence thrives when individuals are empowered to lead with psychological and strategic precision.",
       "\"Excellence is achieved at the intersection of strategic management and empowered human potential.\""
     ],
     "tags": [
+      "Master Trainer for Certified Professional Trainer (MT-CPT)",
       "Leadership & Negotiations, NLP, Org. Development",
       "DBA, Former Head of Training, 20+ Years",
       "Empowering Teams & Organisations to Peak Excellence"
