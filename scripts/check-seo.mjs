@@ -95,3 +95,9 @@ for(const bite of learningBites) {
  assert(html.includes(bite.pdf.replaceAll('&','&amp;')),'Google Drive PDF link rendered: '+bite.slug);
 }
 console.log(`Learning Bites PDF checks passed: ${learningBites.length} unique Google Drive links.`);
+
+const indexableCaseStudies=seoPages.filter(p=>p.route==='case-studies'||p.route.startsWith('case-studies/'));
+assert.equal(indexableCaseStudies.length,9);
+assert(indexableCaseStudies.every(p=>!p.noindex&&sitemapUrls.includes(p.url)),'All nine case-study pages must be indexable and in the sitemap');
+assert(seoPages.filter(p=>p.noindex).every(p=>['preview','404'].includes(p.route)));
+console.log('All nine case-study pages are indexable; preview and 404 remain excluded.');
