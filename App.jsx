@@ -48,7 +48,7 @@ const readCatalogueQuery = () => {
 };
 const Label = ({ number, children, light = false }) => <div className={`section-label ${light ? 'label-dark' : ''}`}><span><i />{number}</span><span><i />{children}</span></div>;
 const TextLink = ({ href, children }) => <AnimatedNavItem className="text-link" href={href} label={React.Children.toArray(children).join('')}><Arrow diagonal /></AnimatedNavItem>;
-const Logo = () => <img className="brand-image" src="/images/lumina-brand.webp" srcSet="/images/lumina-brand-410.webp 410w, /images/lumina-brand.webp 820w" sizes="(max-width: 700px) 189px, 247px" alt="Lumina 3Sixty" width="820" height="205" decoding="async" />;
+const Logo = () => <img className="brand-image" src="/images/lumina-3sixty-tagline-on-black-website.svg" alt="Lumina 3Sixty" width="820" height="205" decoding="async" />;
 
 function useRoute(initialRoute) {
   const getRoute = () => initialRoute ?? (window.location.hash.startsWith('#/') ? window.location.hash.slice(2) : `${window.location.pathname.replace(/^\/|\/$/g, '') || 'home'}${window.location.search}`);
